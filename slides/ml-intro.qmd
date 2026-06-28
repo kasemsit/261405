@@ -301,7 +301,7 @@ The *same* business problem, framed two ways, leads to very different systems. *
 :::
 ::: {.column width="45%"}
 ::: {.card}
-The **app-recommendation** example from §3 *is* a recommender — a real platform feature.
+The *["which app next?"](#framing-can-make-a-problem-easier-or-harder)* example we saw earlier *is* a recommender — a real platform feature.
 :::
 
 **Watch out:** *cold start* (new user/item), feedback loops, filter bubbles.
@@ -721,7 +721,7 @@ An LLM doesn't know your **private** or **latest** data — and may **hallucinat
 ![](images/diag16.svg){.diagram}
 
 ::: {.keywords}
-🔑 **Explore:** `retrieval-augmented generation` · `embeddings` (← §5!) · `vector database (FAISS · pgvector · Pinecone)` · `semantic search` · `chunking` · `top-k retrieval` · `grounding / citations`
+🔑 **Explore:** `retrieval-augmented generation` · `embeddings` ([← §5!](#from-classic-ml-to-llms)) · `vector database (FAISS · pgvector · Pinecone)` · `semantic search` · `chunking` · `top-k retrieval` · `grounding / citations`
 :::
 
 ## Agentic AI: LLMs that *act* {.smaller}
