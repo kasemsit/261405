@@ -1,0 +1,18 @@
+# ── Quarto build artifacts (CI regenerates these on every push) ──────────
+slides/ml-intro.html
+slides/ml-intro_files/
+slides/.quarto/
+/_site/
+
+# ── Local tooling / caches ───────────────────────────────────────────────
+node_modules/
+.DS_Store
+*.log
+slides/*.pdf
+
+# ── Original source decks: contain third-party (copyrighted) figures.
+#    Do NOT publish these to a public repo / GitHub Pages. ─────────────────
+*.pptx
+
+# ── Full-res original photo (a web-sized copy lives in slides/images/). ───
+/IMG_6295.jpeg

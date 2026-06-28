@@ -1,0 +1,12 @@
+flowchart TD
+  M[Pick a metric] --> C[Collect data]
+  C --> T[Train model]
+  T --> R1[Many labels are wrong → relabel]
+  R1 --> T
+  T --> R2[Poor on one class → collect more data]
+  R2 --> C
+  T --> R3[Too slow → make it smaller]
+  R3 --> T
+  T --> D[Deploy]
+  D --> R4[Data shifts over time → retrain]
+  R4 --> C

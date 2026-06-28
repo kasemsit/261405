@@ -1,0 +1,6 @@
+flowchart LR
+  X["Features <i>x</i>"] --> M["Model <i>f</i><sub>θ</sub>"]
+  M --> P["Prediction <i>ŷ</i>"]
+  Y["Ground truth <i>y</i>"] --> L["Loss<br/>how wrong?"]
+  P --> L
+  L -- "adjust θ" --> M

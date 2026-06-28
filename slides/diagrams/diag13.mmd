@@ -1,0 +1,7 @@
+flowchart LR
+  G([Goal]) --> P[Perceive<br/>read context]
+  P --> Pl[Plan<br/>pick next step]
+  Pl --> A[Act<br/>use a tool]
+  A --> O[Observe<br/>see the result]
+  O --> Pl
+  O -. done .-> D([Answer])

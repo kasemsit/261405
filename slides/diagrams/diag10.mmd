@@ -1,0 +1,7 @@
+flowchart TD
+  subgraph Classic["Traditional ML"]
+    A1[Collect labeled data<br/>for ONE task] --> A2[Train a model<br/>for that task]
+  end
+  subgraph LLM["LLM"]
+    B1[Pre-train on the<br/>whole internet<br/>no labels needed] --> B2[Adapt to many tasks<br/>fine-tune or just prompt]
+  end

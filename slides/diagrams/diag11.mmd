@@ -1,0 +1,4 @@
+flowchart LR
+  P[Pre-trained LLM<br/>predicts next token] --> S[Supervised fine-tuning<br/>on instruction → answer pairs]
+  S --> R[RLHF<br/>learn from human preferences]
+  R --> C[Helpful chat model]

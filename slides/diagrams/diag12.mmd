@@ -1,0 +1,8 @@
+flowchart LR
+  P[Photo of the monitor] --> D[Detect &amp; rectify the screen]
+  D --> R[Locate each value field]
+  R --> O[Read the digits OCR]
+  O --> A[Assign to a parameter by colour/position]
+  A --> V[Validate vs physiological ranges]
+  V --> S[Structured vitals + confidence]
+  V -. low confidence .-> H[Ask a human to confirm]

@@ -1,0 +1,976 @@
+---
+title: "Machine Learning: From Data to Large Language Models"
+subtitle: "261405 — Advanced Computer Engineering Technology"
+author: "Kasemsit Teeyapan"
+institute: "Department of Computer Engineering, Chiang Mai University"
+date: last-modified
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: c/t
+    show-slide-number: all
+    incremental: false
+    transition: slide
+    width: 1280
+    height: 720
+    margin: 0.06
+    center-title-slide: true
+    footer: "261405 · Machine Learning"
+    chalkboard: true
+    highlight-style: github
+    mermaid:
+      theme: neutral
+title-slide-attributes:
+  data-background-color: "#7a1f2b"
+---
+
+## Roadmap for today {.smaller}
+
+::: {.big}
+From *"what is machine learning?"* to **building & shipping** an ML feature for your capstone.
+:::
+
+. . .
+
+::: {.columns}
+::: {.column width="50%"}
+1. **Why ML now?**
+2. **ML fundamentals** — data, training, loss
+3. **Types of problems**
+4. **ML in the real world** — *systems*
+5. **Classic ML → LLMs**
+:::
+::: {.column width="50%"}
+6. **Using LLMs** — prompts, agents
+7. **Machines that see**
+8. **Shipping ML** in your platform
+9. **Limits & ethics**
+→ **Capstone:** design an ML feature
+:::
+:::
+
+::: {.notes}
+~80–90 min. Assume no prior ML. Goal: build intuition, land on LLMs.
+Tell students we will pause for 2 quick exercises.
+:::
+
+# 1 · Why machine learning now? 🚀 {background-color="#7a1f2b"}
+
+## Traditional programming vs. machine learning {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Traditional programming**
+
+You write the *rules*.
+
+![](images/diag01.svg){.diagram}
+:::
+
+::: {.column width="50%"}
+**Machine learning**
+
+The machine *learns* the rules.
+
+![](images/diag02.svg){.diagram}
+:::
+:::
+
+. . .
+
+::: {.card}
+ML is useful exactly when the rules are **too hard to write by hand** — recognizing a cat, translating Thai↔English, predicting the next word.
+:::
+
+## Why is ML everywhere *right now*? {.smaller}
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+- **Data** — the internet, phones, and sensors produce oceans of it.
+- **Compute** — GPUs make training large models practical.
+- **Algorithms** — deep learning + the Transformer (2017).
+- **Tooling** — anyone can call a model in 3 lines of Python.
+:::
+:::
+::: {.column width="40%"}
+![](images/photos/compute.jpg){.photo}
+
+::: {.credit}
+"Awaiting servers" · bugeaters · CC BY
+:::
+:::
+:::
+
+::: {.card}
+~10 years: ML went from academic curiosity → the tech behind search, recommendations, translation, and ChatGPT.
+:::
+
+## A quick taxonomy
+
+![](images/diag03.svg){.diagram}
+
+::: {.card}
+Today we focus on **supervised learning** — it is the workhorse, and it is the foundation under modern LLMs.
+:::
+
+# 2 · ML fundamentals 🧱 {background-color="#7a1f2b"}
+
+## It all starts with a dataset
+
+A dataset is a **table**: rows are *examples*, columns are *features*, plus the thing we want to predict (the **target**).
+
+| area (m²) | bedrooms | location score | **price (target)** |
+|----------:|---------:|---------------:|-------------------:|
+| 120       | 3        | 8.1            | **4.2 M฿**         |
+| 60        | 1        | 5.4            | **1.9 M฿**         |
+| 200       | 4        | 9.0            | **7.8 M฿**         |
+
+. . .
+
+::: {.card}
+**Features** = the inputs the model sees (`x`). **Target** = the answer we want (`y`). The model learns a function `f(x) ≈ y`.
+:::
+
+## The three-way data split
+
+Never test a model on data it learned from — that's like giving students the exam answers.
+
+![](images/diag04.svg){.diagram}
+
+::: {.incremental}
+- **Train** — fit the model's parameters.
+- **Validation** — pick hyperparameters / compare models.
+- **Test** — touched **once**, to estimate real-world performance.
+:::
+
+## What does "training" actually mean?
+
+A model has **parameters** (knobs). Training = turning the knobs so predictions match the answers.
+
+![](images/diag05.svg){.diagram}
+
+::: {.card}
+The loop: **predict → measure error → nudge the knobs → repeat.** This is *gradient descent*.
+:::
+
+## The loss function = "how wrong are we?"
+
+The **loss** is a single number measuring error. Training **minimizes** it.
+
+::: {.columns}
+::: {.column width="55%"}
+For house prices (regression), a common loss is **Mean Squared Error**:
+
+$$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}\left(y_i - \hat{y}_i\right)^2$$
+
+- Predict 4.0M when truth is 4.2M → small loss.
+- Predict 1.0M when truth is 7.8M → **huge** loss.
+:::
+
+::: {.column width="45%"}
+![](images/diag06.svg){.diagram}
+:::
+:::
+
+::: {.notes}
+Analogy: hiking downhill in fog. You feel the slope under your feet and step downward. That slope is the gradient.
+:::
+
+## Training vs. inference
+
+::: {.columns}
+::: {.column width="50%"}
+**Training phase** (slow, once)
+
+- Uses labeled data.
+- Adjusts millions of parameters.
+- Needs GPUs, lots of compute.
+:::
+
+::: {.column width="50%"}
+**Inference phase** (fast, many times)
+
+- Parameters are **frozen**.
+- New input → prediction.
+- This is what runs in production.
+:::
+:::
+
+. . .
+
+::: {.card}
+Same model, two very different cost profiles. A model trained for weeks may need to answer in **<100 ms** in production.
+:::
+
+## Overfitting: the classic trap
+
+![](images/overfitting.svg){.diagram width="88%" fig-align="center"}
+
+Left → right: **too simple → just right → too complex.** The overfit curve nails every training point but **fails on new data**.
+
+::: {.card}
+A good **test** score — not a good *training* score — is what matters.
+:::
+
+# 3 · Types of problems 🎯 {background-color="#7a1f2b"}
+
+## Classification vs. regression
+
+![](images/clf-vs-reg.svg){.diagram width="66%" fig-align="center"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Classification** → a **category**: spam? · cat/dog/bird? · next app?
+:::
+::: {.column width="50%"}
+**Regression** → a **number**: house price? · temp tomorrow? · ETA?
+:::
+:::
+
+## Multiclass vs. multilabel
+
+::: {.columns}
+::: {.column width="50%"}
+**Multiclass** — pick **one**
+
+> A photo is *either* cat, dog, *or* bird.
+
+`[0, 1, 0]`
+:::
+
+::: {.column width="50%"}
+**Multilabel** — pick **any**
+
+> A news article can be *tech* **and** *politics*.
+
+`[1, 0, 1]`
+:::
+:::
+
+. . .
+
+::: {.card}
+Framing matters: a multilabel task is often solved as **several independent yes/no classifiers**.
+:::
+
+## Framing can make a problem easier or harder
+
+**Problem:** predict which app a user opens next.
+
+::: {.incremental}
+- **As classification:** input = user + context → output = probability for *each* app. Add a new app? You must **retrain**. 😟
+- **As recommendation/ranking:** input = (user, *candidate app*, context) → output = one score. New app? Just **score it**. 😀
+:::
+
+. . .
+
+::: {.card}
+The *same* business problem, framed two ways, leads to very different systems. **Good framing is half the battle.**
+:::
+
+# 4 · ML in the real world 🏭 {background-color="#7a1f2b"}
+
+## ML in production: expectation
+
+![](images/diag07.svg){.diagram}
+
+::: {.big .muted}
+"We just train a model and ship it."
+:::
+
+## ML in production: reality
+
+![](images/diag08.svg){.diagram}
+
+::: {.card}
+The model is the **easy** part. Data, evaluation, latency, and monitoring are where the real work is.
+:::
+
+## ML systems ≠ traditional software
+
+::: {.columns}
+::: {.column width="50%"}
+**Traditional software**
+
+Code and data are **separate**. Inputs don't change the code.
+
+`behavior = f(code)`
+:::
+
+::: {.column width="50%"}
+**ML systems**
+
+Code **and data** are tightly coupled. The data *shapes* the behavior.
+
+`behavior = f(code, data)`
+:::
+:::
+
+. . .
+
+::: {.card}
+You must **test and version your data**, not just your code. A line-by-line `git diff` doesn't work on a 10 GB dataset.
+:::
+
+## Different stakeholders want different things {.smaller}
+
+| Stakeholder | Wants… |
+|---|---|
+| ML team | Highest accuracy |
+| Product | Fastest inference (low latency) |
+| Sales | Whatever sells more |
+| Manager | Maximum profit |
+| **User** | A result that is **useful & fair** |
+
+::: {.card}
+"Best model" is not well-defined until you ask **best for whom?** Latency, cost, fairness, and interpretability are all part of "good."
+:::
+
+## Why latency matters {.smaller}
+
+::: {.columns}
+::: {.column width="52%"}
+::: {.incremental}
+- **Amazon:** +**100 ms** → about **−1%** in sales *(2006)*.
+- **Bing:** +**2 s** → **−4.3%** revenue per user *(2009)*.
+- **Google × Deloitte:** −**0.1 s** → **+8.4%** conversions *(2020)*.
+- Autocomplete slower than typing is **useless**.
+:::
+:::
+::: {.column width="48%"}
+![](images/latency-bar.svg){.diagram}
+:::
+:::
+
+::: {.card}
+**Latency** = time for one answer · **throughput** = answers/sec. A more accurate model that's too **slow** can be worse in production than a simple fast one.
+:::
+
+::: {.src}
+Sources: Amazon — G. Linden (2006), via [*High Scalability*](https://highscalability.com/latency-is-everywhere-and-it-costs-you-sales-how-to-crush-it/) · Bing — Schurman & Brutlag, Velocity 2009, via [J. Hamilton, *The Cost of Latency*](https://perspectives.mvdirona.com/2009/10/the-cost-of-latency/) · Google × Deloitte, [*Milliseconds Make Millions*](https://web.dev/case-studies/milliseconds-make-millions) (2020).
+:::
+
+## Exercise (5 min, in pairs) {background-color="#f4c542"}
+
+> You want to build a system that shows users **trending hashtags**.
+
+Discuss:
+
+1. What is the **business** objective? The **ML** objective?
+2. Is it classification, regression, or ranking?
+3. How would you measure success — and do you even have ground-truth labels?
+
+# 5 · From classic ML to LLMs 💬 {background-color="#7a1f2b" background-image="images/photos/abstract-ai.jpg" background-opacity="0.35"}
+
+## The problem: computers don't understand words
+
+So far ML has worked on **numbers in a table**. Now let's zoom into one data type — **text** — because that's the path that led to **LLMs**.
+
+To do ML on text, we must turn words into **numbers** — vectors.
+
+::: {.incremental}
+- Step 1 — **Tokenization:** split text into tokens (words / sub-words).
+  `"unhappiness" → ["un", "happi", "ness"]`
+- Step 2 — **Embedding:** map each token to a vector of numbers that captures *meaning*.
+:::
+
+. . .
+
+::: {.card}
+The magic: words used in similar contexts get **similar vectors**.
+:::
+
+## Embeddings capture meaning {.smaller}
+
+Words become points in space; **direction = meaning**.
+
+::: {.columns}
+::: {.column width="55%"}
+The famous example:
+
+$$\overrightarrow{king} - \overrightarrow{man} + \overrightarrow{woman} \approx \overrightarrow{queen}$$
+
+- "cat" and "dog" land near each other.
+- "Bangkok : Thailand" as "Tokyo : Japan".
+:::
+
+::: {.column width="45%"}
+![](images/embeddings.svg){.diagram}
+:::
+:::
+
+::: {.src}
+Source: Mikolov et al., [*Efficient Estimation of Word Representations in Vector Space*](https://arxiv.org/abs/1301.3781) (Word2Vec, 2013).
+:::
+
+## How do we read a whole sentence?
+
+Meaning depends on **context** and **word order**: *"the **bank** of the river"* vs. *"money in the **bank**"*.
+
+::: {.columns}
+::: {.column width="56%"}
+::: {.incremental}
+- **RNNs** — read words one at a time, keep a memory. Slow; forgets long-range context.
+- 2014 — **Attention:** let each word *look at* every other word and weigh what matters.
+- 2017 — **Transformer:** "Attention is all you need." No recurrence → trains in **parallel** → scales.
+:::
+:::
+::: {.column width="44%"}
+![](images/attention.svg){.diagram}
+:::
+:::
+
+::: {.src}
+Sources: Bahdanau et al., [*Neural Machine Translation by Jointly Learning to Align and Translate*](https://arxiv.org/abs/1409.0473) (2014); Vaswani et al., [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) (2017).
+:::
+
+## The Transformer in one slide
+
+![](images/diag09.svg){.diagram}
+
+::: {.card}
+**Self-attention** lets "bank" figure out it means *river-bank* by looking at "river". Parallel + scalable → this is the engine of every modern LLM.
+:::
+
+## Two flavors: BERT vs. GPT
+
+::: {.columns}
+::: {.column width="50%"}
+**Encoder — BERT (2018)**
+
+- Reads the **whole** sentence at once (bidirectional).
+- Trained by **filling in blanks** ("cloze test").
+- Great for *understanding*: classification, search.
+:::
+
+::: {.column width="50%"}
+**Decoder — GPT (2018→)**
+
+- Reads **left to right**.
+- Trained to **predict the next token**.
+- Great for *generating*: chat, writing, code.
+:::
+:::
+
+. . .
+
+::: {.card}
+Both are Transformers. ChatGPT is a (very large) **decoder** trained to predict the next word — astonishingly well.
+:::
+
+::: {.src}
+Sources: Devlin et al., [*BERT*](https://arxiv.org/abs/1810.04805) (2018); Radford et al., [*Improving Language Understanding by Generative Pre-Training*](https://openai.com/research/language-unsupervised) (GPT-1, 2018).
+:::
+
+## Why are they called *Large* Language Models?
+
+::: {.columns}
+::: {.column width="55%"}
+- **GPT-1** (2018): 117M parameters, ~7,000 books.
+- Scale up parameters + data + compute → new abilities **emerge**.
+- The recipe: **predict the next token** on a huge chunk of the internet.
+
+::: {.card}
+Same simple objective ("guess the next word"), enormous scale → translation, summarization, coding, reasoning — *without being explicitly taught each task*.
+:::
+:::
+::: {.column width="45%"}
+![](images/scaling.svg){.diagram}
+:::
+:::
+
+## Classic ML vs. LLM training
+
+![](images/diag10.svg){.diagram}
+
+::: {.card}
+Classic ML: one dataset → one model → one task. LLM: one giant pre-trained model → **many** tasks.
+:::
+
+# 6 · Using LLMs today 🤖 {background-color="#7a1f2b" background-image="images/photos/robot.jpg" background-opacity="0.30"}
+
+## You don't have to train one
+
+::: {.columns}
+::: {.column width="50%"}
+**Proprietary (API)**
+
+GPT, Claude, Gemini.
+Call over the web; pay per token; most capable.
+:::
+
+::: {.column width="50%"}
+**Open models**
+
+Llama, Mistral, Qwen.
+Download & run yourself; private; customizable.
+:::
+:::
+
+. . .
+
+Three lines with Hugging Face:
+
+```python
+from transformers import pipeline
+pipe = pipeline("text-generation", model="microsoft/phi-2")
+print(pipe("The capital of Thailand is")[0]["generated_text"])
+```
+
+## A spectrum of "how to use an LLM" {.smaller}
+
+From cheapest/easiest → most effort:
+
+::: {.incremental}
+1. **Zero-shot prompt** — just ask. *"Classify this review as positive/negative."*
+2. **Few-shot prompt** — give a couple of examples in the prompt.
+3. **Use a pre-fine-tuned model** — someone already tuned it for your task.
+4. **Train a small classifier** on top of frozen embeddings.
+5. **Fine-tune** the model on your own data — best quality, most work.
+:::
+
+. . .
+
+::: {.card}
+Rule of thumb: **start with a prompt.** Only fine-tune when prompting isn't good enough.
+:::
+
+## Prompt engineering, briefly
+
+::: {.columns}
+::: {.column width="50%"}
+**Weak prompt**
+
+> "Sentiment?"
+:::
+
+::: {.column width="50%"}
+**Strong prompt**
+
+> "You are a sentiment classifier. Reply with exactly one word: POSITIVE or NEGATIVE.
+>
+> Review: *'The food was cold and late.'*"
+:::
+:::
+
+::: {.incremental}
+- Be **specific** about the role, task, and output format.
+- Give **examples** when you can.
+- Constrain the output so it's easy to parse.
+:::
+
+## How ChatGPT was made (the extra step)
+
+A raw next-token model isn't automatically helpful or safe. Two extra stages:
+
+![](images/diag11.svg){.diagram}
+
+::: {.card}
+**RLHF** = Reinforcement Learning from **Human Feedback**: people rank answers, the model learns to prefer the better ones.
+:::
+
+::: {.src}
+Source: Ouyang et al., [*Training language models to follow instructions with human feedback*](https://arxiv.org/abs/2203.02155) (InstructGPT, 2022).
+:::
+
+## The story didn't stop in 2022 {.smaller}
+
+Since ChatGPT, the field has moved fast. A few directions shaping **2023–2026**:
+
+::: {.columns}
+::: {.column width="50%"}
+- **Multimodal** — one model that reads text **and** sees images, hears audio, watches video (GPT-5.5, Gemini 3, Claude Opus 4.x).
+- **Reasoning models** — spend extra compute to "think" before answering (Gemini 3.1 Pro, OpenAI o-series, Claude *extended thinking*, DeepSeek).
+- **Open-weight models** — download & run your own (Llama 4, Qwen 3.5, DeepSeek V4, Gemma 4, GLM-5).
+:::
+
+::: {.column width="50%"}
+- **RAG** — *retrieval-augmented generation*: feed the model your own documents to cut hallucination.
+- **Agents & tool use** — models that call APIs, run code, browse, and act over many steps.
+- **Smaller & on-device** — capable models that run on a laptop or phone; **MoE** keeps big models efficient.
+:::
+:::
+
+::: {.card}
+The **fundamentals** in this lecture (data, training, embeddings, Transformers) still underpin **all** of these.
+:::
+
+::: {.src}
+Frontier examples as of **mid-2026** — model names change fast; check the latest before class.
+:::
+
+## Agentic AI: LLMs that *act* {.smaller}
+
+A plain LLM only **talks**. An **agent** wraps the LLM in a loop so it can **use tools and get things done**.
+
+::: {.columns}
+::: {.column width="50%"}
+![](images/diag13.svg){.diagram}
+:::
+::: {.column width="50%"}
+- **Tools** — search, run code, call APIs, click buttons.
+- **Memory** — carry context across steps.
+- **Open standard** — **MCP** (now Linux-Foundation–governed, 10k+ connectors) lets any tool plug into any model.
+
+**Example (2026):** *OpenClaw* 🦞 — open-source assistant that runs on your own machine and orchestrates tasks across email, calendar & chat apps.
+:::
+:::
+
+::: {.card}
+Powerful **and** risky: an agent that *acts* can act *wrong* — or be **attacked** (malicious tools/skills, exposed servers). Keep a **human in the loop** — like our ICU capstone.
+:::
+
+::: {.src}
+Mid-2026: MCP is now an open standard (Agentic AI Foundation); agent tooling still evolves fast — learn the **loop**, not the product.
+:::
+
+# 7 · Teaching machines to *see* 👁️ {background-color="#7a1f2b"}
+
+## Same trick, different data: images
+
+We turned **words** into numbers. Good news — **images already *are* numbers**: a grid of pixel brightness values (0 = dark … 99 = bright).
+
+This little grid *is* a stroke of the digit **"1"**:
+
+```{=html}
+<pre class="pixelgrid">
+ 0   0   0  18   0   0
+ 0   0  90  99  30   0
+ 0  60  99  99  88   0
+ 0  10  20  95  40   0
+ 0   0   0  92   0   0
+</pre>
+```
+
+::: {.card}
+Same recipe as before: **features (pixels) → model → prediction.** The very same **Transformer** idea now also powers vision (the "Vision Transformer", ViT).
+:::
+
+## What vision models do
+
+::: {.columns}
+::: {.column width="60%"}
+::: {.incremental}
+- **Classification** — *what* is in the image? (normal vs. abnormal X-ray)
+- **Detection / localization** — *what* **and where**? a box around each object — or around **each number on a monitor**.
+- **OCR** — **read** the text and digits inside an image.
+:::
+
+::: {.card}
+A **multimodal LLM** (GPT-4o, Gemini) can look at an image and answer in words — tying vision back to §5–§6.
+:::
+:::
+::: {.column width="40%"}
+![](images/photos/camera.jpg){.photo}
+
+::: {.credit}
+"fact or fiction?" · db Photography · CC BY
+:::
+:::
+:::
+
+::: {.notes}
+This 2-slide bridge gives students the vocabulary (detection + OCR + vision-LLM) they need for the ICU capstone that follows.
+:::
+
+# 8 · Shipping ML in your platform 🛠️ {background-color="#7a1f2b"}
+
+## The ML project lifecycle
+
+Building an ML feature is a **loop**, not a one-shot — this is the process your **Software team** runs:
+
+![](images/diag14.svg){.diagram}
+
+::: {.keywords}
+🔑 **Explore:** `problem framing` · `data labeling` · `EDA` · `feature engineering` · `training` · `evaluation` · `deployment` · `monitoring` · `iteration`
+:::
+
+## First ask: do you even need ML? {.smaller}
+
+ML adds data, training, and serving cost. **Start simple.**
+
+::: {.incremental}
+- **Rules / heuristics first** — often get you most of the way with **no ML**.
+- **Buy vs build** — a **managed API** (e.g. an LLM) may beat training your own.
+- Build a **custom model** only when a simple solution isn't good enough.
+:::
+
+::: {.keywords}
+🔑 **Explore:** `baseline` · `heuristic` · `build vs buy` · `managed ML API` · `fine-tuning` · `human-level performance` · `usefulness threshold`
+:::
+
+## Data is the hard part {.smaller}
+
+Your model is only as good as its data — and the **Systems team** must store it well.
+
+- **Collect & label** — where do examples come from? who labels them?
+- **Pipeline** — move & clean data (**ETL / ELT**).
+- **Store** — raw files in **object storage**; features in a **database / feature store**.
+- **Version & protect** — track changes; handle **privacy / PII**.
+
+::: {.keywords}
+🔑 **Explore:** `data pipeline` · `ETL / ELT` · `data lake / warehouse` · `object storage (S3)` · `feature store` · `data versioning` · `train–serve skew` · `PII / privacy`
+:::
+
+## Train & evaluate {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Train**
+
+- Pick a **framework**: scikit-learn, PyTorch.
+- Track experiments; tune **hyperparameters**.
+- Save the winner to a **model registry**.
+:::
+::: {.column width="50%"}
+**Evaluate** — *before* and *after* launch
+
+- **Offline:** accuracy, precision/recall, F1, RMSE.
+- **Online:** A/B test against a **business KPI**.
+:::
+:::
+
+::: {.keywords}
+🔑 **Explore:** `scikit-learn` · `PyTorch` · `experiment tracking (MLflow, W&B)` · `cross-validation` · `confusion matrix` · `precision / recall / F1` · `AUC` · `A/B testing`
+:::
+
+## Serving: getting the model to users {.smaller}
+
+A trained model is useless until it's **deployed** — *"นำ model ไปให้ลูกค้าใช้งาน"*.
+
+- **Online** (real-time API) vs **batch** (run overnight).
+- Wrap the model in an **API** (REST / gRPC) inside a **container**.
+- Run it on a **model server**; scale out with **replicas**.
+- Where? **on-prem datacenter** (to test) → **public cloud** (for production).
+
+::: {.keywords}
+🔑 **Explore:** `inference` · `online vs batch` · `REST / gRPC` · `Docker / container` · `model server (FastAPI · TorchServe · Triton · BentoML · KServe)` · `autoscaling` · `edge / on-device`
+:::
+
+## ML in a scalable system
+
+Where the model sits — and how the **three teams** connect:
+
+![](images/diag15.svg){.diagram}
+
+::: {.keywords}
+🔑 **Software** = app + model serving · **Systems** = datacenter / cloud · storage · GPU · **load balancer** · **Network** = bandwidth · CDN · firewall · VPN
+:::
+
+## Cloud, datacenter & MLOps {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Where it runs**
+
+- **Public cloud ML:** SageMaker, Vertex AI, Azure ML — managed GPU + endpoints.
+- **On-prem:** your **datacenter** GPU servers (testing / data control).
+:::
+::: {.column width="50%"}
+**Keep it healthy — MLOps**
+
+- **Monitor** accuracy & latency in production.
+- Watch for **data / concept drift** → **retrain**.
+- **CI/CD** + rollback for models.
+:::
+:::
+
+::: {.keywords}
+🔑 **Explore:** `MLOps` · `SageMaker / Vertex AI / Azure ML` · `GPU instance` · `managed endpoint` · `model monitoring` · `data drift` · `concept drift` · `CI/CD for ML`
+:::
+
+## How ML maps to *your* capstone {.smaller}
+
+| Team | ML-related responsibility |
+|---|---|
+| **Software** — *build the ML* | Frame the task · data & features · **train, evaluate & package** the model · expose it as an API |
+| **Systems** — *run the ML* | GPU · datacenter & cloud to **train and serve** · storage for data & models · **scale & load-balance** the model service · backup |
+| **Network** — *reach the ML* | Bandwidth to **move training data**, and **low-latency, secure access** to the model for users (HQ · branch · WFH / VPN) |
+
+::: {.card}
+The ML feature is **one thread running through all three teams** — design it together.
+:::
+
+# 9 · Limits & ethics ⚖️ {background-color="#7a1f2b"}
+
+## What LLMs get wrong
+
+::: {.columns}
+::: {.column width="63%"}
+::: {.incremental}
+- **Hallucination** — confidently make up facts/citations.
+- **Stale knowledge** — frozen at training cutoff.
+- **Bias** — they reflect biases in their training data.
+- **No true understanding** — they predict plausible text, not truth.
+- **Cost & latency** — big models are expensive to run.
+:::
+
+::: {.card}
+**Always verify** important outputs — an LLM is a fast, fluent assistant, *not* an oracle.
+:::
+:::
+::: {.column width="37%"}
+![](images/photos/robot-doodle.jpg){.photo}
+
+::: {.credit}
+"Cute robot" · daniel spils · CC BY
+:::
+:::
+:::
+
+## Optimizing the wrong thing is dangerous {.smaller}
+
+::: {.columns}
+::: {.column width="62%"}
+A newsfeed that **maximizes engagement** can learn that *outrage* and *misinformation* get the most clicks.
+
+::: {.incremental}
+- Engagement ↑ … but well-being and truth ↓.
+- Better: **decouple objectives** — filter spam/NSFW/misinfo *and* rank by quality, not just clicks.
+:::
+:::
+::: {.column width="38%"}
+![](images/photos/scale.jpg){.photo}
+
+::: {.credit}
+"balance scale" · winnifredxoxo · CC BY
+:::
+:::
+:::
+
+. . .
+
+::: {.card}
+The metric you choose **becomes** the behavior you get. Choose it carefully.
+:::
+
+# Capstone case study 🏥 {background-color="#7a1f2b"}
+
+## Reading an ICU monitor — automatically {.smaller}
+
+::: {.columns}
+::: {.column width="48%"}
+![](images/icu-monitor.jpeg)
+:::
+
+::: {.column width="52%"}
+In the ICU, a nurse reads the monitor and **charts the vital signs by hand**, every hour, for every patient.
+
+::: {.card}
+**Goal:** point a phone camera at the screen and have it **read the numbers automatically** — HR, SpO₂, blood pressure, respiration — into the patient record.
+:::
+
+How would *you* build this?
+:::
+:::
+
+::: {.src}
+Photo: Philips IntelliVue MP70 patient monitor.
+:::
+
+## Your task — brainstorm (15 min, groups of 4–5) {background-color="#f4c542" .smaller}
+
+Use today's lenses. Jot down ideas — **no wrong answers yet**.
+
+::: {.columns}
+::: {.column width="50%"}
+**Framing** — classification? regression? detection? OCR? One model or a pipeline?
+
+**Data** — where do images come from? How many monitor brands? How to **label**? Patient privacy?
+
+**Approach** — classical CV? a detector + digit reader? Could a **vision LLM** just read it?
+:::
+
+::: {.column width="50%"}
+**Evaluation** — what metric? How accurate is "good enough"? Where's the **ground truth**?
+
+**Production** — phone or cloud? Real-time or snapshot? **Glare, angle, lighting**?
+
+**Risks** — what if it reads **154 as 54**? Who's responsible? A regulated medical device?
+:::
+:::
+
+## Debrief — one way to build it
+
+A typical pipeline is **several models**, not one:
+
+![](images/diag12.svg){.diagram}
+
+::: {.card}
+Notice how every part of today's lecture shows up: **framing**, **data & labels**, **evaluation**, **latency**, and **safety**.
+:::
+
+## Debrief — the hard parts {.smaller}
+
+::: {.incremental}
+- **It's detection *then* recognition** — find each field, *then* read its digits, *then* know which vital it is (colour/position).
+- **Data is the bottleneck** — few labelled photos, many monitor models, glare & angles. *Synthetic screens* can help bootstrap.
+- **A vision LLM is tempting** but can **hallucinate a number** — unacceptable for a vital sign. Constrain it, cross-check ranges, show confidence.
+- **Safety first** — a wrong reading can harm a patient. Keep a **human in the loop**; validate against physiological ranges.
+- **"Good enough" is high** — per-field exact-match, with the system **refusing** to guess when unsure.
+:::
+
+## Recap {.smaller}
+
+::: {.incremental}
+- ML **learns rules from data**; supervised learning fits `f(x) ≈ y`.
+- Train / validation / test; minimize a **loss**; beware **overfitting**.
+- Real ML is a **systems** problem: data, latency, stakeholders, monitoring.
+- Text → **tokens → embeddings**; the **Transformer** powers modern NLP.
+- **BERT** understands, **GPT** generates; LLMs scale "predict the next word."
+- ML also **sees**: classification, detection, OCR — and **multimodal LLMs** do both.
+- Using LLMs: **prompt first**, fine-tune later; **agents** add tools + a loop; mind **hallucination & ethics**.
+- **Build & ship:** lifecycle data → train → **serve** → monitor; **MLOps** keeps it healthy.
+:::
+
+## Where to go next {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Hands-on**
+
+- Hugging Face `transformers` quickstart
+- Build a text classifier (zero-shot → fine-tune)
+- Try an LLM API (Claude / GPT)
+:::
+
+::: {.column width="50%"}
+**To read**
+
+- C. Huyen, [*Designing ML Systems*](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
+- J. Alammar & M. Grootendorst, [*Hands-On Large Language Models*](https://www.oreilly.com/library/view/hands-on-large-language/9781098150952/)
+- J. Alammar, [*The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/)
+:::
+:::
+
+## References {.smaller}
+
+**Foundational papers**
+
+- Mikolov et al. (2013), [*Efficient Estimation of Word Representations in Vector Space*](https://arxiv.org/abs/1301.3781) — Word2Vec
+- Bahdanau et al. (2014), [*Neural Machine Translation by Jointly Learning to Align and Translate*](https://arxiv.org/abs/1409.0473) — Attention
+- Vaswani et al. (2017), [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) — Transformer
+- Devlin et al. (2018), [*BERT*](https://arxiv.org/abs/1810.04805) · Radford et al. (2018), [*GPT-1*](https://openai.com/research/language-unsupervised)
+- Ouyang et al. (2022), [*Training LMs to follow instructions with human feedback*](https://arxiv.org/abs/2203.02155) — InstructGPT / RLHF
+
+**Courses, books & blogs**
+
+- C. Huyen, [*Designing Machine Learning Systems*](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/) · Stanford [CS329S](https://stanford-cs329s.github.io/)
+- J. Alammar & M. Grootendorst, [*Hands-On Large Language Models*](https://www.oreilly.com/library/view/hands-on-large-language/9781098150952/) · [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
+
+::: {.footer-note}
+Several framing/structure ideas in §3–§4 are adapted from Chip Huyen's CS329S.
+:::
+
+## {background-color="#7a1f2b"}
+
+::: {.big style="color:#ffffff; text-align:center; margin-top:1.5em;"}
+Thank you!
+
+Questions?
+:::
+
+::: {style="color:#f4c542; text-align:center;"}
+kasemsit.t@cmu.ac.th
+:::

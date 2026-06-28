@@ -1,0 +1,8 @@
+flowchart LR
+  A[1 · Frame<br/>the problem] --> B[2 · Collect &amp;<br/>label data]
+  B --> C[3 · Features &amp;<br/>EDA]
+  C --> D[4 · Train<br/>the model]
+  D --> E[5 · Evaluate]
+  E --> F[6 · Deploy<br/>/ serve]
+  F --> G[7 · Monitor]
+  G -. data drifts · new needs .-> B

@@ -1,0 +1,11 @@
+flowchart LR
+  U[Users<br/>web / mobile] --> NW[Network<br/>CDN · firewall · VPN]
+  NW --> LB[Load balancer]
+  LB --> APP[App / API servers]
+  APP --> CA[(Cache)]
+  APP --> MS[Model serving<br/>GPU · REST/gRPC]
+  MS --> FS[(Feature store<br/>/ database)]
+  MS -. prediction logs .-> OS[(Object storage<br/>training data)]
+  OS --> TRN[Training pipeline<br/>GPU]
+  TRN --> MR[(Model registry)]
+  MR -- deploy --> MS

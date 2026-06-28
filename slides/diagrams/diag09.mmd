@@ -1,0 +1,6 @@
+flowchart LR
+  T[Tokens] --> E[Embeddings + position]
+  E --> A[Self-attention<br/>every token looks at every token]
+  A --> F[Feed-forward layers]
+  F --> R[Stack N times]
+  R --> O[Contextual representation]
