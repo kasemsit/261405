@@ -168,3 +168,26 @@ ax.legend(frameon=False, fontsize=10, loc="lower right")
 ax.set_title("Clustering: structure with no labels", color="#7a1f2b", fontweight="bold", fontsize=12)
 fig.tight_layout(); fig.savefig("images/clustering.svg", transparent=True, bbox_inches="tight")
 print("saved images/clustering.svg")
+
+# ---------- 9) Tokenization → embedding (text to numbers) ----------
+fig, ax = plt.subplots(figsize=(9.2, 2.6))
+ax.set_xlim(0, 10); ax.set_ylim(0, 3); ax.axis("off")
+ax.text(1.0, 1.5, '"unhappiness"', fontsize=16, fontweight="bold", ha="center", va="center", color=INK)
+ax.annotate("", xy=(2.55, 1.5), xytext=(1.95, 1.5), arrowprops=dict(arrowstyle="->", lw=1.6, color=MUTE))
+ax.text(2.25, 1.92, "tokenize", fontsize=9, color=MUTE, ha="center", style="italic")
+toks = [("un", RED), ("happi", GREEN), ("ness", BLUE)]
+tx = [3.1, 4.05, 5.0]
+for (t, c), x in zip(toks, tx):
+    ax.add_patch(plt.Rectangle((x - 0.42, 1.18), 0.84, 0.64, facecolor=c, alpha=0.14, edgecolor=c, lw=1.5))
+    ax.text(x, 1.5, t, fontsize=13, ha="center", va="center", color=c, fontweight="bold")
+ax.annotate("", xy=(6.45, 1.5), xytext=(5.65, 1.5), arrowprops=dict(arrowstyle="->", lw=1.6, color=MUTE))
+ax.text(6.05, 1.92, "embed", fontsize=9, color=MUTE, ha="center", style="italic")
+rng = np.random.default_rng(2)
+vx = [7.1, 8.0, 8.9]
+for (t, c), x in zip(toks, vx):
+    ax.add_patch(plt.Rectangle((x - 0.34, 0.35), 0.68, 2.25, facecolor=c, alpha=0.08, edgecolor=c, lw=1.2))
+    for j, v in enumerate(rng.uniform(-0.9, 0.9, 4)):
+        ax.text(x, 2.28 - j * 0.52, f"{v:+.1f}", fontsize=10, ha="center", va="center", color=INK, family="monospace")
+ax.text(8.0, 2.85, "vectors (embeddings)", fontsize=9.5, color=MUTE, ha="center", style="italic")
+fig.tight_layout(); fig.savefig("images/tokenize.svg", transparent=True, bbox_inches="tight")
+print("saved images/tokenize.svg")

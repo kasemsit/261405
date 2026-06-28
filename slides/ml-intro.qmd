@@ -425,19 +425,18 @@ Discuss:
 
 # 5 · From classic ML to LLMs 💬 {background-color="#7a1f2b" background-image="images/photos/abstract-ai.jpg" background-opacity="0.35"}
 
-## The problem: computers don't understand words
+## The problem: computers don't understand words {.smaller}
 
-So far ML has worked on **numbers in a table**. Now let's zoom into one data type — **text** — because that's the path that led to **LLMs**.
+So far ML has worked on **numbers in a table**. Now let's zoom into one data type — **text** — the path that led to **LLMs**.
 
-To do ML on text, we must turn words into **numbers** — vectors.
+To do ML on text, we turn words into **numbers (vectors)**:
+
+![](images/tokenize.svg){.diagram width="86%" fig-align="center"}
 
 ::: {.incremental}
-- Step 1 — **Tokenization:** split text into tokens (words / sub-words).
-  `"unhappiness" → ["un", "happi", "ness"]`
-- Step 2 — **Embedding:** map each token to a vector of numbers that captures *meaning*.
+- **Tokenization** — split text into tokens (words / sub-words).
+- **Embedding** — map each token to a vector that captures *meaning*.
 :::
-
-. . .
 
 ::: {.card}
 The magic: words used in similar contexts get **similar vectors**.
@@ -640,6 +639,12 @@ When prompting isn't enough, **adjust the model's weights** on your own labelled
 - Needs labelled data; risk of **overfitting** / catastrophic forgetting.
 :::
 ::: {.column width="48%"}
+![](images/photos/knobs.jpg){.photo}
+
+::: {.credit}
+"Knobs and dials" · Mads Boedker · CC BY · *(tuning = turning knobs)*
+:::
+
 ::: {.card}
 **Fine-tune vs [RAG](#rag-give-the-llm-your-knowledge):** fine-tuning changes **behaviour / style**; RAG adds **knowledge**. Often you want **both**.
 :::
@@ -980,6 +985,12 @@ Your platform handles **personal data** — and that's regulated. In Thailand: t
 - **Data residency** — *where* is data stored? (ties to the Systems team).
 :::
 ::: {.column width="45%"}
+![](images/photos/padlock.jpg){.photo}
+
+::: {.credit}
+"Padlock 1 & Key 5" · ~Brenda-Starr~ · CC BY
+:::
+
 ::: {.card}
 For ML: don't train on personal data without a legal basis. **De-identify** *before* it ever reaches the model.
 :::
@@ -1003,6 +1014,12 @@ An LLM follows instructions in its **input** — so attackers hide instructions 
 - Worse with **agents** (they can *act*) and **RAG** (they read untrusted docs).
 :::
 ::: {.column width="44%"}
+![](images/photos/caution.jpg){.photo}
+
+::: {.credit}
+"Caution Tape" · Picture Perfect Pose · CC BY
+:::
+
 **Defences:** separate instructions from data · least-privilege tools · validate outputs · **human approval** for risky actions.
 :::
 :::
@@ -1022,6 +1039,12 @@ Would you accept *"the AI said so"* from your **surgeon**? Stakeholders, doctors
 - **Tools:** feature importance, **SHAP**, **LIME**, attention / saliency maps.
 :::
 ::: {.column width="48%"}
+![](images/photos/magnifier.jpg){.photo}
+
+::: {.credit}
+"Home Inspection" · MarkMoz12 · CC BY
+:::
+
 ::: {.card}
 Trade-off: the most **accurate** model is often the **least interpretable**. Pick the right point for your stakes.
 :::
