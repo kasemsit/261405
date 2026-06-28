@@ -2,3 +2,13 @@ flowchart TD
   S[Start: random knobs<br/>high loss] --> D1[Step downhill]
   D1 --> D2[Step downhill]
   D2 --> Min[Low loss<br/>good model]
+
+  classDef inp   fill:#e8f0fe,stroke:#1a73a8,color:#10406b,stroke-width:1.5px;
+  classDef proc  fill:#f3e8fd,stroke:#8430ce,color:#4a1d75,stroke-width:1.5px;
+  classDef model fill:#fde7e9,stroke:#b8232f,color:#7a1f2b,stroke-width:2px;
+  classDef good  fill:#e6f4ea,stroke:#137333,color:#0b5e26,stroke-width:1.5px;
+  classDef warn  fill:#fff3e0,stroke:#e08600,color:#8a5200,stroke-width:1.5px;
+  classDef store fill:#eceff1,stroke:#5f7d8c,color:#324a54,stroke-width:1.5px;
+  class S warn;
+  class D1,D2 proc;
+  class Min good;

@@ -72,22 +72,31 @@ ax.set_title("Small speed changes → real money", color="#7a1f2b", fontweight="
 fig.tight_layout(); fig.savefig("images/latency-bar.svg", transparent=True, bbox_inches="tight")
 print("saved images/latency-bar.svg")
 
-# ---------- 4) Model scaling over time ----------
-fig, ax = plt.subplots(figsize=(7.4, 3.8))
-models = [("GPT-1", 2018, 0.117), ("BERT", 2018, 0.34), ("GPT-2", 2019, 1.5),
-          ("GPT-3", 2020, 175), ("PaLM", 2022, 540)]
-xs = [m[1] for m in models]; ys = [m[2] for m in models]
-ax.scatter(xs, ys, s=80, color=RED, zorder=3)
+# ---------- 4) Model scaling over time (2018 → 2026) ----------
+fig, ax = plt.subplots(figsize=(7.8, 3.9))
+# publicly disclosed sizes (dense models)
+disc = [("GPT-1", 2018, 0.117), ("BERT", 2018, 0.34), ("GPT-2", 2019, 1.5),
+        ("GPT-3", 2020, 175), ("PaLM", 2022, 540)]
+xs = [m[1] for m in disc]; ys = [m[2] for m in disc]
 ax.plot(xs, ys, color=RED, lw=1.5, alpha=0.5, zorder=2)
-for name, yr, p in models:
-    ax.annotate(f"{name}\n{p:g}B", (yr, p), xytext=(0, 10), textcoords="offset points",
-                ha="center", fontsize=10, color=INK)
+ax.scatter(xs, ys, s=75, color=RED, zorder=3)
+for name, yr, p in disc:
+    ax.annotate(f"{name}\n{p:g}B", (yr, p), xytext=(0, 9), textcoords="offset points",
+                ha="center", fontsize=9.5, color=INK)
+# estimated frontier — labs stopped disclosing sizes; GPT-4 rumoured ~1.8T (MoE)
+ax.plot([2022, 2023], [540, 1800], color=RED, lw=1.5, alpha=0.3, ls="--", zorder=2)
+ax.scatter([2023], [1800], s=90, facecolors="none", edgecolors=RED, linewidths=2, zorder=3)
+ax.annotate("GPT-4\n~1.8T (est.)", (2023, 1800), xytext=(0, 10), textcoords="offset points",
+            ha="center", fontsize=9.5, color=MUTE)
+# 2024–2026: sizes undisclosed
+ax.axvspan(2023.5, 2026.4, color="#f4c542", alpha=0.12, zorder=0)
+ax.text(2025.0, 4.0, "2024–26:\nsizes undisclosed\n(sparse MoE)",
+        color="#8a5200", style="italic", fontsize=8.8, ha="center", va="center")
 ax.set_yscale("log"); ax.set_ylabel("parameters (billions, log)")
-ax.set_xticks([2018, 2019, 2020, 2021, 2022]); ax.set_ylim(0.05, 2000)
-ax.text(2020.4, 0.12, "→ today: trillions (sparse MoE)", color=MUTE, style="italic", fontsize=10)
+ax.set_xticks([2018, 2020, 2022, 2024, 2026]); ax.set_xlim(2017.3, 2026.6); ax.set_ylim(0.05, 7000)
 for s in ["top", "right"]: ax.spines[s].set_visible(False)
 for s in ax.spines.values(): s.set_color("#cdd4dc")
-ax.set_title("Bigger and bigger: the scale race", color="#7a1f2b", fontweight="bold")
+ax.set_title("Bigger and bigger: the scale race (2018 → 2026)", color="#7a1f2b", fontweight="bold", fontsize=12)
 fig.tight_layout(); fig.savefig("images/scaling.svg", transparent=True, bbox_inches="tight")
 print("saved images/scaling.svg")
 
@@ -126,3 +135,36 @@ ax.add_patch(plt.Rectangle((1.5, 5.5), 1, 1, fill=False, edgecolor="#137333", lw
 ax.set_title("Self-attention: \"it\" → \"animal\"", color="#7a1f2b", fontweight="bold")
 fig.tight_layout(); fig.savefig("images/attention.svg", transparent=True, bbox_inches="tight")
 print("saved images/attention.svg")
+
+# ---------- 7) Confusion matrix (for the metrics slide) ----------
+fig, ax = plt.subplots(figsize=(5.0, 4.3))
+cells = [["TP", "FN"], ["FP", "TN"]]
+desc  = [["caught it\n(correct)", "missed it\n(false neg)"],
+         ["false alarm\n(false pos)", "correct\nrejection"]]
+fills = [["#e6f4ea", "#fff3e0"], ["#fff3e0", "#e6f4ea"]]
+for i in range(2):
+    for j in range(2):
+        ax.add_patch(plt.Rectangle((j, 1 - i), 1, 1, facecolor=fills[i][j], edgecolor="#cdd4dc", lw=1.2))
+        ax.text(j + 0.5, 1 - i + 0.62, cells[i][j], ha="center", va="center", fontweight="bold", fontsize=17, color=INK)
+        ax.text(j + 0.5, 1 - i + 0.28, desc[i][j], ha="center", va="center", fontsize=9, color=MUTE)
+ax.set_xlim(-0.02, 2.02); ax.set_ylim(-0.02, 2.02)
+ax.set_xticks([0.5, 1.5]); ax.set_xticklabels(["predicted +", "predicted −"], fontsize=11)
+ax.set_yticks([1.5, 0.5]); ax.set_yticklabels(["actual +", "actual −"], fontsize=11, rotation=90, va="center")
+ax.tick_params(length=0)
+for s in ax.spines.values(): s.set_visible(False)
+ax.set_title("Confusion matrix", color="#7a1f2b", fontweight="bold")
+fig.tight_layout(); fig.savefig("images/confusion.svg", transparent=True, bbox_inches="tight")
+print("saved images/confusion.svg")
+
+# ---------- 8) Clustering (for the unsupervised slide) ----------
+fig, ax = plt.subplots(figsize=(5.2, 4.0))
+rng = np.random.default_rng(5)
+for c, col, lab in [((1.1, 1.1), RED, "group A"), ((3.1, 3.0), BLUE, "group B"), ((1.0, 3.2), GREEN, "group C")]:
+    p = rng.normal(c, 0.42, (22, 2))
+    ax.scatter(p[:, 0], p[:, 1], color=col, s=32, alpha=0.9, label=lab)
+ax.set_xticks([]); ax.set_yticks([])
+for s in ax.spines.values(): s.set_color("#cdd4dc")
+ax.legend(frameon=False, fontsize=10, loc="lower right")
+ax.set_title("Clustering: structure with no labels", color="#7a1f2b", fontweight="bold", fontsize=12)
+fig.tight_layout(); fig.savefig("images/clustering.svg", transparent=True, bbox_inches="tight")
+print("saved images/clustering.svg")

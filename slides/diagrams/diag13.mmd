@@ -1,7 +1,18 @@
 flowchart LR
-  G([Goal]) --> P[Perceive<br/>read context]
-  P --> Pl[Plan<br/>pick next step]
-  Pl --> A[Act<br/>use a tool]
-  A --> O[Observe<br/>see the result]
-  O --> Pl
-  O -. done .-> D([Answer])
+  G([Goal]) --> B[LLM<br/>plan &amp; decide]
+  B -->|"① act: use a tool"| T[Tool]
+  T -->|"② observe result"| B
+  MEM[(Memory)] -.-> B
+  T -. via MCP .-> TLS[web search · run code<br/>call API · read files / DB]
+  B ==>|done| ANS([Final answer<br/>/ action taken])
+
+  classDef inp   fill:#e8f0fe,stroke:#1a73a8,color:#10406b,stroke-width:1.5px;
+  classDef proc  fill:#f3e8fd,stroke:#8430ce,color:#4a1d75,stroke-width:1.5px;
+  classDef model fill:#fde7e9,stroke:#b8232f,color:#7a1f2b,stroke-width:2px;
+  classDef good  fill:#e6f4ea,stroke:#137333,color:#0b5e26,stroke-width:1.5px;
+  classDef store fill:#eceff1,stroke:#5f7d8c,color:#324a54,stroke-width:1.5px;
+  class G inp;
+  class B model;
+  class T,TLS proc;
+  class MEM store;
+  class ANS good;

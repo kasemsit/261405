@@ -1,0 +1,23 @@
+flowchart TB
+  subgraph IDX["① Index your documents — offline, once"]
+    direction LR
+    D[Documents<br/>PDFs · wiki · DB] --> C[Chunk into<br/>passages] --> EM[Embed<br/>each chunk] --> VDB[(Vector DB)]
+  end
+  subgraph QRY["② Answer a question — online"]
+    direction LR
+    Q[User<br/>question] --> QE[Embed] --> SR[Similarity<br/>search] --> TK[Top-k<br/>chunks] --> PR[Prompt =<br/>question + chunks] --> LLM[LLM] --> AN[Grounded<br/>answer + citations]
+  end
+  VDB -. retrieve .-> SR
+
+  classDef inp   fill:#e8f0fe,stroke:#1a73a8,color:#10406b,stroke-width:1.5px;
+  classDef proc  fill:#f3e8fd,stroke:#8430ce,color:#4a1d75,stroke-width:1.5px;
+  classDef model fill:#fde7e9,stroke:#b8232f,color:#7a1f2b,stroke-width:2px;
+  classDef good  fill:#e6f4ea,stroke:#137333,color:#0b5e26,stroke-width:1.5px;
+  classDef store fill:#eceff1,stroke:#5f7d8c,color:#324a54,stroke-width:1.5px;
+  class D,Q inp;
+  class C,EM,QE,SR,TK,PR proc;
+  class VDB store;
+  class LLM model;
+  class AN good;
+  style IDX fill:#fbfdff,stroke:#cdd4dc,color:#5f7d8c;
+  style QRY fill:#fffdf7,stroke:#cdd4dc,color:#5f7d8c;

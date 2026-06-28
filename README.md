@@ -35,12 +35,17 @@ quarto render ml-intro.qmd --to pdf      # needs a recent Chrome/Chromium
 ## Deployment (automatic, via GitHub Actions)
 
 Every push to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
-which renders the deck and publishes it to **GitHub Pages** — the deck is served as the
-site's home page (`index.html`).
+which renders the deck and publishes to **GitHub Pages**:
+
+| URL | Page |
+|-----|------|
+| `https://kasemsit.github.io/261405/` | **Course landing page** ([`index.html`](index.html)) — links to each lecture |
+| `…/ml-intro.html` | the ML slide deck |
+
+Add more lectures by dropping another card into [`index.html`](index.html).
 
 **One-time setup on GitHub:** repo **Settings → Pages → Build and deployment →
-Source: _GitHub Actions_**. After the first successful run the slides are live at the
-URL above.
+Source: _GitHub Actions_**. After the first successful run the site is live at the URL above.
 
 > CI only needs Quarto: the diagrams/charts are committed as SVGs, so no
 > mermaid-cli or matplotlib runs at build time.

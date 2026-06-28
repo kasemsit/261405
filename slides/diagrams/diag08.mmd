@@ -10,3 +10,15 @@ flowchart TD
   T --> D[Deploy]
   D --> R4[Data shifts over time → retrain]
   R4 --> C
+
+  classDef inp   fill:#e8f0fe,stroke:#1a73a8,color:#10406b,stroke-width:1.5px;
+  classDef proc  fill:#f3e8fd,stroke:#8430ce,color:#4a1d75,stroke-width:1.5px;
+  classDef model fill:#fde7e9,stroke:#b8232f,color:#7a1f2b,stroke-width:2px;
+  classDef good  fill:#e6f4ea,stroke:#137333,color:#0b5e26,stroke-width:1.5px;
+  classDef warn  fill:#fff3e0,stroke:#e08600,color:#8a5200,stroke-width:1.5px;
+  classDef store fill:#eceff1,stroke:#5f7d8c,color:#324a54,stroke-width:1.5px;
+  class M proc;
+  class C inp;
+  class T model;
+  class R1,R2,R3,R4 warn;
+  class D good;
