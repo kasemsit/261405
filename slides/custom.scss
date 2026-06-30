@@ -60,6 +60,10 @@ $code-block-font-size: 0.7em;
   padding: 0.5em 0.8em;
   margin: 0.3em 0;
 }
+// Colour variants — e.g. {.card .blue} for a secondary / reference card
+.reveal .card.blue  { border-left-color: #1d4ed8; background: #f5f7ff; }
+.reveal .card.green { border-left-color: #137333; background: #f0faf4; }
+.reveal .card.muted { border-left-color: #9aa5b1; background: #f7f8fa; }
 
 // Image placeholder boxes
 .reveal .placeholder {

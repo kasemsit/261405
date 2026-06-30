@@ -1,0 +1,66 @@
+<svg viewBox="0 0 1040 322" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="ic-arr" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#555"/>
+    </marker>
+    <marker id="ic-arr-r" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#b8232f"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Row 1 ===== -->
+  <!-- P: input -->
+  <rect x="14" y="22" width="212" height="66" rx="8" fill="#e8f0fe" stroke="#1a73a8" stroke-width="1.8"/>
+  <text x="120" y="49" text-anchor="middle" font-size="15.5" font-weight="600" fill="#10406b">Photo of</text>
+  <text x="120" y="68" text-anchor="middle" font-size="15.5" font-weight="600" fill="#10406b">the monitor</text>
+
+  <!-- D -->
+  <rect x="281" y="22" width="212" height="66" rx="8" fill="#f3e8fd" stroke="#8430ce" stroke-width="1.8"/>
+  <text x="387" y="49" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">Detect &amp; rectify</text>
+  <text x="387" y="68" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">the screen</text>
+
+  <!-- R -->
+  <rect x="548" y="22" width="212" height="66" rx="8" fill="#f3e8fd" stroke="#8430ce" stroke-width="1.8"/>
+  <text x="654" y="49" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">Locate each</text>
+  <text x="654" y="68" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">value field</text>
+
+  <!-- O -->
+  <rect x="815" y="22" width="212" height="66" rx="8" fill="#f3e8fd" stroke="#8430ce" stroke-width="1.8"/>
+  <text x="921" y="49" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">Read the digits</text>
+  <text x="921" y="68" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">(OCR)</text>
+
+  <!-- ===== Row 2 ===== -->
+  <!-- A -->
+  <rect x="815" y="150" width="212" height="66" rx="8" fill="#f3e8fd" stroke="#8430ce" stroke-width="1.8"/>
+  <text x="921" y="177" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">Assign to a parameter</text>
+  <text x="921" y="196" text-anchor="middle" font-size="15.5" font-weight="600" fill="#4a1d75">(colour / position)</text>
+
+  <!-- V: warn -->
+  <rect x="548" y="150" width="212" height="66" rx="8" fill="#fff3e0" stroke="#e08600" stroke-width="1.8"/>
+  <text x="654" y="177" text-anchor="middle" font-size="15.5" font-weight="600" fill="#8a5200">Validate vs</text>
+  <text x="654" y="196" text-anchor="middle" font-size="15.5" font-weight="600" fill="#8a5200">physiological ranges</text>
+
+  <!-- S: good -->
+  <rect x="281" y="150" width="212" height="66" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+  <text x="387" y="177" text-anchor="middle" font-size="15.5" font-weight="600" fill="#0b5e26">Structured vitals</text>
+  <text x="387" y="196" text-anchor="middle" font-size="15.5" font-weight="600" fill="#0b5e26">+ confidence</text>
+
+  <!-- H: human (branch) -->
+  <rect x="548" y="250" width="212" height="62" rx="8" fill="#fde7e9" stroke="#b8232f" stroke-width="2"/>
+  <text x="654" y="277" text-anchor="middle" font-size="15.5" font-weight="600" fill="#7a1f2b">Ask a human</text>
+  <text x="654" y="296" text-anchor="middle" font-size="15.5" font-weight="600" fill="#7a1f2b">to confirm</text>
+
+  <!-- ===== arrows ===== -->
+  <line x1="226" y1="55" x2="279" y2="55" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <line x1="493" y1="55" x2="546" y2="55" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <line x1="760" y1="55" x2="813" y2="55" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <!-- wrap O -> A -->
+  <line x1="921" y1="88" x2="921" y2="148" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <!-- A -> V -> S (leftward) -->
+  <line x1="815" y1="183" x2="762" y2="183" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <line x1="548" y1="183" x2="495" y2="183" stroke="#555" stroke-width="2.2" marker-end="url(#ic-arr)"/>
+  <!-- V -> H branch -->
+  <line x1="654" y1="216" x2="654" y2="248" stroke="#b8232f" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#ic-arr-r)"/>
+  <text x="668" y="240" font-size="13" font-style="italic" fill="#b8232f">low confidence</text>
+</svg>

@@ -755,7 +755,7 @@ When prompting isn't enough, **adjust the model's weights** on your own labelled
 
 ## Agentic AI: LLMs that *act* {.smaller}
 
-A plain LLM only **talks**. An **agent** wraps the LLM in a loop so it can **use tools and get things done**.
+A plain LLM only **talks**. An **agent** wraps the LLM in a loop — its **harness** (the *scaffold* of tools, memory & control around the model) — so it can **use tools and get things done**.
 
 ![](images/diag13.svg){.diagram}
 
@@ -774,7 +774,26 @@ Powerful **and** risky: an agent that *acts* can act *wrong* — or be **attacke
 :::
 
 ::: {.src}
-Mid-2026: MCP is now an open standard (Agentic AI Foundation); agent tooling still evolves fast — learn the **loop**, not the product.
+Mid-2026: the **harness** often matters as much as the model — the same LLM under a better harness can swing solve rates by *tens of points* on benchmarks like SWE-bench ([SWE-agent](https://arxiv.org/abs/2405.15793); [Harness-Bench](https://arxiv.org/abs/2605.27922)). MCP is now an open standard (Agentic AI Foundation); learn the **loop**, not the product.
+:::
+
+## What is a *harness*? {.smaller}
+
+A model only **predicts text** — it can't run code, browse, or remember on its own. The **harness** is the program that *wraps* the model: it runs the **loop**, executes **tools**, and manages **context, memory & guardrails**.
+
+![](images/harness.svg){.diagram width="72%"}
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.card}
+You're using one right now: **Claude Code · Cursor · Codex** are harnesses. The LLM *says* "use this tool" — the **harness actually runs it**.
+:::
+:::
+::: {.column width="45%"}
+::: {.card .blue}
+Same model, better harness → big gains: [SWE-agent](https://arxiv.org/abs/2405.15793) · [Harness-Bench](https://arxiv.org/abs/2605.27922)
+:::
+:::
 :::
 
 ## Project context files: สอน AI ให้รู้จัก project {.smaller}
@@ -1415,25 +1434,37 @@ How would *you* build this?
 Photo: Philips IntelliVue MP70 patient monitor.
 :::
 
-## Your task — brainstorm (15 min, groups of 4–5) {background-color="#f4c542" .smaller}
+## Your task — brainstorm (15 min, groups of 4–5) {.smaller background-color="#f4c542"}
 
 Use today's lenses. Jot down ideas — **no wrong answers yet**.
 
 ::: {.columns}
 ::: {.column width="50%"}
+::: {.card}
 **Framing** — classification? regression? detection? OCR? One model or a pipeline?
+:::
 
+::: {.card}
 **Data** — where do images come from? How many monitor brands? How to **label**? Patient privacy?
+:::
 
+::: {.card}
 **Approach** — classical CV? a detector + digit reader? Could a **vision LLM** just read it?
+:::
 :::
 
 ::: {.column width="50%"}
+::: {.card}
 **Evaluation** — what metric? How accurate is "good enough"? Where's the **ground truth**?
+:::
 
+::: {.card}
 **Production** — phone or cloud? Real-time or snapshot? **Glare, angle, lighting**?
+:::
 
+::: {.card}
 **Risks** — what if it reads **154 as 54**? Who's responsible? A regulated medical device?
+:::
 :::
 :::
 
@@ -1441,7 +1472,7 @@ Use today's lenses. Jot down ideas — **no wrong answers yet**.
 
 A typical pipeline is **several models**, not one:
 
-![](images/diag12.svg){.diagram}
+![](images/icu-pipeline.svg){.diagram width="96%"}
 
 ::: {.card}
 Notice how every part of today's lecture shows up: **framing**, **data & labels**, **evaluation**, **latency**, and **safety**.
@@ -1455,6 +1486,7 @@ Notice how every part of today's lecture shows up: **framing**, **data & labels*
 - **A vision LLM is tempting** but can **hallucinate a number** — unacceptable for a vital sign. Constrain it, cross-check ranges, show confidence.
 - **Safety first** — a wrong reading can harm a patient. Keep a **human in the loop**; validate against physiological ranges.
 - **"Good enough" is high** — per-field exact-match, with the system **refusing** to guess when unsure.
+- **Integration is half the battle** — readings must flow into the **EMR / HIS** (**HL7 / FHIR**), fit existing **alarms & nurse workflow**, and pass hospital **IT security & PDPA** review. An accurate model that can't plug in ships nothing.
 :::
 
 ## Recap {.smaller}
@@ -1466,8 +1498,9 @@ Notice how every part of today's lecture shows up: **framing**, **data & labels*
 - Text → **tokens → embeddings**; the **Transformer** powers modern NLP.
 - **BERT** understands, **GPT** generates; LLMs scale "predict the next word."
 - ML also **sees**: classification, detection, OCR — and **multimodal LLMs** do both.
-- Using LLMs: **prompt first**, fine-tune later; **agents** add tools + a loop; mind **hallucination & ethics**.
+- Using LLMs: **prompt first**, fine-tune later; **agents** add tools + a loop — the **harness**.
 - **Build & ship:** lifecycle data → train → **serve** → monitor; **MLOps** keeps it healthy.
+- **Ship responsibly:** fairness, privacy (PDPA), security, interpretability, accountability & carbon — ethics is a **design constraint**, not an afterthought.
 :::
 
 ## Where to go next {.smaller}
@@ -1479,6 +1512,7 @@ Notice how every part of today's lecture shows up: **framing**, **data & labels*
 - Hugging Face `transformers` quickstart
 - Build a text classifier (zero-shot → fine-tune)
 - Try an LLM API (Claude / GPT)
+- Give an LLM a **tool** (function calling / MCP)
 :::
 
 ::: {.column width="50%"}
@@ -1487,6 +1521,7 @@ Notice how every part of today's lecture shows up: **framing**, **data & labels*
 - C. Huyen, [*Designing ML Systems*](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
 - J. Alammar & M. Grootendorst, [*Hands-On Large Language Models*](https://www.oreilly.com/library/view/hands-on-large-language/9781098150952/)
 - J. Alammar, [*The Illustrated Transformer*](https://jalammar.github.io/illustrated-transformer/)
+- Anthropic, [*Building Effective Agents*](https://www.anthropic.com/engineering/building-effective-agents)
 :::
 :::
 
@@ -1508,6 +1543,21 @@ Notice how every part of today's lecture shows up: **framing**, **data & labels*
 ::: {.footer-note}
 Several framing/structure ideas in [§3–§4](#types-of-problems) are adapted from Chip Huyen's CS329S.
 :::
+
+## References — agents, vision & responsible AI {.smaller}
+
+**Agents & the harness**
+
+- Yao et al. (2022), [*ReAct: Reasoning + Acting*](https://arxiv.org/abs/2210.03629) · Yang et al. (2024), [*SWE-agent*](https://arxiv.org/abs/2405.15793) · [*Harness-Bench*](https://arxiv.org/abs/2605.27922) (2026)
+- Anthropic, [*Building Effective Agents*](https://www.anthropic.com/engineering/building-effective-agents) · [Model Context Protocol](https://modelcontextprotocol.io)
+
+**Trust, safety & responsible AI**
+
+- Goodfellow et al. (2014), [*Explaining and Harnessing Adversarial Examples*](https://arxiv.org/abs/1412.6572)
+- Ribeiro et al. (2016), [*LIME*](https://arxiv.org/abs/1602.04938) · Lundberg & Lee (2017), [*SHAP*](https://arxiv.org/abs/1705.07874) — interpretability
+- Mitchell et al. (2019), [*Model Cards*](https://arxiv.org/abs/1810.03993) · Gebru et al. (2021), [*Datasheets for Datasets*](https://arxiv.org/abs/1803.09010)
+- Strubell et al. (2019), [*Energy & Policy Considerations*](https://arxiv.org/abs/1906.02243) — green AI · NIST, [*AI Risk Management Framework*](https://www.nist.gov/itl/ai-risk-management-framework)
+- *Getty Images (US) Inc v Stability AI Ltd* [2025] EWHC 2863 (Ch) — training-data copyright
 
 ## {background-color="#7a1f2b"}
 
