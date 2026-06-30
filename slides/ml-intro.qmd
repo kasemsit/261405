@@ -3,7 +3,8 @@ title: "Machine Learning: From Data to Large Language Models"
 subtitle: "261405 — Advanced Computer Engineering Technology"
 author: "Kasemsit Teeyapan"
 institute: "Department of Computer Engineering, Chiang Mai University"
-date: last-modified
+date: "2026-07-01"
+date-format: "D MMM YYYY"
 format:
   revealjs:
     theme: [default, custom.scss]
@@ -447,6 +448,28 @@ Discuss:
 1. What is the **business** objective? The **ML** objective?
 2. Is it classification, regression, or ranking?
 3. How would you measure success — and do you even have ground-truth labels?
+
+::: {.notes}
+แนวทางเฉลย (ไม่มีคำตอบเดียวตายตัว — เน้นกระบวนการคิด framing):
+
+**1) Business vs ML objective**
+- *Business*: เพิ่ม engagement / retention — ช่วยให้ผู้ใช้เห็น "สิ่งที่กำลังเกิดตอนนี้" อยู่กับแพลตฟอร์มนานขึ้น
+- *ML*: ต้องแปลงเป็นเป้าที่ "วัดได้" — เช่น ให้คะแนน *ความกำลังมา (trendiness)* ของแต่ละแฮชแท็ก ณ ตอนนี้ แล้วเอามาจัดอันดับ
+- จุดสำคัญ (โยง §9 proxy metric): **"trending" ≠ "ใช้เยอะสุด"** — #love ถูกใช้เยอะทุกวันแต่ไม่ได้กำลังมา · trending คือ *การพุ่งผิดปกติเทียบกับ baseline* (spike / anomaly / velocity) ถ้า optimize ยอดดิบเฉย ๆ จะได้สแปม/บ็อต/การปั่น
+
+**2) Classification, regression, หรือ ranking?**
+- กรอบที่ดีสุดคือ **ranking** — จัดอันดับแฮชแท็กแล้วโชว์ top-K
+- สัญญาณข้างใต้เป็น **regression** ได้ — ทำนายคะแนนตัวเลข เช่น อัตราเร่งของการใช้งาน (rate of change) ต่อแฮชแท็ก แล้วเรียงตามนั้น
+- *ไม่ใช่* classification (เส้นแบ่ง trending/ไม่ trending เป็น threshold ที่ตั้งเอง) — โยงกลับสไลด์ "Framing" ว่าโจทย์เดียวมองได้หลายแบบ
+
+**3) วัดผล / มี ground truth ไหม?**
+- ตัวยาก: **ไม่มี label "trending" ที่เป็นความจริงสำเร็จรูป** — ต้องสร้างนิยามเอง
+- *Online (ตัววัดจริง)*: A/B test — CTR ของโมดูล trending, dwell time, sessions, retention ปลายทาง
+- *Offline proxy*: backtest — คะแนนที่ทำนายวันนี้ "มาก่อน" ยอดพุ่งจริงในอนาคต (t+1) ไหม
+- *Human / guardrails*: คนรีวิวความเกี่ยวข้อง + กรองการปั่นจากบ็อต, สแปม, NSFW, misinfo (โยง §9)
+
+ประเด็นที่อยากให้นักศึกษาได้: **business objective → ML objective ต้องเลือก proxy ดี ๆ, โจทย์เดียว frame ได้หลายแบบ, และบางงานไม่มี ground truth สำเร็จรูปต้องออกแบบการวัดเอง**
+:::
 
 # 5 · From classic ML to LLMs 💬 {background-color="#7a1f2b" background-image="images/photos/abstract-ai.jpg" background-opacity="0.35"}
 
