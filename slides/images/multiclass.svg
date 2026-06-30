@@ -1,0 +1,66 @@
+<svg viewBox="0 0 740 168" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ════════════ LEFT: Multiclass — Softmax ════════════ -->
+  <rect x="2" y="2" width="355" height="164" rx="10" fill="#fff5f5" stroke="#b8232f" stroke-width="2.5"/>
+
+  <text x="179" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#b8232f">Multiclass — Softmax</text>
+  <text x="179" y="40" text-anchor="middle" font-size="11"              fill="#888">outputs compete · sum = 1 · pick argmax</text>
+
+  <!-- X-axis -->
+  <line x1="50" y1="125" x2="315" y2="125" stroke="#aaa" stroke-width="1.5"/>
+
+  <!-- Bar: cat  value=0.10  → height=6 px  (gray, not winner) -->
+  <rect x="80"  y="119" width="32" height="6"  rx="2" fill="#ccc"/>
+  <text x="96"  y="115" text-anchor="middle" font-size="10.5" fill="#999">0.10</text>
+  <text x="96"  y="140" text-anchor="middle" font-size="12"   fill="#555">cat</text>
+
+  <!-- Bar: dog  value=0.80  → height=51 px  (gold, winner!) -->
+  <rect x="171" y="74"  width="32" height="51" rx="2" fill="#f4c542"/>
+  <text x="187" y="70"  text-anchor="middle" font-size="11"   font-weight="700" fill="#b8900a">0.80 &#10003;</text>
+  <text x="187" y="140" text-anchor="middle" font-size="12"   fill="#555">dog</text>
+
+  <!-- Bar: bird  value=0.10  → height=6 px  (gray) -->
+  <rect x="262" y="119" width="32" height="6"  rx="2" fill="#ccc"/>
+  <text x="278" y="115" text-anchor="middle" font-size="10.5" fill="#999">0.10</text>
+  <text x="278" y="140" text-anchor="middle" font-size="12"   fill="#555">bird</text>
+
+  <!-- Result -->
+  <text x="179" y="157" text-anchor="middle" font-size="13" font-weight="700" fill="#b8232f">&#8594; dog  (one winner)</text>
+
+  <!-- ════════════ RIGHT: Multilabel — Sigmoid ×N ════════════ -->
+  <rect x="383" y="2" width="355" height="164" rx="10" fill="#f0faf4" stroke="#137333" stroke-width="2.5"/>
+
+  <text x="560" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#137333">Multilabel — Sigmoid &#215;N</text>
+  <text x="560" y="40" text-anchor="middle" font-size="11"              fill="#888">each class independent · threshold at 0.5</text>
+
+  <!-- X-axis -->
+  <line x1="431" y1="125" x2="696" y2="125" stroke="#aaa" stroke-width="1.5"/>
+
+  <!-- Threshold line at 0.5 → height=32px from bottom → y=125-32=93 -->
+  <line x1="431" y1="93" x2="700" y2="93" stroke="#888" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="702" y="97" font-size="9.5" fill="#888">0.5</text>
+
+  <!-- Bar: tech  value=0.92  → height=59 px  (green, active) -->
+  <rect x="461" y="66"  width="32" height="59" rx="2" fill="#6ee7b7"/>
+  <text x="477" y="62"  text-anchor="middle" font-size="10.5" font-weight="700" fill="#065f46">0.92 &#10003;</text>
+  <text x="477" y="140" text-anchor="middle" font-size="12"   fill="#555">tech</text>
+
+  <!-- Bar: world  value=0.08  → height=5 px  (gray, inactive) -->
+  <rect x="544" y="120" width="32" height="5"  rx="2" fill="#ccc"/>
+  <text x="560" y="116" text-anchor="middle" font-size="10.5" fill="#999">0.08 &#10007;</text>
+  <text x="560" y="140" text-anchor="middle" font-size="12"   fill="#555">world</text>
+
+  <!-- Bar: politics  value=0.85  → height=54 px  (green, active) -->
+  <rect x="627" y="71"  width="32" height="54" rx="2" fill="#6ee7b7"/>
+  <text x="643" y="67"  text-anchor="middle" font-size="10.5" font-weight="700" fill="#065f46">0.85 &#10003;</text>
+  <text x="643" y="140" text-anchor="middle" font-size="12"   fill="#555">politics</text>
+
+  <!-- Result -->
+  <text x="560" y="157" text-anchor="middle" font-size="13" font-weight="700" fill="#137333">&#8594; {tech, politics}  (multiple winners)</text>
+</svg>

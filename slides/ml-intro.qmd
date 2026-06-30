@@ -230,7 +230,7 @@ A good **test** score — not a good *training* score — is what matters.
 
 ## How good is a classifier? {.smaller}
 
-**Accuracy can lie.** If 99% of transactions are legit, a model that says *"always legit"* scores 99% — and is useless.
+**Accuracy can lie.** If 99% of transactions are legit, a model that says **."always legit"** scores 99% — and is useless.
 
 ::: {.columns}
 ::: {.column width="42%"}
@@ -248,7 +248,7 @@ A good **test** score — not a good *training* score — is what matters.
 🔑 **Explore:** `confusion matrix` · `precision` · `recall` · `F1` · `ROC / AUC` · `class imbalance` · `RMSE / MAE`
 :::
 
-## Multiclass vs. multilabel
+## Multiclass vs. multilabel {.smaller}
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -256,7 +256,7 @@ A good **test** score — not a good *training* score — is what matters.
 
 > A photo is *either* cat, dog, *or* bird.
 
-`[0, 1, 0]`
+`[0, 1, 0]` — one-hot (exactly one 1)
 :::
 
 ::: {.column width="50%"}
@@ -264,29 +264,50 @@ A good **test** score — not a good *training* score — is what matters.
 
 > A news article can be *tech* **and** *politics*.
 
-`[1, 0, 1]`
+`[1, 0, 1]` — multi-hot (any number of 1s)
 :::
 :::
 
-. . .
+![](images/multiclass.svg){.diagram width="96%" fig-align="center"}
 
 ::: {.card}
-Framing matters: a multilabel task is often solved as **several independent yes/no classifiers**.
+Framing matters: a multilabel task is often solved as **N independent yes/no classifiers** (one sigmoid per class, not softmax).
 :::
 
-## Framing can make a problem easier or harder
+## Framing — Classification {#framing-can-make-a-problem-easier-or-harder .smaller}
 
-**Problem:** predict which app a user opens next.
+**Problem:** "Which app will this user open next?" — framed as a classification task
 
-::: {.incremental}
-- **As classification:** input = user + context → output = probability for *each* app. Add a new app? You must **retrain**. 😟
-- **As recommendation/ranking:** input = (user, *candidate app*, context) → output = one score. New app? Just **score it**. 😀
-:::
-
-. . .
+![](images/framing-clf.svg){.diagram width="93%" fig-align="center"}
 
 ::: {.card}
-The *same* business problem, framed two ways, leads to very different systems. **Good framing is half the battle.**
+Output layer มี **N neurons** (หนึ่งต่อหนึ่ง app) — สถาปัตยกรรมผูกกับขนาดของ catalogue **ตายตัว**
+:::
+
+## Framing — Recommendation / Ranking {.smaller}
+
+::: {.columns}
+::: {.column width="54%"}
+![](images/framing-rank.svg){.diagram}
+:::
+::: {.column width="46%"}
+**User features** *(context)*
+
+- เวลาของวัน, วันในสัปดาห์
+- ประวัติ app ที่เคยเปิด
+- device type, location
+
+**App features** *(candidate)*
+
+- `app_id` → embedding vector
+- หมวดหมู่ (social, utility …)
+- avg. session length, recency
+:::
+:::
+
+::: {.card}
+Model รู้จัก app จาก**คุณสมบัติ** ไม่ใช่จาก index — เพิ่ม app ใหม่แค่สร้าง feature แล้ว score ได้เลย 😀
+สถาปัตยกรรมแบบนี้เรียกว่า **Two-Tower Model** (YouTube, TikTok, Spotify ใช้กันจริง)
 :::
 
 ## Recommendation systems {.smaller}
@@ -294,17 +315,19 @@ The *same* business problem, framed two ways, leads to very different systems. *
 "You might also like…" — predict what a user wants from **millions of items**. Powers shopping, video, music, and social feeds.
 
 ::: {.columns}
-::: {.column width="55%"}
+::: {.column width="52%"}
 - **Collaborative filtering** — *users like you* liked this.
 - **Content-based** — items *similar* to what you liked.
-- **Modern:** turn users & items into **embeddings** ([← §5!](#from-classic-ml-to-llms)), find nearest neighbours, then **rank**.
-:::
-::: {.column width="45%"}
+- **Modern:** users & items → **embeddings** ([← §5!](#from-classic-ml-to-llms)), find nearest neighbours, then **rank**.
+
 ::: {.card}
 The *["which app next?"](#framing-can-make-a-problem-easier-or-harder)* example we saw earlier *is* a recommender — a real platform feature.
 :::
 
 **Watch out:** *cold start* (new user/item), feedback loops, filter bubbles.
+:::
+::: {.column width="48%"}
+![](images/recsys.svg){.diagram}
 :::
 :::
 
@@ -342,6 +365,8 @@ No answer key — let the data reveal its own patterns.
 :::
 
 ## ML in production: reality
+
+<img src="images/photos/silly-funny.gif" style="position:absolute;top:54px;right:18px;width:190px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);z-index:10">
 
 ![](images/diag08.svg){.diagram}
 
@@ -494,7 +519,7 @@ Sources: Bahdanau et al., [*Neural Machine Translation by Jointly Learning to Al
 **Self-attention** lets "bank" figure out it means *river-bank* by looking at "river". Parallel + scalable → this is the engine of every modern LLM.
 :::
 
-## Two flavors: BERT vs. GPT
+## Two flavors: BERT vs. GPT {.smaller}
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -513,6 +538,8 @@ Sources: Bahdanau et al., [*Neural Machine Translation by Jointly Learning to Al
 - Great for *generating*: chat, writing, code.
 :::
 :::
+
+![](images/bert-vs-gpt.svg){.diagram width="95%"}
 
 . . .
 
@@ -583,7 +610,7 @@ pipe = pipeline("text-generation", model="microsoft/phi-2")
 print(pipe("The capital of Thailand is")[0]["generated_text"])
 ```
 
-## Run an LLM on your *own* machine {.smaller}
+## Run an LLM on your *own* machine 
 
 A big 2026 trend: **open-weight models now run on a laptop** — no API, no data leaving your device.
 
@@ -610,22 +637,93 @@ ollama run qwen3
 🔑 **Explore:** `Ollama` · `LM Studio` · `llama.cpp` · `GGUF` · `quantization (Q4_K_M)` · `GPU offload` · `on-prem inference`
 :::
 
-## A spectrum of "how to use an LLM" {.smaller}
+## How ChatGPT was made (the extra step)
 
-From cheapest/easiest → most effort:
+A raw next-token model isn't automatically helpful or safe. Two extra stages:
 
-::: {.incremental}
-1. **Zero-shot prompt** — just ask. *"Classify this review as positive/negative."*
-2. **Few-shot prompt** — give a couple of examples in the prompt.
-3. **Use a pre-fine-tuned model** — someone already tuned it for your task.
-4. **Train a small classifier** on top of frozen embeddings.
-5. **Fine-tune** the model on your own data — best quality, most work.
-:::
-
-. . .
+![](images/diag11.svg){.diagram}
 
 ::: {.card}
-Rule of thumb: **start with a prompt.** Only fine-tune when prompting isn't good enough.
+**RLHF** = Reinforcement Learning from **Human Feedback**: people rank answers, the model learns to prefer the better ones.
+:::
+
+::: {.src}
+Source: Ouyang et al., [*Training language models to follow instructions with human feedback*](https://arxiv.org/abs/2203.02155) (InstructGPT, 2022).
+:::
+
+## The story didn't stop at ChatGPT {.smaller}
+
+It has moved fast since ChatGPT launched in late 2022. A few directions shaping **2023–2026**:
+
+::: {.columns}
+::: {.column width="50%"}
+- **Multimodal** — one model that reads text **and** sees images, hears audio, watches video ([GPT-5.5](https://openai.com), [Gemini 3](https://gemini.google.com), [Claude Opus 4.x](https://www.anthropic.com/claude)).
+- **Reasoning models** — spend extra compute to "think" before answering (Gemini 3.1 Pro, OpenAI o-series, Claude *extended thinking*, [DeepSeek](https://www.deepseek.com)).
+- **Open-weight models** — download & run your own ([Llama 4](https://www.llama.com), [Qwen 3.5](https://github.com/QwenLM), DeepSeek V4, [Gemma 4](https://ai.google.dev/gemma), [GLM-5](https://z.ai)).
+:::
+
+::: {.column width="50%"}
+- **RAG** — *retrieval-augmented generation*: feed the model your own documents to cut hallucination.
+- **Agents & tool use** — models that call APIs, run code, browse, and act over many steps.
+- **Smaller & on-device** — capable models that run on a laptop or phone; **MoE** keeps big models efficient.
+:::
+:::
+
+::: {.card}
+The **fundamentals** in this lecture (data, training, embeddings, Transformers) still underpin **all** of these.
+:::
+
+::: {.notes}
+(Presenter) Frontier examples as of mid-2026 — model names change fast; check the latest before class.
+:::
+
+## A spectrum of "how to use an LLM" {.smaller}
+
+| Technique | Example / When to use | Cost / Effort |
+|:--|:--|:--:|
+| **Zero-shot prompt** | *"Classify this review as positive/negative."* | ⭐ |
+| **Few-shot prompt** | Add 2–5 labelled examples to the prompt | ⭐ |
+| **Pre-fine-tuned model** | Load a task-specific checkpoint someone else trained | ⭐⭐ |
+| **[RAG](#rag-give-the-llm-your-knowledge)** | Index your docs; model answers from them — ↓ hallucination | ⭐⭐⭐ |
+| **Classifier on embeddings** | Train a tiny head on top of frozen LLM features | ⭐⭐⭐ |
+| **[Fine-tune](#fine-tuning-teach-the-model-your-task)** | Adjust weights on your own labelled data — best quality, most work | ⭐⭐⭐⭐⭐ |
+
+::: {.card}
+Rule of thumb: **start with a prompt.** Try **RAG** before fine-tuning — it adds knowledge without retraining.
+:::
+
+## Prompt engineering, briefly
+
+::: {.columns}
+::: {.column width="50%"}
+**Weak prompt**
+
+> "Sentiment?"
+:::
+
+::: {.column width="50%"}
+**Strong prompt**
+
+> "You are a sentiment classifier. Reply with exactly one word: POSITIVE or NEGATIVE.
+>
+> Review: *'The food was cold and late.'*"
+:::
+:::
+
+::: {.incremental}
+- Be **specific** about the role, task, and output format.
+- Give **examples** when you can.
+- Constrain the output so it's easy to parse.
+:::
+
+## RAG: give the LLM *your* knowledge {.smaller}
+
+An LLM doesn't know your **private** or **latest** data — and may **hallucinate**. **RAG** fixes that *without* retraining: retrieve relevant documents, then let the model answer from them.
+
+![](images/diag16.svg){.diagram}
+
+::: {.keywords}
+🔑 **Explore:** `retrieval-augmented generation` · `embeddings` ([← §5!](#from-classic-ml-to-llms)) · `vector database (FAISS · pgvector · Pinecone)` · `semantic search` · `chunking` · `top-k retrieval` · `grounding / citations`
 :::
 
 ## Fine-tuning: teach the model *your* task {.smaller}
@@ -655,80 +753,6 @@ When prompting isn't enough, **adjust the model's weights** on your own labelled
 🔑 **Explore:** `fine-tuning` · `LoRA` · `PEFT / adapters` · `instruction tuning` · `catastrophic forgetting` · `RAG vs fine-tuning`
 :::
 
-## Prompt engineering, briefly
-
-::: {.columns}
-::: {.column width="50%"}
-**Weak prompt**
-
-> "Sentiment?"
-:::
-
-::: {.column width="50%"}
-**Strong prompt**
-
-> "You are a sentiment classifier. Reply with exactly one word: POSITIVE or NEGATIVE.
->
-> Review: *'The food was cold and late.'*"
-:::
-:::
-
-::: {.incremental}
-- Be **specific** about the role, task, and output format.
-- Give **examples** when you can.
-- Constrain the output so it's easy to parse.
-:::
-
-## How ChatGPT was made (the extra step)
-
-A raw next-token model isn't automatically helpful or safe. Two extra stages:
-
-![](images/diag11.svg){.diagram}
-
-::: {.card}
-**RLHF** = Reinforcement Learning from **Human Feedback**: people rank answers, the model learns to prefer the better ones.
-:::
-
-::: {.src}
-Source: Ouyang et al., [*Training language models to follow instructions with human feedback*](https://arxiv.org/abs/2203.02155) (InstructGPT, 2022).
-:::
-
-## The story didn't stop at ChatGPT {.smaller}
-
-It has moved fast since late 2022. A few directions shaping **2023–2026**:
-
-::: {.columns}
-::: {.column width="50%"}
-- **Multimodal** — one model that reads text **and** sees images, hears audio, watches video ([GPT-5.5](https://openai.com), [Gemini 3](https://gemini.google.com), [Claude Opus 4.x](https://www.anthropic.com/claude)).
-- **Reasoning models** — spend extra compute to "think" before answering (Gemini 3.1 Pro, OpenAI o-series, Claude *extended thinking*, [DeepSeek](https://www.deepseek.com)).
-- **Open-weight models** — download & run your own ([Llama 4](https://www.llama.com), [Qwen 3.5](https://github.com/QwenLM), DeepSeek V4, [Gemma 4](https://ai.google.dev/gemma), [GLM-5](https://z.ai)).
-:::
-
-::: {.column width="50%"}
-- **RAG** — *retrieval-augmented generation*: feed the model your own documents to cut hallucination.
-- **Agents & tool use** — models that call APIs, run code, browse, and act over many steps.
-- **Smaller & on-device** — capable models that run on a laptop or phone; **MoE** keeps big models efficient.
-:::
-:::
-
-::: {.card}
-The **fundamentals** in this lecture (data, training, embeddings, Transformers) still underpin **all** of these.
-:::
-
-::: {.notes}
-(Presenter) Frontier examples as of mid-2026 — model names change fast; check the latest before class.
-:::
-
-## RAG: give the LLM *your* knowledge {.smaller}
-
-An LLM doesn't know your **private** or **latest** data — and may **hallucinate**. **RAG** fixes that *without* retraining: retrieve relevant documents, then let the model answer from them.
-
-![](images/diag16.svg){.diagram}
-
-::: {.keywords}
-🔑 **Explore:** `retrieval-augmented generation` · `embeddings` ([← §5!](#from-classic-ml-to-llms)) · `vector database (FAISS · pgvector · Pinecone)` · `semantic search` · `chunking` · `top-k retrieval` · `grounding / citations`
-:::
-
 ## Agentic AI: LLMs that *act* {.smaller}
 
 A plain LLM only **talks**. An **agent** wraps the LLM in a loop so it can **use tools and get things done**.
@@ -746,11 +770,110 @@ A plain LLM only **talks**. An **agent** wraps the LLM in a loop so it can **use
 :::
 
 ::: {.card}
-Powerful **and** risky: an agent that *acts* can act *wrong* — or be **attacked** (malicious tools/skills, exposed servers). Keep a **human in the loop** — like our ICU capstone.
+Powerful **and** risky: an agent that *acts* can act *wrong* — or be **attacked** (malicious tools/skills, exposed servers). Keep a **human in the loop** — like [our ICU capstone](#icu-capstone).
 :::
 
 ::: {.src}
 Mid-2026: MCP is now an open standard (Agentic AI Foundation); agent tooling still evolves fast — learn the **loop**, not the product.
+:::
+
+## Project context files: สอน AI ให้รู้จัก project {.smaller}
+
+Agent ต้องการ "memory" ที่อธิบาย project ให้ตัวเอง — AI coding tools แก้ปัญหานี้ด้วยไฟล์ text ที่วางไว้ใน repo ให้ AI อ่านและ inject เป็น context ทุก session เหมือนเขียน "นโยบาย" ให้ AI ก่อนเริ่มงาน โดยไม่ต้องอธิบาย project ใหม่ทุกครั้ง
+
+::: {.columns}
+::: {.column width="52%"}
+| Tool | ไฟล์ context |
+|---|---|
+| Claude Code | `CLAUDE.md` |
+| OpenAI Codex | `AGENTS.md` ★ |
+| Gemini CLI | `GEMINI.md` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| Cursor | `.cursor/rules/*.mdc` |
+| Windsurf | `.windsurfrules` |
+
+(OpenAI donate ให้ Linux Foundation ปลาย 2025 — รองรับโดย Codex, Cursor, Gemini CLI และอีก 20+ tools
+**แต่ Claude Code ใช้ `CLAUDE.md` ของตัวเอง ไม่อ่าน AGENTS.md**)
+:::
+::: {.column width="48%"}
+```
+myproject/
+├── CLAUDE.md   ← Claude Code อ่านอัตโนมัติ
+├── AGENTS.md   ← Codex · Cursor · Gemini CLI ฯลฯ
+├── src/
+└── tests/
+```
+
+**สิ่งสำคัญ:**
+
+- ไฟล์นี้ *influence* พฤติกรรม แต่ไม่ *enforce*
+- prompt injection ผ่าน context file ยังทำได้ — ใช้ repo ทางการเท่านั้น
+
+::: {.card}
+หลักการของ **Karpathy** สำหรับ AI-assisted coding — เผยแพร่ผ่าน X และถูก community รวบรวมเป็น skills file — คือตัวอย่างที่โด่งดังที่สุดของ pattern นี้
+:::
+:::
+:::
+
+::: {.src}
+ที่มา: OpenAI, [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md); DeployHQ, [CLAUDE.md, AGENTS.md & Copilot Instructions](https://www.deployhq.com/blog/ai-coding-config-files-guide); Karpathy, X (ม.ค. 2026)
+:::
+
+## 4 principles from Karpathy for AI-assisted coding {.smaller}
+
+*Rules like these go directly in your `CLAUDE.md` to constrain how the agent behaves on every task.*
+
+::: {.columns}
+::: {.column width="50%"}
+**① Think Before Coding**
+Clarify assumptions up front. If the task is ambiguous, ask — don't guess silently.
+
+**② Simplicity First**
+Write the least code that solves the problem — no premature abstraction, no unrequested features.
+
+**③ Surgical Changes**
+Touch only what was asked. Every changed line must trace directly back to the request.
+
+**④ Goal-Driven Execution**
+Translate instructions into verifiable success criteria before writing any code.
+:::
+::: {.column width="50%"}
+::: {.card}
+**Goal-Driven: before vs. after**
+
+❌ *"Add email validation"*
+
+✅ *"Users who submit blank or malformed email see error X — both cases have passing tests"*
+:::
+
+Each tool reads **only its own file** — if you use multiple tools, write separate context files.
+
+Beyond context files: **`SKILL.md`** — reusable workflows shared across the team, e.g. `/review-pr` · `/deploy-staging`
+:::
+:::
+
+::: {.keywords}
+🔑 **Explore:** `CLAUDE.md` · `AGENTS.md` · `GEMINI.md` · `SKILL.md` · `Claude Code` · `OpenAI Codex` · `loop engineering` · `prompt injection`
+:::
+
+## From prompting to loop engineering {.smaller}
+
+::: {.big}
+*"I don't prompt Claude anymore.
+I have loops running that prompt Claude.
+My job is to write loops."*
+:::
+
+— **Boris Cherny**, creator of Claude Code, Anthropic (Jun 2026)
+
+. . .
+
+A **loop** runs a goal through the model, evaluates the output (tests · linter · compiler), feeds errors back as context, and iterates until a stopping condition is met — no human in the middle. Both **Claude Code** and **Codex** support this. Your job shifts from *writing the right prompt* to *designing the right loop*.
+
+**Real example** — [Peter Steinberger (@steipete)](https://x.com/steipete/status/2064998499780084154) runs Codex on a 5-minute schedule: triage GitHub issues → delegate review/close actions to parallel Codex sessions → some PRs land autonomously.
+
+::: {.card}
+This is why `CLAUDE.md` / `AGENTS.md` matter: the loop runs unsupervised — your context file is the only instruction it has.
 :::
 
 # 7 · Teaching machines to *see* 👁️ {background-color="#7a1f2b"}
@@ -1057,7 +1180,7 @@ Trade-off: the most **accurate** model is often the **least interpretable**. Pic
 
 # Capstone case study 🏥 {background-color="#7a1f2b"}
 
-## Reading an ICU monitor — automatically {.smaller}
+## Reading an ICU monitor — automatically {.smaller #icu-capstone}
 
 ::: {.columns}
 ::: {.column width="48%"}

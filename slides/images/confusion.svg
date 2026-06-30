@@ -1,140 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="346.165937pt" height="296.0995pt" viewBox="0 0 346.165937 296.0995" xmlns="http://www.w3.org/2000/svg" version="1.1">
- <metadata>
-  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-28T22:19:16.470208</dc:date>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
- </defs>
- <g id="figure_1">
-  <g id="patch_1">
-   <path d="M 0 296.0995 
-L 346.165937 296.0995 
-L 346.165937 0 
-L 0 0 
-L 0 296.0995 
-z
-" style="fill: none"/>
-  </g>
-  <g id="axes_1">
-   <g id="patch_2">
-    <path d="M 21.345938 274.753562 
-L 338.965937 274.753562 
-L 338.965937 25.053562 
-L 21.345938 25.053562 
-L 21.345938 274.753562 
-z
-" style="fill: none"/>
-   </g>
-   <g id="patch_3">
-    <path d="M 24.459859 149.903562 
-L 180.155937 149.903562 
-L 180.155937 27.501602 
-L 24.459859 27.501602 
-z
-" clip-path="url(#p1c42c59734)" style="fill: #e6f4ea; stroke: #cdd4dc; stroke-width: 1.2; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_4">
-    <path d="M 180.155937 149.903562 
-L 335.852016 149.903562 
-L 335.852016 27.501602 
-L 180.155937 27.501602 
-z
-" clip-path="url(#p1c42c59734)" style="fill: #fff3e0; stroke: #cdd4dc; stroke-width: 1.2; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_5">
-    <path d="M 24.459859 272.305523 
-L 180.155937 272.305523 
-L 180.155937 149.903562 
-L 24.459859 149.903562 
-z
-" clip-path="url(#p1c42c59734)" style="fill: #fff3e0; stroke: #cdd4dc; stroke-width: 1.2; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_6">
-    <path d="M 180.155937 272.305523 
-L 335.852016 272.305523 
-L 335.852016 149.903562 
-L 180.155937 149.903562 
-z
-" clip-path="url(#p1c42c59734)" style="fill: #e6f4ea; stroke: #cdd4dc; stroke-width: 1.2; stroke-linejoin: miter"/>
-   </g>
-   <g id="matplotlib.axis_1">
-    <g id="xtick_1">
-     <g id="line2d_1"/>
-     <g id="text_1">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="102.307898" y="286.611844" transform="rotate(-0 102.307898 286.611844)">predicted +</text>
-     </g>
-    </g>
-    <g id="xtick_2">
-     <g id="line2d_2"/>
-     <g id="text_2">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="258.003977" y="286.611844" transform="rotate(-0 258.003977 286.611844)">predicted −</text>
-     </g>
-    </g>
-   </g>
-   <g id="matplotlib.axis_2">
-    <g id="ytick_1">
-     <g id="line2d_3"/>
-     <g id="text_3">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(15.558281 111.994223) rotate(-90)">actual +</text>
-     </g>
-    </g>
-    <g id="ytick_2">
-     <g id="line2d_4"/>
-     <g id="text_4">
-      <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(15.558281 234.396184) rotate(-90)">actual −</text>
-     </g>
-    </g>
-   </g>
-   <g id="text_5">
-    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #1f2933" x="102.307898" y="78.705284" transform="rotate(-0 102.307898 78.705284)">TP</text>
-   </g>
-   <g id="text_6">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(82.306805 113.075435)">caught it</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(83.04157 123.153467)">(correct)</text>
-   </g>
-   <g id="text_7">
-    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #1f2933" x="258.003977" y="78.705284" transform="rotate(-0 258.003977 78.705284)">FN</text>
-   </g>
-   <g id="text_8">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(237.611945 113.075435)">missed it</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(233.879758 123.153467)">(false neg)</text>
-   </g>
-   <g id="text_9">
-    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #1f2933" x="102.307898" y="201.107245" transform="rotate(-0 102.307898 201.107245)">FP</text>
-   </g>
-   <g id="text_10">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(77.252742 235.477396)">false alarm</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(78.706805 245.555427)">(false pos)</text>
-   </g>
-   <g id="text_11">
-    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #1f2933" x="258.003977" y="201.107245" transform="rotate(-0 258.003977 201.107245)">TN</text>
-   </g>
-   <g id="text_12">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(242.249055 235.477396)">correct</text>
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #7b8794" transform="translate(238.37343 245.555427)">rejection</text>
-   </g>
-   <g id="text_13">
-    <text style="font-weight: 700; font-size: 15.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7a1f2b" x="180.155937" y="19.053562" transform="rotate(-0 180.155937 19.053562)">Confusion matrix</text>
-   </g>
-  </g>
- </g>
- <defs>
-  <clipPath id="p1c42c59734">
-   <rect x="21.345938" y="25.053562" width="317.62" height="249.7"/>
-  </clipPath>
- </defs>
+<svg viewBox="0 0 346.17 296.1" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', system-ui, sans-serif">
+
+  <!-- Title -->
+  <text x="180.16" y="19.05" text-anchor="middle" font-size="15.6" font-weight="700" fill="#7a1f2b">Confusion matrix</text>
+
+  <!-- X-axis labels -->
+  <text x="102.31" y="286.61" text-anchor="middle" font-size="11" fill="#1f2933">predicted +</text>
+  <text x="258.00" y="286.61" text-anchor="middle" font-size="11" fill="#1f2933">predicted −</text>
+
+  <!-- Y-axis labels (rotated) -->
+  <text transform="translate(15.56 111.99) rotate(-90)" text-anchor="middle" font-size="11" fill="#1f2933">actual +</text>
+  <text transform="translate(15.56 234.40) rotate(-90)" text-anchor="middle" font-size="11" fill="#1f2933">actual −</text>
+
+  <!-- TP: top-left, green -->
+  <rect x="26.46" y="29.50" width="151.70" height="118.40" rx="8" fill="#e6f4ea" stroke="#cdd4dc" stroke-width="1.2"/>
+  <text x="102.31" y="78.71" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2933">TP</text>
+  <text x="102.31" y="113.08" text-anchor="middle" font-size="9" fill="#7b8794">caught it</text>
+  <text x="102.31" y="123.15" text-anchor="middle" font-size="9" fill="#7b8794">(correct)</text>
+
+  <!-- FN: top-right, amber -->
+  <rect x="182.16" y="29.50" width="151.70" height="118.40" rx="8" fill="#fff3e0" stroke="#cdd4dc" stroke-width="1.2"/>
+  <text x="258.00" y="78.71" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2933">FN</text>
+  <text x="258.00" y="113.08" text-anchor="middle" font-size="9" fill="#7b8794">missed it</text>
+  <text x="258.00" y="123.15" text-anchor="middle" font-size="9" fill="#7b8794">(false neg)</text>
+
+  <!-- FP: bottom-left, amber -->
+  <rect x="26.46" y="151.90" width="151.70" height="118.40" rx="8" fill="#fff3e0" stroke="#cdd4dc" stroke-width="1.2"/>
+  <text x="102.31" y="201.11" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2933">FP</text>
+  <text x="102.31" y="235.48" text-anchor="middle" font-size="9" fill="#7b8794">false alarm</text>
+  <text x="102.31" y="245.56" text-anchor="middle" font-size="9" fill="#7b8794">(false pos)</text>
+
+  <!-- TN: bottom-right, green -->
+  <rect x="182.16" y="151.90" width="151.70" height="118.40" rx="8" fill="#e6f4ea" stroke="#cdd4dc" stroke-width="1.2"/>
+  <text x="258.00" y="201.11" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2933">TN</text>
+  <text x="258.00" y="235.48" text-anchor="middle" font-size="9" fill="#7b8794">correct</text>
+  <text x="258.00" y="245.56" text-anchor="middle" font-size="9" fill="#7b8794">rejection</text>
 </svg>

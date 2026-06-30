@@ -118,25 +118,8 @@ L 229.876364 162.192683
 L 229.876364 162.192683 
 " clip-path="url(#p0620182424)" style="fill: none; stroke: #b8232f; stroke-width: 2.4; stroke-linecap: square"/>
    </g>
-   <g id="patch_3">
-    <path d="M 7.2 217.053563 
-L 7.2 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_4">
-    <path d="M 240.48 217.053563 
-L 240.48 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_5">
-    <path d="M 7.2 217.053563 
-L 240.48 217.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_6">
-    <path d="M 7.2 25.053563 
-L 240.48 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   <g id="patch_3456_p1">
+    <rect x="7.2" y="25.053563" width="233.28" height="192" rx="8" fill="none" stroke="#cdd4dc" stroke-width="0.8"/>
    </g>
    <g id="PathCollection_1">
     <defs>
@@ -170,10 +153,10 @@ z
     </g>
    </g>
    <g id="text_1">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #7b8794" x="22.045091" y="209.053563" transform="rotate(-0 22.045091 209.053563)">too simple</text>
+    <text style="font-size: 11px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: start; fill: #7b8794" x="22.045091" y="209.053563" transform="rotate(-0 22.045091 209.053563)">too simple</text>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 15.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7a1f2b" x="123.84" y="19.053563" transform="rotate(-0 123.84 19.053563)">Underfit</text>
+    <text style="font-weight: 700; font-size: 15.6px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: middle; fill: #7a1f2b" x="123.84" y="19.053563" transform="rotate(-0 123.84 19.053563)">Underfit</text>
    </g>
   </g>
   <g id="axes_2">
@@ -332,25 +315,8 @@ L 477.196364 123.140949
 L 477.196364 123.140949 
 " clip-path="url(#pa9ecf07bfd)" style="fill: none; stroke: #b8232f; stroke-width: 2.4; stroke-linecap: square"/>
    </g>
-   <g id="patch_8">
-    <path d="M 254.52 217.053563 
-L 254.52 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_9">
-    <path d="M 487.8 217.053563 
-L 487.8 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_10">
-    <path d="M 254.52 217.053563 
-L 487.8 217.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_11">
-    <path d="M 254.52 25.053563 
-L 487.8 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   <g id="patch_8911_p2">
+    <rect x="254.52" y="25.053563" width="233.28" height="192" rx="8" fill="none" stroke="#cdd4dc" stroke-width="0.8"/>
    </g>
    <g id="PathCollection_2">
     <g clip-path="url(#pa9ecf07bfd)">
@@ -371,10 +337,10 @@ L 487.8 25.053563
     </g>
    </g>
    <g id="text_3">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #137333" x="269.365091" y="209.053563" transform="rotate(-0 269.365091 209.053563)">captures the trend</text>
+    <text style="font-size: 11px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: start; fill: #137333" x="269.365091" y="209.053563" transform="rotate(-0 269.365091 209.053563)">captures the trend</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 15.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7a1f2b" x="371.16" y="19.053563" transform="rotate(-0 371.16 19.053563)">Good fit</text>
+    <text style="font-weight: 700; font-size: 15.6px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: middle; fill: #7a1f2b" x="371.16" y="19.053563" transform="rotate(-0 371.16 19.053563)">Good fit</text>
    </g>
   </g>
   <g id="axes_3">
@@ -588,25 +554,8 @@ L 724.516364 129.987063
 L 724.516364 129.987063 
 " clip-path="url(#pfc361c40ff)" style="fill: none; stroke: #b8232f; stroke-width: 2.4; stroke-linecap: square"/>
    </g>
-   <g id="patch_13">
-    <path d="M 501.84 217.053563 
-L 501.84 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_14">
-    <path d="M 735.12 217.053563 
-L 735.12 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_15">
-    <path d="M 501.84 217.053563 
-L 735.12 217.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
-   </g>
-   <g id="patch_16">
-    <path d="M 501.84 25.053563 
-L 735.12 25.053563 
-" style="fill: none; stroke: #cdd4dc; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   <g id="patch_131416_p3">
+    <rect x="501.84" y="25.053563" width="233.28" height="192" rx="8" fill="none" stroke="#cdd4dc" stroke-width="0.8"/>
    </g>
    <g id="PathCollection_3">
     <g clip-path="url(#pfc361c40ff)">
@@ -627,22 +576,22 @@ L 735.12 25.053563
     </g>
    </g>
    <g id="text_5">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #b8232f" x="516.685091" y="209.053563" transform="rotate(-0 516.685091 209.053563)">memorizes noise</text>
+    <text style="font-size: 11px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: start; fill: #b8232f" x="516.685091" y="209.053563" transform="rotate(-0 516.685091 209.053563)">memorizes noise</text>
    </g>
    <g id="text_6">
-    <text style="font-weight: 700; font-size: 15.6px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7a1f2b" x="618.48" y="19.053563" transform="rotate(-0 618.48 19.053563)">Overfit</text>
+    <text style="font-weight: 700; font-size: 15.6px; font-family: Inter, 'Segoe UI', system-ui, sans-serif; text-anchor: middle; fill: #7a1f2b" x="618.48" y="19.053563" transform="rotate(-0 618.48 19.053563)">Overfit</text>
    </g>
   </g>
  </g>
  <defs>
   <clipPath id="p0620182424">
-   <rect x="7.2" y="25.053563" width="233.28" height="192"/>
+   <rect x="7.2" y="25.053563" width="233.28" height="192" rx="8"/>
   </clipPath>
   <clipPath id="pa9ecf07bfd">
-   <rect x="254.52" y="25.053563" width="233.28" height="192"/>
+   <rect x="254.52" y="25.053563" width="233.28" height="192" rx="8"/>
   </clipPath>
   <clipPath id="pfc361c40ff">
-   <rect x="501.84" y="25.053563" width="233.28" height="192"/>
+   <rect x="501.84" y="25.053563" width="233.28" height="192" rx="8"/>
   </clipPath>
  </defs>
 </svg>

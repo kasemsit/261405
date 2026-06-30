@@ -1,0 +1,97 @@
+<svg viewBox="0 0 900 228" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+    <marker id="arr-r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#b8232f"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#137333"/>
+    </marker>
+  </defs>
+
+  <!-- ─────── LEFT: Classification (bad) ─────── -->
+  <rect x="2" y="2" width="428" height="224" rx="10" fill="#fff5f5" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="216" y="27" text-anchor="middle" font-size="14" font-weight="700" fill="#b8232f">&#10060;  Classification</text>
+
+  <!-- Input box -->
+  <rect x="14" y="40" width="112" height="28" rx="5" fill="#f7f8fa" stroke="#aaa"/>
+  <text x="70" y="58" text-anchor="middle" font-size="12">user + context</text>
+
+  <!-- Arrow: input → model -->
+  <line x1="126" y1="54" x2="154" y2="54" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Model box -->
+  <rect x="154" y="40" width="64" height="28" rx="5" fill="#7a1f2b"/>
+  <text x="186" y="59" text-anchor="middle" fill="white" font-size="13" font-weight="700">Model</text>
+
+  <!-- Fan-out arrows from right edge of model (218, 54) to output box centres -->
+  <line x1="218" y1="54" x2="246" y2="53"  stroke="#b8232f" stroke-width="1.5" marker-end="url(#arr-r)"/>
+  <line x1="218" y1="54" x2="246" y2="75"  stroke="#b8232f" stroke-width="1.5" marker-end="url(#arr-r)"/>
+  <line x1="218" y1="54" x2="246" y2="100" stroke="#b8232f" stroke-width="1.5" marker-end="url(#arr-r)"/>
+  <line x1="218" y1="54" x2="246" y2="137" stroke="#b8232f" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-r)"/>
+
+  <!-- Output boxes (shifted down 20px to clear the title) -->
+  <rect x="246" y="42" width="104" height="22" rx="4" fill="#fdeec0" stroke="#e8a800"/>
+  <text x="298" y="57" text-anchor="middle" font-size="11.5">P(Instagram)</text>
+
+  <rect x="246" y="64" width="104" height="22" rx="4" fill="#fdeec0" stroke="#e8a800"/>
+  <text x="298" y="79" text-anchor="middle" font-size="11.5">P(YouTube)</text>
+
+  <rect x="246" y="89" width="104" height="22" rx="4" fill="#fdeec0" stroke="#e8a800"/>
+  <text x="298" y="104" text-anchor="middle" font-size="11.5">P(TikTok)</text>
+
+  <text x="298" y="121" text-anchor="middle" font-size="13" fill="#999">&#8942;</text>
+
+  <rect x="246" y="126" width="104" height="22" rx="4" fill="#f8f0f0" stroke="#b8232f" stroke-dasharray="5,3"/>
+  <text x="298" y="141" text-anchor="middle" font-size="11.5" fill="#b8232f">P(NewApp) ???</text>
+
+  <!-- Annotation -->
+  <text x="216" y="163" text-anchor="middle" font-size="12" fill="#555">N apps &#8594; N outputs (fixed!)</text>
+  <text x="216" y="181" text-anchor="middle" font-size="12" fill="#555">New app = output layer grows</text>
+  <text x="216" y="210" text-anchor="middle" font-size="14.5" font-weight="700" fill="#b8232f">&#8594; Must retrain from scratch &#128543;</text>
+
+  <!-- ─────── RIGHT: Ranking (good) ─────── -->
+  <rect x="468" y="2" width="430" height="224" rx="10" fill="#f0faf4" stroke="#137333" stroke-width="2.5"/>
+  <text x="683" y="27" text-anchor="middle" font-size="14" font-weight="700" fill="#137333">&#10003;&#65039;  Recommendation / Ranking</text>
+
+  <!-- Two inputs -->
+  <rect x="478" y="36" width="118" height="26" rx="5" fill="#f7f8fa" stroke="#aaa"/>
+  <text x="537" y="54" text-anchor="middle" font-size="12">user + context</text>
+
+  <rect x="478" y="66" width="118" height="26" rx="5" fill="#d8f3e3" stroke="#137333"/>
+  <text x="537" y="84" text-anchor="middle" font-size="12" fill="#137333">candidate app</text>
+
+  <!-- Arrows: inputs → model -->
+  <line x1="596" y1="49" x2="624" y2="66" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="596" y1="79" x2="624" y2="76" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Model box -->
+  <rect x="624" y="58" width="64" height="28" rx="5" fill="#137333"/>
+  <text x="656" y="77" text-anchor="middle" fill="white" font-size="13" font-weight="700">Model</text>
+
+  <!-- Arrow: model → score -->
+  <line x1="688" y1="72" x2="716" y2="72" stroke="#137333" stroke-width="2" marker-end="url(#arr-g)"/>
+
+  <!-- Score output -->
+  <rect x="716" y="58" width="70" height="28" rx="5" fill="#d8f3e3" stroke="#137333"/>
+  <text x="751" y="77" text-anchor="middle" fill="#137333" font-size="13" font-weight="700">score</text>
+
+  <!-- Label -->
+  <text x="683" y="118" text-anchor="middle" font-size="12" fill="#555">Score each candidate independently:</text>
+
+  <!-- Example run boxes -->
+  <rect x="478" y="126" width="185" height="22" rx="4" fill="#d8f3e3" stroke="#137333"/>
+  <text x="571" y="141" text-anchor="middle" font-size="11.5">(user, Instagram) &#8594; 0.92 &#11088;</text>
+
+  <rect x="478" y="151" width="185" height="22" rx="4" fill="#d8f3e3" stroke="#137333"/>
+  <text x="571" y="166" text-anchor="middle" font-size="11.5">(user, YouTube) &#8594; 0.71</text>
+
+  <rect x="478" y="176" width="185" height="22" rx="4" fill="#d8f3e3" stroke="#137333" stroke-dasharray="5,3"/>
+  <text x="571" y="191" text-anchor="middle" font-size="11.5" fill="#137333">(user, NewApp) &#8594; just score it!</text>
+
+  <!-- Success text -->
+  <text x="683" y="214" text-anchor="middle" font-size="14.5" font-weight="700" fill="#137333">&#8594; No retrain needed &#128512;</text>
+</svg>

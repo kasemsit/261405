@@ -1,0 +1,101 @@
+<svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="arr-r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1d4ed8" fill-opacity="0.6"/>
+    </marker>
+    <marker id="arr-l" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto">
+      <polygon points="8 0, 0 3, 8 6" fill="#1d4ed8" fill-opacity="0.6"/>
+    </marker>
+    <marker id="arr-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#137333"/>
+    </marker>
+  </defs>
+
+  <!-- ════ LEFT: BERT ════ -->
+  <rect x="2" y="2" width="344" height="196" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="174" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4ed8">BERT — Cloze test</text>
+
+  <!-- Bidirectional context arrows -->
+  <text x="174" y="41" text-anchor="middle" font-size="9" font-style="italic" fill="#1d4ed8">bidirectional — reads all context at once</text>
+  <line x1="39" y1="48" x2="307" y2="48" stroke="#1d4ed8" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4,3" marker-end="url(#arr-r)"/>
+  <line x1="307" y1="55" x2="39" y2="55" stroke="#1d4ed8" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4,3" marker-end="url(#arr-l)"/>
+
+  <!-- Token boxes: The cat [MASK] on the mat -->
+  <rect x="39"  y="63" width="40" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="59"  y="79" text-anchor="middle" font-size="12" fill="#1e3a8a">The</text>
+
+  <rect x="83"  y="63" width="40" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="103" y="79" text-anchor="middle" font-size="12" fill="#1e3a8a">cat</text>
+
+  <!-- [MASK] in the middle — filled dark blue -->
+  <rect x="127" y="61" width="54" height="28" rx="5" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="154" y="79" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">[MASK]</text>
+
+  <rect x="185" y="63" width="36" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="203" y="79" text-anchor="middle" font-size="12" fill="#1e3a8a">on</text>
+
+  <rect x="225" y="63" width="40" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="245" y="79" text-anchor="middle" font-size="12" fill="#1e3a8a">the</text>
+
+  <rect x="269" y="63" width="40" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="289" y="79" text-anchor="middle" font-size="12" fill="#1e3a8a">mat</text>
+
+  <!-- Down arrow from [MASK] -->
+  <text x="154" y="99" text-anchor="middle" font-size="9" fill="#1d4ed8">predict</text>
+  <line x1="154" y1="102" x2="154" y2="119" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arr-b)"/>
+
+  <!-- Prediction box -->
+  <rect x="124" y="122" width="60" height="26" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="154" y="139" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">"sat" ✓</text>
+
+  <!-- Bottom note -->
+  <text x="174" y="163" text-anchor="middle" font-size="9.5" fill="#3b82f6">Sees full sentence → predicts hidden token</text>
+  <text x="174" y="177" text-anchor="middle" font-size="9" fill="#555">Good for: classification · search · NLU</text>
+
+  <!-- ════ RIGHT: GPT ════ -->
+  <rect x="354" y="2" width="344" height="196" rx="10" fill="#f0faf4" stroke="#137333" stroke-width="2"/>
+  <text x="526" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#137333">GPT — Next token</text>
+
+  <!-- Left-to-right arrow -->
+  <text x="526" y="41" text-anchor="middle" font-size="9" font-style="italic" fill="#137333">left to right only — no peeking ahead</text>
+  <line x1="392" y1="52" x2="645" y2="52" stroke="#137333" stroke-width="1.2" stroke-opacity="0.5" stroke-dasharray="4,3" marker-end="url(#arr-g)"/>
+
+  <!-- Token boxes -->
+  <rect x="392" y="63" width="40" height="24" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="412" y="79" text-anchor="middle" font-size="12" fill="#14532d">The</text>
+
+  <rect x="436" y="63" width="40" height="24" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="456" y="79" text-anchor="middle" font-size="12" fill="#14532d">cat</text>
+
+  <rect x="480" y="63" width="40" height="24" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="500" y="79" text-anchor="middle" font-size="12" fill="#14532d">sat</text>
+
+  <rect x="524" y="63" width="36" height="24" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="542" y="79" text-anchor="middle" font-size="12" fill="#14532d">on</text>
+
+  <rect x="564" y="63" width="40" height="24" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="584" y="79" text-anchor="middle" font-size="12" fill="#14532d">the</text>
+
+  <!-- Arrow → next token -->
+  <line x1="607" y1="75" x2="622" y2="75" stroke="#137333" stroke-width="2" marker-end="url(#arr-g)"/>
+
+  <!-- "?" box — filled dark green -->
+  <rect x="625" y="61" width="34" height="28" rx="5" fill="#137333" stroke="#14532d" stroke-width="1.5"/>
+  <text x="642" y="79" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">?</text>
+
+  <!-- Down arrow -->
+  <text x="642" y="99" text-anchor="middle" font-size="9" fill="#137333">predict</text>
+  <line x1="642" y1="102" x2="642" y2="119" stroke="#137333" stroke-width="1.8" marker-end="url(#arr-g)"/>
+
+  <!-- Prediction box -->
+  <rect x="612" y="122" width="60" height="26" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="642" y="139" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">"mat" ✓</text>
+
+  <!-- Bottom note -->
+  <text x="526" y="163" text-anchor="middle" font-size="9.5" fill="#137333">Sees prior tokens → predicts the next one</text>
+  <text x="526" y="177" text-anchor="middle" font-size="9" fill="#555">Good for: generation · chat · code</text>
+</svg>

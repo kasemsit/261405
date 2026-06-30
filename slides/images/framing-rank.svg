@@ -1,0 +1,55 @@
+<svg viewBox="0 0 440 232" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#137333"/>
+    </marker>
+  </defs>
+
+  <!-- Panel -->
+  <rect x="2" y="2" width="436" height="228" rx="10" fill="#f0faf4" stroke="#137333" stroke-width="2.5"/>
+  <text x="218" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#137333">&#10003;&#65039;  Recommendation / Ranking</text>
+
+  <!-- Input 1: user features -->
+  <rect x="12" y="40" width="122" height="28" rx="5" fill="#f7f8fa" stroke="#aaa"/>
+  <text x="73" y="58" text-anchor="middle" font-size="12">User features</text>
+
+  <!-- Input 2: app features (candidate) -->
+  <rect x="12" y="72" width="122" height="28" rx="5" fill="#d8f3e3" stroke="#137333"/>
+  <text x="73" y="91" text-anchor="middle" font-size="12" fill="#137333">App features</text>
+  <text x="73" y="108" text-anchor="middle" font-size="10.5" fill="#555">(one candidate at a time)</text>
+
+  <!-- Arrows: inputs → model (model centre ≈ y=76) -->
+  <line x1="134" y1="54" x2="162" y2="68" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="134" y1="86" x2="162" y2="82" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Model box -->
+  <rect x="162" y="60" width="64" height="28" rx="5" fill="#137333"/>
+  <text x="194" y="79" text-anchor="middle" fill="white" font-size="13" font-weight="700">Model</text>
+
+  <!-- Arrow: model → score -->
+  <line x1="226" y1="74" x2="254" y2="74" stroke="#137333" stroke-width="2" marker-end="url(#arr-g)"/>
+
+  <!-- Score output -->
+  <rect x="254" y="60" width="68" height="28" rx="5" fill="#d8f3e3" stroke="#137333"/>
+  <text x="288" y="79" text-anchor="middle" fill="#137333" font-size="13" font-weight="700">score</text>
+
+  <!-- "Repeat for each" label -->
+  <text x="218" y="123" text-anchor="middle" font-size="12" fill="#444">Score each candidate independently:</text>
+
+  <!-- Example run boxes -->
+  <rect x="12" y="131" width="210" height="22" rx="4" fill="#d8f3e3" stroke="#137333"/>
+  <text x="117" y="146" text-anchor="middle" font-size="11.5">(user, Instagram) &#8594; 0.92 &#11088;</text>
+
+  <rect x="12" y="156" width="210" height="22" rx="4" fill="#d8f3e3" stroke="#137333"/>
+  <text x="117" y="171" text-anchor="middle" font-size="11.5">(user, YouTube) &#8594; 0.71</text>
+
+  <rect x="12" y="181" width="210" height="22" rx="4" fill="#d8f3e3" stroke="#137333" stroke-dasharray="5,3"/>
+  <text x="117" y="196" text-anchor="middle" font-size="11.5" fill="#137333">(user, NewApp) &#8594; just score it!</text>
+
+  <!-- Success -->
+  <text x="218" y="224" text-anchor="middle" font-size="14" font-weight="700" fill="#137333">&#8594; No retrain needed &#128512;</text>
+</svg>
