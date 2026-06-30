@@ -1,0 +1,53 @@
+<svg viewBox="0 0 904 246" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="te-grey" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="te-dash" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#8a5200"/>
+    </marker>
+  </defs>
+
+  <!-- timing captions -->
+  <text x="361" y="50" text-anchor="middle" font-size="12.5" font-style="italic" font-weight="700" fill="#8a5200">&#8595; before launch</text>
+  <text x="785" y="50" text-anchor="middle" font-size="12.5" font-style="italic" font-weight="700" fill="#8a5200">&#8595; after launch</text>
+
+  <!-- ===== 1 · Train (red) ===== -->
+  <rect x="14" y="62" width="210" height="106" rx="10" fill="#fde7e9" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="119" y="88" text-anchor="middle" font-size="15" font-weight="700" fill="#7a1f2b">&#9312;  Train  &#8635;</text>
+  <text x="119" y="112" text-anchor="middle" font-size="11.5" fill="#444">Framework: scikit-learn · PyTorch</text>
+  <text x="119" y="132" text-anchor="middle" font-size="11.5" fill="#444">Tune <tspan font-weight="700" fill="#b8232f">hyperparameters</tspan></text>
+  <text x="119" y="152" text-anchor="middle" font-size="11.5" fill="#444">Winner &#8594; <tspan font-weight="700">model registry</tspan></text>
+
+  <line x1="224" y1="115" x2="254" y2="115" stroke="#555" stroke-width="2.2" marker-end="url(#te-grey)"/>
+
+  <!-- ===== 2 · Offline eval (amber) ===== -->
+  <rect x="256" y="62" width="210" height="106" rx="10" fill="#fff3e0" stroke="#d97706" stroke-width="2.5"/>
+  <text x="361" y="88" text-anchor="middle" font-size="15" font-weight="700" fill="#8a5200">&#9313;  Offline eval</text>
+  <text x="361" y="108" text-anchor="middle" font-size="11" fill="#6b4a12">on held-out test data</text>
+  <text x="361" y="132" text-anchor="middle" font-size="11.5" fill="#444">accuracy · precision / recall</text>
+  <text x="361" y="152" text-anchor="middle" font-size="11.5" fill="#444">F1 · RMSE</text>
+
+  <line x1="466" y1="115" x2="496" y2="115" stroke="#555" stroke-width="2.2" marker-end="url(#te-grey)"/>
+
+  <!-- ===== 3 · Deploy (green) ===== -->
+  <rect x="498" y="62" width="150" height="106" rx="10" fill="#e6f4ea" stroke="#137333" stroke-width="2.5"/>
+  <text x="573" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0b5e26">&#9314;  Deploy</text>
+  <text x="573" y="132" text-anchor="middle" font-size="11.5" fill="#444">ship to real users</text>
+
+  <line x1="648" y1="115" x2="678" y2="115" stroke="#555" stroke-width="2.2" marker-end="url(#te-grey)"/>
+
+  <!-- ===== 4 · Online eval (amber) ===== -->
+  <rect x="680" y="62" width="210" height="106" rx="10" fill="#fff3e0" stroke="#d97706" stroke-width="2.5"/>
+  <text x="785" y="88" text-anchor="middle" font-size="15" font-weight="700" fill="#8a5200">&#9315;  Online eval</text>
+  <text x="785" y="112" text-anchor="middle" font-size="11.5" fill="#444"><tspan font-weight="700" fill="#d97706">A/B test</tspan> live traffic</text>
+  <text x="785" y="134" text-anchor="middle" font-size="11.5" fill="#444">measured against a</text>
+  <text x="785" y="152" text-anchor="middle" font-size="11.5" fill="#444"><tspan font-weight="700">business KPI</tspan></text>
+
+  <!-- feedback loop: lessons -> retrain -->
+  <path d="M785,168 L785,208 L119,208 L119,170" fill="none" stroke="#8a5200"
+        stroke-width="2" stroke-dasharray="6,5" marker-end="url(#te-dash)"/>
+  <rect x="376" y="197" width="152" height="22" rx="11" fill="#fff3e0" stroke="#d97706" stroke-width="1.5"/>
+  <text x="452" y="212" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8a5200">lessons &#8594; retrain</text>
+</svg>

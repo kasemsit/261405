@@ -5,7 +5,11 @@ flowchart LR
   D --> E[5 · Evaluate]
   E --> F[6 · Deploy<br/>/ serve]
   F --> G[7 · Monitor]
-  G -. data drifts · new needs .-> B
+  E -. tune · retrain .-> D
+  E -. better features .-> C
+  E -. reframe goal/metric .-> A
+  G -. data drifts .-> B
+  G -. new needs .-> A
 
   classDef inp   fill:#e8f0fe,stroke:#1a73a8,color:#10406b,stroke-width:1.5px;
   classDef proc  fill:#f3e8fd,stroke:#8430ce,color:#4a1d75,stroke-width:1.5px;

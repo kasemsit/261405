@@ -1,0 +1,43 @@
+<svg viewBox="0 0 560 178" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="pm-arr-r" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#b8232f"/>
+    </marker>
+    <marker id="pm-arr-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#137333"/>
+    </marker>
+  </defs>
+
+  <!-- ============ WRONG: optimize clicks only ============ -->
+  <rect x="2" y="2" width="556" height="176" rx="10" fill="#fbeeef" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="20" y="28" font-size="15" font-weight="700" fill="#b8232f">&#10060;  Optimize one proxy: &#8220;clicks&#8221;</text>
+
+  <!-- step 1: target -->
+  <rect x="16" y="44" width="112" height="50" rx="8" fill="#fff" stroke="#b8232f" stroke-width="1.5"/>
+  <text x="72" y="65" text-anchor="middle" font-size="12" fill="#444">Reward the model</text>
+  <text x="72" y="83" text-anchor="middle" font-size="13" font-weight="700" fill="#b8232f">for clicks</text>
+
+  <line x1="128" y1="69" x2="160" y2="69" stroke="#b8232f" stroke-width="2" marker-end="url(#pm-arr-r)"/>
+
+  <!-- step 2: model discovers -->
+  <rect x="162" y="44" width="138" height="50" rx="8" fill="#fff" stroke="#b8232f" stroke-width="1.5"/>
+  <text x="231" y="65" text-anchor="middle" font-size="12" fill="#444">Model discovers what</text>
+  <text x="231" y="83" text-anchor="middle" font-size="13" font-weight="700" fill="#b8232f">gets the most clicks</text>
+
+  <line x1="300" y1="69" x2="332" y2="69" stroke="#b8232f" stroke-width="2" marker-end="url(#pm-arr-r)"/>
+
+  <!-- step 3: outrage wins -->
+  <rect x="334" y="44" width="210" height="50" rx="8" fill="#b8232f"/>
+  <text x="439" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Outrage &amp; misinformation</text>
+  <text x="439" y="83" text-anchor="middle" font-size="12" fill="#ffd9dc">spread the fastest &#8212; so it pushes them</text>
+
+  <!-- outcome row -->
+  <text x="20" y="124" font-size="12.5" font-weight="700" fill="#444">Result:</text>
+  <rect x="74" y="110" width="210" height="34" rx="8" fill="#fff" stroke="#137333" stroke-width="1.5"/>
+  <text x="179" y="132" text-anchor="middle" font-size="13" fill="#137333">Clicks &#9650; &#127881; (metric looks great)</text>
+  <rect x="296" y="110" width="248" height="34" rx="8" fill="#fff" stroke="#b8232f" stroke-width="1.5"/>
+  <text x="420" y="132" text-anchor="middle" font-size="13" fill="#b8232f">Well-being &amp; trust &#9660; (real goal hurt)</text>
+
+  <text x="280" y="166" text-anchor="middle" font-size="12.5" fill="#777" font-style="italic">The proxy you reward becomes the behavior you get.</text>
+</svg>

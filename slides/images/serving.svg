@@ -1,0 +1,75 @@
+<svg viewBox="0 0 760 318" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="sv-arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ===================== ONLINE ===================== -->
+  <text x="14" y="34" font-size="13" font-weight="700" fill="#1d4ed8">&#9679; ONLINE &#8212; real-time API</text>
+
+  <!-- User -->
+  <rect x="14" y="70" width="92" height="56" rx="9" fill="#eceff1" stroke="#5f7d8c" stroke-width="2"/>
+  <text x="60" y="104" text-anchor="middle" font-size="12" fill="#324a54">&#128100; User / app</text>
+
+  <line x1="106" y1="98" x2="132" y2="98" stroke="#555" stroke-width="2.2" marker-end="url(#sv-arr)"/>
+
+  <!-- API -->
+  <rect x="134" y="70" width="120" height="56" rx="9" fill="#e8f0fe" stroke="#1d4ed8" stroke-width="2.2"/>
+  <text x="194" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#10406b">API</text>
+  <text x="194" y="113" text-anchor="middle" font-size="11.5" fill="#444">REST / gRPC</text>
+
+  <line x1="254" y1="98" x2="294" y2="98" stroke="#555" stroke-width="2.2" marker-end="url(#sv-arr)"/>
+
+  <!-- Model server panel with replicas -->
+  <rect x="296" y="44" width="300" height="112" rx="10" fill="#fdeef0" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="446" y="62" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7a1f2b">Model server &#8212; load-balanced replicas</text>
+
+  <rect x="308" y="72" width="88" height="54" rx="7" fill="#ffffff" stroke="#b8232f" stroke-width="1.6"/>
+  <text x="352" y="94" text-anchor="middle" font-size="11.5" fill="#7a1f2b">&#128230; container</text>
+  <text x="352" y="112" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7a1f2b">&#129302; model</text>
+
+  <rect x="404" y="72" width="88" height="54" rx="7" fill="#ffffff" stroke="#b8232f" stroke-width="1.6"/>
+  <text x="448" y="94" text-anchor="middle" font-size="11.5" fill="#7a1f2b">&#128230; container</text>
+  <text x="448" y="112" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7a1f2b">&#129302; model</text>
+
+  <rect x="500" y="72" width="88" height="54" rx="7" fill="#ffffff" stroke="#b8232f" stroke-width="1.6"/>
+  <text x="544" y="94" text-anchor="middle" font-size="11.5" fill="#7a1f2b">&#128230; container</text>
+  <text x="544" y="112" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7a1f2b">&#129302; model</text>
+
+  <text x="446" y="148" text-anchor="middle" font-size="11" font-style="italic" fill="#8a2a33">scale out = add more replicas</text>
+
+  <line x1="596" y1="98" x2="624" y2="98" stroke="#555" stroke-width="2.2" marker-end="url(#sv-arr)"/>
+
+  <!-- Prediction -->
+  <rect x="626" y="70" width="120" height="56" rx="9" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+  <text x="686" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#0b5e26">Prediction</text>
+  <text x="686" y="113" text-anchor="middle" font-size="11.5" fill="#444">in milliseconds</text>
+
+  <!-- divider -->
+  <line x1="14" y1="178" x2="746" y2="178" stroke="#e0e0e0" stroke-width="1.5"/>
+
+  <!-- ===================== BATCH ===================== -->
+  <text x="14" y="200" font-size="13" font-weight="700" fill="#8430ce">&#9679; BATCH &#8212; run overnight, no rush</text>
+
+  <rect x="14" y="210" width="140" height="52" rx="9" fill="#f3e8fd" stroke="#8430ce" stroke-width="2.2"/>
+  <text x="84" y="232" text-anchor="middle" font-size="12" fill="#4a1d75">&#9200; Scheduled job</text>
+  <text x="84" y="250" text-anchor="middle" font-size="11" fill="#444">(e.g. nightly)</text>
+
+  <line x1="154" y1="236" x2="182" y2="236" stroke="#555" stroke-width="2.2" marker-end="url(#sv-arr)"/>
+
+  <rect x="184" y="210" width="160" height="52" rx="9" fill="#fdeef0" stroke="#b8232f" stroke-width="2.2"/>
+  <text x="264" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#7a1f2b">&#129302; same model</text>
+  <text x="264" y="250" text-anchor="middle" font-size="11" fill="#444">no live API needed</text>
+
+  <line x1="344" y1="236" x2="372" y2="236" stroke="#555" stroke-width="2.2" marker-end="url(#sv-arr)"/>
+
+  <rect x="374" y="210" width="240" height="52" rx="9" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+  <text x="494" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#0b5e26">&#128230; millions of predictions</text>
+  <text x="494" y="250" text-anchor="middle" font-size="11" fill="#444">written to storage</text>
+
+  <!-- ===================== footer: location ===================== -->
+  <rect x="14" y="278" width="732" height="32" rx="9" fill="#fff3e0" stroke="#d97706" stroke-width="2"/>
+  <text x="380" y="298" text-anchor="middle" font-size="12.5" fill="#6b4a12">Same container everywhere &#8212; <tspan font-weight="700">on-prem datacenter</tspan> (to test) &#8594; <tspan font-weight="700">public cloud</tspan> (for production)</text>
+</svg>

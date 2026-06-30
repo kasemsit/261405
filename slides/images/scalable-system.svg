@@ -1,0 +1,122 @@
+<svg viewBox="0 0 1000 428" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="ss-arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="ss-dash" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#777"/>
+    </marker>
+    <clipPath id="clip-ms"><rect x="636" y="78" width="156" height="66" rx="9"/></clipPath>
+    <clipPath id="clip-lb"><rect x="328" y="78" width="130" height="66" rx="9"/></clipPath>
+    <clipPath id="clip-lg"><rect x="700" y="382" width="22" height="16" rx="4"/></clipPath>
+  </defs>
+
+  <!-- section labels -->
+  <text x="18" y="52" font-size="14" font-weight="700" fill="#888">&#9312; Serving a request  &#8594;</text>
+  <text x="180" y="250" font-size="14" font-weight="700" fill="#888">&#9313; Training / improvement loop  &#8635;</text>
+
+  <!-- Feature store = read dependency, sits ABOVE model serving -->
+  <rect x="636" y="8" width="156" height="46" rx="9" fill="#eceff1" stroke="#5f7d8c" stroke-width="2.4"/>
+  <text x="714" y="36" text-anchor="middle" font-size="13.5" font-weight="700" fill="#324a54">&#128451;&#65039; Feature store / DB</text>
+  <line x1="714" y1="54" x2="714" y2="76" stroke="#777" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#ss-dash)"/>
+  <text x="722" y="71" font-size="11" font-style="italic" fill="#666">read features</text>
+
+  <!-- ============ TOP: serving path (request) ============ -->
+  <!-- Users (external) -->
+  <rect x="18" y="78" width="104" height="66" rx="9" fill="#ffffff" stroke="#888" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="70" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#333">Users</text>
+  <text x="70" y="126" text-anchor="middle" font-size="12" fill="#555">web · mobile</text>
+
+  <line x1="122" y1="111" x2="148" y2="111" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- Network -->
+  <rect x="150" y="78" width="150" height="66" rx="9" fill="#e8f0fe" stroke="#1d4ed8" stroke-width="2.4"/>
+  <text x="225" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#10406b">Network</text>
+  <text x="225" y="126" text-anchor="middle" font-size="12" fill="#10406b">CDN · firewall · VPN</text>
+
+  <line x1="300" y1="111" x2="326" y2="111" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- Load balancer (SHARED: Systems + Network) -->
+  <g clip-path="url(#clip-lb)">
+    <rect x="328" y="78" width="65" height="66" fill="#e8f0fe"/>
+    <rect x="393" y="78" width="65" height="66" fill="#eceff1"/>
+  </g>
+  <rect x="328" y="78" width="130" height="66" rx="9" fill="none" stroke="#5f7d8c" stroke-width="2.6"/>
+  <rect x="328" y="78" width="130" height="66" rx="9" fill="none" stroke="#1d4ed8" stroke-width="2.6" stroke-dasharray="9,9"/>
+  <rect x="367" y="82" width="52" height="15" rx="7.5" fill="#ffffff" stroke="#999" stroke-width="1"/>
+  <text x="393" y="93" text-anchor="middle" font-size="9" font-weight="700" fill="#666">shared</text>
+  <text x="393" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="#324a54">Load balancer</text>
+
+  <line x1="458" y1="111" x2="484" y2="111" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- App / API (Software) -->
+  <rect x="486" y="78" width="122" height="66" rx="9" fill="#fde7e9" stroke="#b8232f" stroke-width="2.4"/>
+  <text x="547" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#7a1f2b">App / API</text>
+  <text x="547" y="126" text-anchor="middle" font-size="12" fill="#7a1f2b">servers</text>
+
+  <line x1="608" y1="111" x2="634" y2="111" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- Model serving (SHARED: Software + Systems) -->
+  <g clip-path="url(#clip-ms)">
+    <rect x="636" y="78" width="78" height="66" fill="#fde7e9"/>
+    <rect x="714" y="78" width="78" height="66" fill="#eceff1"/>
+  </g>
+  <rect x="636" y="78" width="156" height="66" rx="9" fill="none" stroke="#b8232f" stroke-width="2.8"/>
+  <rect x="636" y="78" width="156" height="66" rx="9" fill="none" stroke="#5f7d8c" stroke-width="2.8" stroke-dasharray="9,9"/>
+  <rect x="688" y="82" width="52" height="15" rx="7.5" fill="#ffffff" stroke="#999" stroke-width="1"/>
+  <text x="714" y="93" text-anchor="middle" font-size="9" font-weight="700" fill="#666">shared</text>
+  <text x="714" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#7a1f2b">&#129302; Model serving</text>
+  <text x="714" y="135" text-anchor="middle" font-size="11.5" fill="#444">GPU · REST / gRPC</text>
+
+  <line x1="792" y1="111" x2="818" y2="111" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- Prediction returned to the user (endpoint) -->
+  <rect x="820" y="78" width="162" height="66" rx="9" fill="#ffffff" stroke="#888" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="901" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#333">Prediction</text>
+  <text x="901" y="126" text-anchor="middle" font-size="12" fill="#555">&#8594; back to the user</text>
+
+  <!-- ============ BOTTOM: training loop ============ -->
+  <!-- Object storage (Systems) under Model serving -->
+  <rect x="636" y="276" width="156" height="66" rx="9" fill="#eceff1" stroke="#5f7d8c" stroke-width="2.4"/>
+  <text x="714" y="304" text-anchor="middle" font-size="14" font-weight="700" fill="#324a54">&#128451;&#65039; Object storage</text>
+  <text x="714" y="324" text-anchor="middle" font-size="12" fill="#324a54">logs + labels</text>
+
+  <!-- logs: Model serving -> Object storage -->
+  <line x1="714" y1="144" x2="714" y2="274" stroke="#777" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#ss-dash)"/>
+  <text x="724" y="212" font-size="12" font-style="italic" fill="#666">prediction logs</text>
+
+  <!-- Training pipeline (Software) -->
+  <rect x="410" y="276" width="160" height="66" rx="9" fill="#fde7e9" stroke="#b8232f" stroke-width="2.4"/>
+  <text x="490" y="304" text-anchor="middle" font-size="14.5" font-weight="700" fill="#7a1f2b">Training pipeline</text>
+  <text x="490" y="324" text-anchor="middle" font-size="12" fill="#7a1f2b">GPU</text>
+
+  <line x1="636" y1="309" x2="572" y2="309" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- Model registry (Systems) -->
+  <rect x="180" y="276" width="160" height="66" rx="9" fill="#eceff1" stroke="#5f7d8c" stroke-width="2.4"/>
+  <text x="260" y="313" text-anchor="middle" font-size="14" font-weight="700" fill="#324a54">&#128451;&#65039; Model registry</text>
+
+  <line x1="410" y1="309" x2="342" y2="309" stroke="#555" stroke-width="2.4" marker-end="url(#ss-arr)"/>
+
+  <!-- deploy: registry -> model serving (orthogonal dashed up) -->
+  <path d="M260,276 L260,210 L660,210 L660,146" fill="none" stroke="#b8232f" stroke-width="2"
+        stroke-dasharray="6,4" marker-end="url(#ss-arr)"/>
+  <text x="430" y="202" text-anchor="middle" font-size="12" font-style="italic" font-weight="700" fill="#b8232f">deploy new version</text>
+
+  <!-- ============ legend ============ -->
+  <rect x="150" y="382" width="20" height="16" rx="4" fill="#e8f0fe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="178" y="395" font-size="12.5" fill="#333">Network</text>
+  <rect x="280" y="382" width="20" height="16" rx="4" fill="#fde7e9" stroke="#b8232f" stroke-width="2"/>
+  <text x="308" y="395" font-size="12.5" fill="#333">Software</text>
+  <rect x="412" y="382" width="20" height="16" rx="4" fill="#eceff1" stroke="#5f7d8c" stroke-width="2"/>
+  <text x="440" y="395" font-size="12.5" fill="#333">Systems · cloud · GPU</text>
+  <!-- shared swatch -->
+  <g clip-path="url(#clip-lg)">
+    <rect x="700" y="382" width="11" height="16" fill="#fde7e9"/>
+    <rect x="711" y="382" width="11" height="16" fill="#eceff1"/>
+  </g>
+  <rect x="700" y="382" width="22" height="16" rx="4" fill="none" stroke="#b8232f" stroke-width="2"/>
+  <rect x="700" y="382" width="22" height="16" rx="4" fill="none" stroke="#5f7d8c" stroke-width="2" stroke-dasharray="6,6"/>
+  <text x="730" y="395" font-size="12.5" fill="#333">shared by 2 teams</text>
+</svg>

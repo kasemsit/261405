@@ -949,12 +949,12 @@ Building an ML feature is a **loop**, not a one-shot — this is the process you
 
 ## First ask: do you even need ML? {.smaller}
 
-ML adds data, training, and serving cost. **Start simple.**
+ML adds data, training, and serving cost. **Climb only as high as you need.**
 
-::: {.incremental}
-- **Rules / heuristics first** — often get you most of the way with **no ML**.
-- **Buy vs build** — a **managed API** (e.g. an LLM) may beat training your own.
-- Build a **custom model** only when a simple solution isn't good enough.
+![](images/need-ml-ladder.svg){.diagram width="72%"}
+
+::: {.card}
+A simple solution you can **ship today** beats a custom model you might ship next quarter.
 :::
 
 ::: {.keywords}
@@ -963,12 +963,9 @@ ML adds data, training, and serving cost. **Start simple.**
 
 ## Data is the hard part {.smaller}
 
-Your model is only as good as its data — and the **Systems team** must store it well.
+Your model is only as good as its data — the **Systems team** moves, stores, and protects it.
 
-- **Collect & label** — where do examples come from? who labels them?
-- **Pipeline** — move & clean data (**ETL / ELT**).
-- **Store** — raw files in **object storage**; features in a **database / feature store**.
-- **Version & protect** — track changes; handle **privacy / PII**.
+![](images/data-pipeline.svg){.diagram width="88%"}
 
 ::: {.keywords}
 🔑 **Explore:** `data pipeline` · `ETL / ELT` · `data lake / warehouse` · `object storage (S3)` · `feature store` · `data versioning` · `train–serve skew` · `PII / privacy`
@@ -976,21 +973,9 @@ Your model is only as good as its data — and the **Systems team** must store i
 
 ## Train & evaluate {.smaller}
 
-::: {.columns}
-::: {.column width="50%"}
-**Train**
+Train iteratively — then evaluate **twice**: *offline* before launch, *online* after.
 
-- Pick a **framework**: scikit-learn, PyTorch.
-- Track experiments; tune **hyperparameters**.
-- Save the winner to a **model registry**.
-:::
-::: {.column width="50%"}
-**Evaluate** — *before* and *after* launch
-
-- **Offline:** accuracy, precision/recall, F1, RMSE.
-- **Online:** A/B test against a **business KPI**.
-:::
-:::
+![](images/train-eval.svg){.diagram width="92%"}
 
 ::: {.keywords}
 🔑 **Explore:** `scikit-learn` · `PyTorch` · `experiment tracking (MLflow, W&B)` · `cross-validation` · `confusion matrix` · `precision / recall / F1` · `AUC` · `A/B testing`
@@ -1000,42 +985,58 @@ Your model is only as good as its data — and the **Systems team** must store i
 
 A trained model is useless until it's **deployed** — *"นำ model ไปให้ลูกค้าใช้งาน"*.
 
-- **Online** (real-time API) vs **batch** (run overnight).
-- Wrap the model in an **API** (REST / gRPC) inside a **container**.
-- Run it on a **model server**; scale out with **replicas**.
-- Where? **on-prem datacenter** (to test) → **public cloud** (for production).
+![](images/serving.svg){.diagram width="74%"}
 
 ::: {.keywords}
 🔑 **Explore:** `inference` · `online vs batch` · `REST / gRPC` · `Docker / container` · `model server (FastAPI · TorchServe · Triton · BentoML · KServe)` · `autoscaling` · `edge / on-device`
+:::
+
+## Rolling out a new model safely {.smaller}
+
+Don't flip **100%** of users to a new model at once — **de-risk** the launch.
+
+![](images/rollout.svg){.diagram width="84%"}
+
+::: {.keywords}
+🔑 **Explore:** `shadow deployment` · `canary release` · `blue-green` · `progressive rollout` · `rollback` · `feature flag` · `champion / challenger`
 :::
 
 ## ML in a scalable system
 
 Where the model sits — and how the **three teams** connect:
 
-![](images/diag15.svg){.diagram}
+![](images/scalable-system.svg){.diagram width="92%"}
 
 ::: {.keywords}
 🔑 **Software** = app + model serving · **Systems** = datacenter / cloud · storage · GPU · **load balancer** · **Network** = bandwidth · CDN · firewall · VPN
 :::
 
+::: {.notes}
+สไลด์นี้รวมทุกอย่างที่เพิ่งเรียนมาให้เห็นเป็นระบบเดียว และโยงเข้ากับ 3 ทีมของ capstone โดยตรง — ดูที่ **สี** ของกล่อง: น้ำเงิน = Network, แดง = Software, เทา = Systems
+
+**เดินตามลูกศรชั้นบนก่อน — "หนึ่ง request เดินทางอย่างไร" (①):**
+- ผู้ใช้กดใช้งานจากเว็บ/มือถือ → วิ่งผ่าน **Network** (CDN, firewall, VPN) เข้ามา
+- เจอ **Load balancer** กระจายโหลดไปยังเซิร์ฟเวอร์ที่ว่าง (อันนี้ Systems ดูแล)
+- เข้า **App / API** ของเรา (Software) ซึ่งเรียกไปที่ **Model serving** — ตัวที่รันโมเดลบน GPU
+- ก่อนทายผล โมเดล **อ่าน feature เข้ามา** จาก feature store ที่ Systems เตรียมไว้ (ลูกศรประชี้ *ลงเข้า* โมเดล — feature ไหลเข้า ไม่ใช่ไหลออก)
+- ได้ผลแล้ว **prediction ถูกส่งกลับ**ไปที่ผู้ใช้ (กล่องขวาสุด) — ครบหนึ่ง request
+- จุดที่อยากให้สังเกต: **request เดียววิ่งผ่านครบทั้ง 3 ทีม** — ถ้าทีมใดทีมหนึ่งช้าหรือล่ม ผู้ใช้เจอปัญหาทันที จึงต้องออกแบบร่วมกัน
+- กล่องที่มี **ขอบ 2 สี + ป้าย "shared"** (Model serving, Load balancer) คือจุด *คร่อมเส้น* 2 ทีม: **Model serving** = โค้ด/โมเดล (Software) แต่รันบน GPU/scaling (Systems); **Load balancer** = cloud resource (Systems) แต่ทำหน้าที่ network (กระจาย traffic) — กับดักคือ "ถูก deploy แล้วต้องเป็น Systems" ไม่จริง เพราะ App ก็ deploy แต่ยังเป็น Software; เกณฑ์จริงคือ **ใครสร้าง (Software) · ใครรัน-จัดเครื่อง (Systems) · ใครส่งถึงผู้ใช้ (Network)**
+
+**ชั้นล่างคือลูปที่ทำให้โมเดลดีขึ้นเรื่อย ๆ (②):**
+- ทุกครั้งที่ทาย เราเก็บ **prediction logs** ลง object storage (เส้นประ = ทำแบบ async ไม่หน่วงผู้ใช้)
+- เมื่อ logs ถูก **จับคู่กับผลจริง/label** แล้ว ก็กลายเป็น training data ป้อน **training pipeline** → ได้โมเดลใหม่เก็บใน **model registry** → แล้ว **deploy** กลับขึ้นไปแทนตัวเก่า (เส้นประแดง) — เชื่อมกับสไลด์ shadow/canary ที่เพิ่งดู
+
+**ปิดท้าย:** ชี้ที่ legend ย้ำว่าโจทย์ ML ไม่ใช่งานของทีมเดียว — Software สร้าง, Systems รัน, Network ส่งให้ถึงมือผู้ใช้ แล้วเกริ่นสไลด์ถัดไปว่า "ระบบนี้จะไปรันที่ไหน และจะดูแลมันยังไงหลัง launch" → MLOps
+
+(ถ้าเวลาน้อย: เล่าแค่ชั้นบน ① ให้ครบ แล้วชี้ว่าชั้นล่างคือลูป retrain ก็พอ)
+:::
+
 ## Cloud, datacenter & MLOps {.smaller}
 
-::: {.columns}
-::: {.column width="50%"}
-**Where it runs**
+After launch the work isn't over — **MLOps** keeps the model healthy in an always-on loop.
 
-- **Public cloud ML:** [SageMaker](https://aws.amazon.com/sagemaker/), [Vertex AI](https://cloud.google.com/vertex-ai), [Azure ML](https://azure.microsoft.com/products/machine-learning) — managed GPU + endpoints.
-- **On-prem:** your **datacenter** GPU servers (testing / data control).
-:::
-::: {.column width="50%"}
-**Keep it healthy — MLOps**
-
-- **Monitor** accuracy & latency in production.
-- Watch for **data / concept drift** → **retrain**.
-- **CI/CD** + rollback for models.
-:::
-:::
+![](images/mlops-loop.svg){.diagram width="84%"}
 
 ::: {.keywords}
 🔑 **Explore:** `MLOps` · `SageMaker / Vertex AI / Azure ML` · `GPU instance` · `managed endpoint` · `model monitoring` · `data drift` · `concept drift` · `CI/CD for ML`
@@ -1047,7 +1048,7 @@ Where the model sits — and how the **three teams** connect:
 |---|---|
 | **Software** — *build the ML* | Frame the task · data & features · **train, evaluate & package** the model · expose it as an API |
 | **Systems** — *run the ML* | GPU · datacenter & cloud to **train and serve** · storage for data & models · **scale & load-balance** the model service · backup |
-| **Network** — *reach the ML* | Bandwidth to **move training data**, and **low-latency, secure access** to the model for users (HQ · branch · WFH / VPN) |
+| **Network** — *reach the ML* | **Move TB-scale training data** + GPU-node **interconnect** for training · **low-latency, secure access** for users (HQ · branch · WFH / VPN) · **bridge datacenter ↔ cloud** (Direct Connect / VPN · multi-region) |
 
 ::: {.card}
 The ML feature is **one thread running through all three teams** — design it together.
@@ -1080,58 +1081,107 @@ The ML feature is **one thread running through all three teams** — design it t
 :::
 :::
 
-## Optimizing the wrong thing is dangerous {.smaller}
+## Fairness & algorithmic bias {.smaller}
+
+ML learns the patterns in your data — including the **unfair** ones. A model is only as fair as the data and labels behind it.
 
 ::: {.columns}
-::: {.column width="62%"}
-A newsfeed that **maximizes engagement** can learn that *outrage* and *misinformation* get the most clicks.
+::: {.column width="50%"}
+- **Skewed data** — under-represented groups get worse accuracy (e.g. face recognition fails more on darker skin).
+- **Historical labels** — past human decisions bake in past discrimination (hiring, lending).
+- **Feedback loops** — biased outputs shape future data, so bias **compounds**.
+:::
+::: {.column width="50%"}
+![](images/fairness-loop.svg){.diagram width="100%"}
+:::
+:::
 
-::: {.incremental}
-- Engagement ↑ … but well-being and truth ↓.
-- Better: **decouple objectives** — filter spam/NSFW/misinfo *and* rank by quality, not just clicks.
+::: {.card}
+**Audit by subgroup.** Measure accuracy / error rates *per group* — one aggregate number can hide real harm to a minority.
 :::
-:::
-::: {.column width="38%"}
-![](images/photos/scale.jpg){.photo}
 
-::: {.credit}
-"balance scale" · winnifredxoxo · CC BY
+::: {.keywords}
+🔑 **Explore:** `fairness` · `disparate impact` · `bias audit` · `subgroup metrics` · `feedback loop` · `representational harm`
 :::
-:::
-:::
+
+## Optimizing the wrong thing is dangerous {.smaller}
+
+A newsfeed that **maximizes clicks** can learn that *outrage* and *misinformation* get the most clicks — so it spreads them.
+
+![](images/proxy-metric.svg){.diagram width="72%"}
 
 . . .
 
-::: {.card}
-The metric you choose **becomes** the behavior you get. Choose it carefully.
+**Fix — optimize a *weighted sum* of several criteria, not one proxy:**
+
+::: {.columns}
+::: {.column width="33%"}
+One proxy *(the trap)*:
+$$\max_{\text{model}}\ \; \text{clicks}$$
 :::
+::: {.column width="67%"}
+Decouple — balance multiple objectives:
+$$\max_{\text{model}}\ \; \underbrace{\text{quality}}_{\text{value}} \;+\; \lambda_1\,\text{engagement} \;-\; \lambda_2\,\underbrace{\text{harm}}_{\text{misinfo, spam}}$$
+:::
+:::
+
+The weights $\lambda_i$ are **tunable knobs**: raise $\lambda_2$ to punish harm harder, lower $\lambda_1$ to stop chasing clicks. The objective is no longer a single number to game.
 
 ## Privacy & the law (PDPA) {.smaller}
 
-Your platform handles **personal data** — and that's regulated. In Thailand: the **PDPA** (พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล).
+Your platform handles **personal data** — and that's regulated. In Thailand: the **PDPA**; in the EU: the **GDPR** (PDPA is modeled on it). Same core ideas — and a global app must obey *every* user's law.
 
 ::: {.columns}
 ::: {.column width="55%"}
 - **Consent & purpose** — collect only what you need, for a stated purpose.
 - **PII** — names, IDs, faces, health data → minimise, **anonymise**, encrypt.
-- **User rights** — access, correction, deletion.
+- **User rights** — access, correction, deletion *(right to be forgotten — hard once data is baked into a model)*.
 - **Data residency** — *where* is data stored? (ties to the Systems team).
 :::
 ::: {.column width="45%"}
-![](images/photos/padlock.jpg){.photo}
+![](images/deidentify.svg){.diagram width="62%"}
 
-::: {.credit}
-"Padlock 1 & Key 5" · ~Brenda-Starr~ · CC BY
+:::
 :::
 
 ::: {.card}
 For ML: don't train on personal data without a legal basis. **De-identify** *before* it ever reaches the model.
 :::
+
+::: {.keywords}
+🔑 **Explore:** `PDPA` · `GDPR` · `CCPA` · `PII` · `consent` · `data minimization` · `anonymization / de-identification` · `data residency`
+:::
+
+## Whose data trained it? Copyright & provenance {.smaller}
+
+Generative models learn from massive **scraped** datasets — *whose* data was it, and were you allowed to use it?
+
+::: {.columns}
+::: {.column width="56%"}
+::: {.incremental}
+- **Training data** — text, images, and code scraped from the web may be **copyrighted** or licensed.
+- **Output ownership** — who owns AI-generated content? Still legally unsettled.
+- **Memorization** — models can **regurgitate** training data verbatim, e.g. *Stable Diffusion reproduced a mangled* **Getty Images** *watermark*.
+:::
+
+::: {.card .fragment}
+In practice: prefer **licensed / open** datasets and keep a **datasheet** — source, license, consent, date — for everything you train on.
+:::
+
+:::
+::: {.column width="44%"}
+![](images/getty-stability.png){.diagram width="78%"}
+
+::: {.credit}
+Stable Diffusion output reproducing a distorted Getty watermark · *Getty Images (US) Inc v Stability AI Ltd* [2025] EWHC 2863 (Ch)
+:::
 :::
 :::
 
+
+
 ::: {.keywords}
-🔑 **Explore:** `PDPA` · `GDPR` · `PII` · `consent` · `data minimization` · `anonymization / de-identification` · `data residency`
+🔑 **Explore:** `data provenance` · `licensing` · `copyright` · `fair use` · `memorization` · `datasheets for datasets`
 :::
 
 ## Prompt injection: the LLM security risk {.smaller}
@@ -1147,18 +1197,76 @@ An LLM follows instructions in its **input** — so attackers hide instructions 
 - Worse with **agents** (they can *act*) and **RAG** (they read untrusted docs).
 :::
 ::: {.column width="44%"}
-![](images/photos/caution.jpg){.photo}
-
-::: {.credit}
-"Caution Tape" · Picture Perfect Pose · CC BY
+![](images/prompt-injection.svg){.diagram width="80%"}
+:::
 :::
 
 **Defences:** separate instructions from data · least-privilege tools · validate outputs · **human approval** for risky actions.
+
+::: {.keywords}
+🔑 **Explore:** `prompt injection` · `jailbreak` · `data exfiltration` · `least privilege` · `guardrails` · `human-in-the-loop`
+:::
+
+## Adversarial examples {.smaller}
+
+Tiny, **deliberate** perturbations — invisible to humans — can make a confident model completely wrong.
+
+![](images/adversarial.svg){.diagram width="58%"}
+
+::: {.columns}
+::: {.column width="55%"}
+- A sticker on a **stop sign** → read as *"speed limit"*.
+- Critical for **safety** systems: self-driving, medical, biometric security.
+:::
+::: {.column width="45%"}
+- **Defences:** adversarial training, input validation, ensembles — never trust a single model blindly.
 :::
 :::
 
 ::: {.keywords}
-🔑 **Explore:** `prompt injection` · `jailbreak` · `data exfiltration` · `least privilege` · `guardrails` · `human-in-the-loop`
+🔑 **Explore:** `adversarial examples` · `perturbation` · `evasion attack` · `adversarial training` · `robustness`
+:::
+
+## Deepfakes & content provenance {.smaller}
+
+Generative AI makes **synthetic media** that looks real — faces, voices, video. How do we know what's authentic?
+
+::: {.columns}
+::: {.column width="42%"}
+- **Misuse** — voice-clone scams, non-consensual imagery, political misinfo.
+- **Detection is a losing race** — detectors always lag behind better generators.
+- **Fix: prove the real**, don't chase the fake — sign content at creation.
+:::
+::: {.column width="58%"}
+![](images/provenance.svg){.diagram width="100%"}
+:::
+:::
+
+::: {.card}
+Shift from *"spot the fake"* → *"**prove the real**."* Capture **provenance** (C2PA / watermarks) at the source.
+:::
+
+::: {.keywords}
+🔑 **Explore:** `deepfake` · `synthetic media` · `C2PA` · `content credentials` · `watermarking` · `provenance`
+:::
+
+::: {.notes}
+ประเด็นหลัก: Generative AI สร้าง "สื่อสังเคราะห์" (synthetic media) — ใบหน้า เสียง วิดีโอ — ที่ดูเหมือนจริงจนแยกไม่ออก คำถามคือ *เราจะรู้ได้ยังไงว่าอันไหนจริง?*
+
+1. **Misuse** — ยกตัวอย่างจริงให้นักศึกษาเห็นภาพ: แก๊งคอลเซ็นเตอร์ใช้เสียงโคลน (voice clone) ปลอมเป็นญาติโทรมาหลอกโอนเงิน, ภาพหลุดปลอมที่ไม่ได้ยินยอม (non-consensual imagery), คลิปนักการเมืองปลอมช่วงเลือกตั้ง (political misinfo)
+
+2. **Detection is a losing race** — ย้ำว่าการ "ตรวจจับของปลอม" เป็นเกมที่แพ้ตั้งแต่ต้น: ทุกครั้งที่ตัวตรวจจับ (detector) เก่งขึ้น ตัวสร้าง (generator) ก็เก่งขึ้นตาม → เป็น arms race ที่ฝ่ายตรวจจับตามหลังเสมอ พึ่ง detector อย่างเดียวไม่ยั่งยืน
+
+3. **เปลี่ยนวิธีคิด: "prove the real" แทน "spot the fake"** — แทนที่จะพยายามจับว่าอะไรปลอม ให้ **เซ็นกำกับของจริงตั้งแต่ตอนสร้าง** (sign at capture) แล้วตรวจสอบที่มา (provenance) ได้
+
+อธิบาย diagram (3 แถว — ที่มา → เครดิต → ผลตรวจสอบ):
+- แถวเขียว: กล้องถ่ายจริง → เซ็นด้วย **C2PA** ตอนถ่าย → ✓ ตรวจสอบที่มาได้
+- แถวเหลือง: AI สร้าง → ฝัง watermark / ติดป้ายกำกับ → ตามรอยได้ว่าเป็นของ AI
+- แถวแดง: ไฟล์ไม่มีลายเซ็น → ไม่มีอะไรให้ตรวจ → ⚠ ไม่รู้ที่มา (สถานะที่อันตรายที่สุด)
+
+C2PA (Coalition for Content Provenance and Authenticity) = มาตรฐานกลางที่บริษัทใหญ่ (Adobe, Microsoft, กล้อง Sony/Nikon, OpenAI) ใช้แนบ "ใบรับรองที่มา" (Content Credentials) ติดไปกับไฟล์ — เหมือนฉลากกำกับว่าใครสร้าง สร้างเมื่อไหร่ ผ่านการแก้ไขอะไรบ้าง
+
+เชื่อมโยง: ต่อยอดจากสไลด์ §9 ก่อนหน้า — provenance เป็นแนวคิดเดียวกับ "datasheet" ของข้อมูล train และ "audit trail" ของ accountability คือ *รู้ที่มาของทุกอย่าง*
 :::
 
 ## Can you trust it? Interpretability {.smaller}
@@ -1172,20 +1280,115 @@ Would you accept *"the AI said so"* from your **surgeon**? Stakeholders, doctors
 - **Tools:** feature importance, **SHAP**, **LIME**, attention / saliency maps.
 :::
 ::: {.column width="48%"}
-![](images/photos/magnifier.jpg){.photo}
-
-::: {.credit}
-"Home Inspection" · MarkMoz12 · CC BY
+![](images/interpretability.svg){.diagram width="92%"}
+:::
 :::
 
 ::: {.card}
-Trade-off: the most **accurate** model is often the **least interpretable**. Pick the right point for your stakes.
-:::
-:::
+Trade-off: the most **accurate** model is often the **least interpretable** (the dashed trend). Pick the right point for your stakes.
 :::
 
 ::: {.keywords}
 🔑 **Explore:** `interpretability / XAI` · `feature importance` · `SHAP` · `LIME` · `saliency maps` · `glass-box vs black-box`
+:::
+
+## Accountability — who is responsible? {.smaller}
+
+When an ML system causes harm, *"the algorithm did it"* is **not** an answer. People and organizations stay accountable.
+
+![](images/accountability.svg){.diagram width="56%"}
+
+::: {.columns}
+::: {.column width="50%"}
+- ML is a **tool** — responsibility stays with those who build and deploy it.
+- **Human-in-the-loop** for high-stakes decisions (medical, legal, financial).
+:::
+::: {.column width="50%"}
+- **Recourse** — users can appeal and **reverse** an automated decision.
+- **Audit trail** — log inputs, model version, output to explain it later.
+:::
+:::
+
+::: {.keywords}
+🔑 **Explore:** `accountability` · `human-in-the-loop` · `right to appeal` · `contestability` · `audit trail` · `liability`
+:::
+
+::: {.notes}
+ประเด็นหลัก: เมื่อระบบ ML ทำให้เกิดความเสียหาย การพูดว่า *"อัลกอริทึมมันทำเอง"* ไม่ใช่คำตอบ — **คนและองค์กรที่สร้างและนำไปใช้ยังต้องรับผิดชอบเสมอ** ML เป็นแค่เครื่องมือ ไม่ใช่ตัวรับผิดแทน
+
+เปิดด้วยคำถามชวนคิด: ถ้ารถยนต์ไร้คนขับชนคน ใครผิด? คนเขียนโมเดล? บริษัท? เจ้าของรถ? — ประเด็นคือความรับผิดไม่ได้หายไปเพราะมี AI มาคั่น
+
+อธิบาย 4 หลักการ (โยงกับ diagram):
+1. **ML เป็นเครื่องมือ** — ความรับผิดชอบอยู่ที่คนสร้าง/deploy ไม่ใช่โยนให้โมเดล
+2. **Human-in-the-loop** — งานเดิมพันสูง (การแพทย์ กฎหมาย การเงิน) ต้องมี **คนกดอนุมัติ** ก่อนลงมือจริง โมเดลแค่ "แนะนำ" คนเป็นผู้ "ตัดสิน" → ในรูปคือกล่องน้ำเงิน 👤 Human review ที่คั่นระหว่างโมเดลกับ Decision
+3. **Recourse (สิทธิอุทธรณ์)** — ผู้ใช้ต้องมีช่องทาง **โต้แย้งและกลับคำ** การตัดสินอัตโนมัติได้ (ในรูป = ลูกศรสีส้ม appeal ที่วนกลับไป human review) อย่าออกแบบระบบที่ตัดสินแล้วจบ แก้ไม่ได้
+4. **Audit trail** — เก็บ log ทุกอย่าง: input, เวอร์ชันโมเดล, output → เพื่อย้อนอธิบายได้ภายหลังว่าทำไมระบบถึงตัดสินแบบนั้น (แถบเหลืองล่างของรูป)
+
+อ่าน diagram: Model แนะนำ → 👤 คนรีวิว → Decision (บันทึกไว้) โดยมี (ก) ลูกศร appeal วนกลับได้ และ (ข) audit trail เก็บครบทุกขั้น
+
+เชื่อมโยง: คำว่า **contestability** (ออกแบบให้โต้แย้งได้) เป็นหัวใจ — โยงกับ PDPA "สิทธิของเจ้าของข้อมูล" (สิทธิเข้าถึง/แก้ไข) และ audit trail ก็เป็นแนวคิดเดียวกับ provenance/datasheet ในสไลด์ก่อน ๆ คือ *รู้และอธิบายที่มาของทุกการตัดสินใจได้*
+:::
+
+## The hidden cost — energy & carbon {.smaller}
+
+Training and serving large models burns real **energy** — and emits **carbon**.
+
+::: {.columns}
+::: {.column width="56%"}
+::: {.incremental}
+- Training one large LLM can emit **hundreds of tonnes of CO₂** — comparable to many cars driven for a year.
+- **Inference at scale** adds up: millions of queries, each with a small footprint.
+- Data centers also consume **water** for cooling.
+:::
+:::
+::: {.column width="44%"}
+![](images/photos/frontier.jpg){.photo}
+
+::: {.credit}
+"Frontier" exascale supercomputer (~21 MW) · Oak Ridge National Lab · CC BY
+:::
+:::
+:::
+
+::: {.card}
+Greener choices: **right-size** the model, distill to something smaller, **cache** results, and pick efficient hardware. The biggest model is rarely the most responsible one.
+:::
+
+::: {.credit}
+📎 **Read more:** [Strubell+ 2019](https://arxiv.org/abs/1906.02243) (CO₂ of NLP training) · [Patterson+ 2021](https://arxiv.org/abs/2104.10350) (large-model carbon) · [Li+ 2023](https://arxiv.org/abs/2304.03271) (AI water use) · estimate yours: [ML CO₂ Impact](https://mlco2.github.io/impact/) · [CodeCarbon](https://codecarbon.io/)
+:::
+
+::: {.keywords}
+🔑 **Explore:** `carbon footprint` · `green AI` · `model distillation` · `quantization` · `energy efficiency` · `inference cost`
+:::
+
+## Responsible-ML checklist {.smaller}
+
+Before you ship any ML feature, run through this:
+
+::: {.columns}
+::: {.column width="50%" style="font-size:0.85em"}
+- ☐ **Right metric?** — optimize the goal, not a gameable proxy.
+- ☐ **Fair?** — accuracy checked *per subgroup*.
+- ☐ **Private?** — de-identified data, lawful basis (PDPA).
+- ☐ **Licensed data?** — known provenance & rights.
+- ☐ **Documented?** — model card + dataset datasheet.
+:::
+::: {.column width="50%" style="font-size:0.85em"}
+- ☐ **Secure?** — prompt-injection & adversarial tested.
+- ☐ **Explainable?** — can justify decisions to stakeholders.
+- ☐ **Accountable?** — human review + audit trail for high stakes.
+- ☐ **Sustainable?** — model right-sized for the task.
+- ☐ **Monitored?** — watch for drift & harm *after* launch.
+:::
+:::
+
+::: {.card}
+Ethics isn't a final checkbox — it's a **design constraint** from day one, and it **continues after launch** (keep monitoring for drift & harm).
+:::
+
+::: {.credit}
+📎 **A starting point — grounded in real frameworks:** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [Microsoft Responsible AI](https://www.microsoft.com/en-us/ai/principles-and-approach) · [OECD AI Principles](https://oecd.ai/en/ai-principles) · checklist tool: [Deon](https://deon.drivendata.org/) · docs: [Model Cards](https://arxiv.org/abs/1810.03993) · [Datasheets](https://arxiv.org/abs/1803.09010)
 :::
 
 # Capstone case study 🏥 {background-color="#7a1f2b"}

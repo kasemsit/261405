@@ -1,0 +1,38 @@
+<svg viewBox="0 0 444 174" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="ac-arr" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="ac-arr-a" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- model -->
+  <rect x="12" y="20" width="122" height="50" rx="8" fill="#eef3ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="73" y="41" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d4ed8">Model</text>
+  <text x="73" y="58" text-anchor="middle" font-size="11" fill="#1d4ed8">recommends</text>
+
+  <line x1="134" y1="45" x2="160" y2="45" stroke="#555" stroke-width="2" marker-end="url(#ac-arr)"/>
+
+  <!-- human gate -->
+  <rect x="162" y="20" width="122" height="50" rx="8" fill="#1d4ed8"/>
+  <text x="223" y="41" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">&#128100; Human review</text>
+  <text x="223" y="58" text-anchor="middle" font-size="10.5" fill="#cdd9fb">for high-stakes calls</text>
+
+  <line x1="284" y1="45" x2="310" y2="45" stroke="#555" stroke-width="2" marker-end="url(#ac-arr)"/>
+
+  <!-- decision -->
+  <rect x="312" y="20" width="120" height="50" rx="8" fill="#f0faf4" stroke="#137333" stroke-width="2"/>
+  <text x="372" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#137333">Decision</text>
+
+  <!-- appeal loop: decision -> human review -->
+  <path d="M 372 70 L 372 92 L 223 92 L 223 72" fill="none" stroke="#d97706" stroke-width="2"
+        stroke-dasharray="5,3" marker-end="url(#ac-arr-a)"/>
+  <text x="298" y="108" text-anchor="middle" font-size="11.5" font-style="italic" fill="#b45309">appeal / recourse &#8212; reversible</text>
+
+  <!-- audit trail -->
+  <rect x="12" y="122" width="420" height="40" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
+  <text x="222" y="147" text-anchor="middle" font-size="12.5" font-weight="600" fill="#b45309">&#128203; Audit trail &#8212; log every input &#183; model version &#183; output</text>
+</svg>

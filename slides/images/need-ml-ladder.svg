@@ -1,0 +1,58 @@
+<svg viewBox="0 0 760 392" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="a-grey" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="a-red" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#b8232f"/>
+    </marker>
+  </defs>
+
+  <!-- cost / complexity axis (rises up-right, parallel to the steps) -->
+  <line x1="40" y1="176" x2="716" y2="28" stroke="#aaa" stroke-width="2"
+        stroke-dasharray="6,5" marker-end="url(#a-grey)"/>
+  <text x="300" y="100" text-anchor="middle" font-size="14" font-weight="700"
+        fill="#777" transform="rotate(-12.3 300 100)">more cost · more engineering &#8594;</text>
+
+  <!-- ground line -->
+  <line x1="16" y1="356" x2="744" y2="356" stroke="#ccc" stroke-width="2"/>
+
+  <!-- ============ STEP 1 : Rules ============ -->
+  <rect x="24" y="240" width="200" height="116" rx="10" fill="#e6f4ea" stroke="#137333" stroke-width="2.5"/>
+  <text x="124" y="272" text-anchor="middle" font-size="16" font-weight="700" fill="#0b5e26">&#9312;  Rules / heuristics</text>
+  <text x="124" y="296" text-anchor="middle" font-size="12.5" fill="#444">if/else &amp; thresholds</text>
+  <text x="124" y="313" text-anchor="middle" font-size="12.5" fill="#444">&#8212; <tspan font-weight="700" fill="#137333">no ML</tspan> at all</text>
+  <rect x="74" y="324" width="100" height="22" rx="11" fill="#137333"/>
+  <text x="124" y="339" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">&#128176; low cost</text>
+
+  <!-- Start-here pointer -->
+  <text x="124" y="214" text-anchor="middle" font-size="15" font-weight="700" fill="#137333">Start here</text>
+  <line x1="124" y1="220" x2="124" y2="238" stroke="#137333" stroke-width="2.5" marker-end="url(#a-grey)"/>
+
+  <!-- escalate 1 -> 2 -->
+  <text x="249" y="296" text-anchor="middle" font-size="11" font-style="italic" fill="#b8232f">not good</text>
+  <text x="249" y="309" text-anchor="middle" font-size="11" font-style="italic" fill="#b8232f">enough?</text>
+  <line x1="226" y1="328" x2="272" y2="328" stroke="#b8232f" stroke-width="2.2" marker-end="url(#a-red)"/>
+
+  <!-- ============ STEP 2 : Buy ============ -->
+  <rect x="274" y="160" width="200" height="196" rx="10" fill="#e8f0fe" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="374" y="192" text-anchor="middle" font-size="16" font-weight="700" fill="#10406b">&#9313;  Buy: managed API</text>
+  <text x="374" y="216" text-anchor="middle" font-size="12.5" fill="#444">call an LLM / vendor</text>
+  <text x="374" y="233" text-anchor="middle" font-size="12.5" fill="#444">model &#8212; <tspan font-weight="700" fill="#1d4ed8">don't train</tspan></text>
+  <rect x="316" y="324" width="116" height="22" rx="11" fill="#1d4ed8"/>
+  <text x="374" y="339" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">&#128176;&#128176; medium</text>
+
+  <!-- escalate 2 -> 3 -->
+  <text x="499" y="296" text-anchor="middle" font-size="11" font-style="italic" fill="#b8232f">still not</text>
+  <text x="499" y="309" text-anchor="middle" font-size="11" font-style="italic" fill="#b8232f">enough?</text>
+  <line x1="476" y1="328" x2="522" y2="328" stroke="#b8232f" stroke-width="2.2" marker-end="url(#a-red)"/>
+
+  <!-- ============ STEP 3 : Build ============ -->
+  <rect x="524" y="80" width="200" height="276" rx="10" fill="#fde7e9" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="624" y="112" text-anchor="middle" font-size="16" font-weight="700" fill="#7a1f2b">&#9314;  Build: custom model</text>
+  <text x="624" y="136" text-anchor="middle" font-size="12.5" fill="#444">train &amp; serve your own</text>
+  <text x="624" y="153" text-anchor="middle" font-size="12.5" fill="#444">&#8212; <tspan font-weight="700" fill="#b8232f">last resort</tspan></text>
+  <rect x="566" y="324" width="116" height="22" rx="11" fill="#b8232f"/>
+  <text x="624" y="339" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">&#128176;&#128176;&#128176; high</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg viewBox="0 0 332 292" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="ix-ax" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 8 3.5, 0 7" fill="#444"/>
+    </marker>
+  </defs>
+
+  <!-- axes -->
+  <line x1="54" y1="250" x2="320" y2="250" stroke="#444" stroke-width="2" marker-end="url(#ix-ax)"/>
+  <line x1="54" y1="250" x2="54" y2="20" stroke="#444" stroke-width="2" marker-end="url(#ix-ax)"/>
+
+  <!-- axis titles -->
+  <text x="187" y="282" text-anchor="middle" font-size="13" font-weight="700" fill="#444">Interpretability &#8594;</text>
+  <text x="16" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#444" transform="rotate(-90 16 135)">Accuracy &#8594;</text>
+
+  <!-- zone hints -->
+  <text x="66" y="36" font-size="11.5" font-style="italic" fill="#b8232f">Black-box</text>
+  <text x="314" y="240" text-anchor="end" font-size="11.5" font-style="italic" fill="#137333">Glass-box</text>
+
+  <!-- trend line -->
+  <polyline points="92,58 150,108 214,162 286,202" fill="none" stroke="#aaa" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <!-- points -->
+  <circle cx="92" cy="58" r="6.5" fill="#b8232f" stroke="#fff" stroke-width="1.5"/>
+  <text x="106" y="54" font-size="11.5" font-weight="600" fill="#b8232f">Deep nets /</text>
+  <text x="106" y="68" font-size="11.5" font-weight="600" fill="#b8232f">LLMs</text>
+
+  <circle cx="150" cy="108" r="6.5" fill="#d97706" stroke="#fff" stroke-width="1.5"/>
+  <text x="164" y="104" font-size="11.5" font-weight="600" fill="#b45309">Random forest</text>
+  <text x="164" y="118" font-size="11.5" font-weight="600" fill="#b45309">/ GBM</text>
+
+  <circle cx="214" cy="162" r="6.5" fill="#137333" stroke="#fff" stroke-width="1.5"/>
+  <text x="206" y="151" text-anchor="end" font-size="11.5" font-weight="600" fill="#137333">Decision tree</text>
+
+  <circle cx="286" cy="202" r="6.5" fill="#137333" stroke="#fff" stroke-width="1.5"/>
+  <text x="278" y="191" text-anchor="end" font-size="11.5" font-weight="600" fill="#137333">Linear / logistic</text>
+</svg>

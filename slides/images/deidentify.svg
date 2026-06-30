@@ -1,0 +1,40 @@
+<svg viewBox="0 0 300 372" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="di-arr" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Raw data (PII) ===== -->
+  <rect x="30" y="32" width="240" height="92" rx="8" fill="#fbeeef" stroke="#b8232f" stroke-width="2"/>
+  <text x="150" y="51" text-anchor="middle" font-size="14" font-weight="700" fill="#b8232f">Raw data &#8212; contains PII</text>
+  <text x="46" y="73" font-size="12.5" fill="#444">name:&#160; <tspan fill="#b8232f" font-weight="600">&#3626;&#3617;&#3594;&#3634;&#3618; &#3651;&#3592;&#3604;&#3637;</tspan></text>
+  <text x="46" y="93" font-size="12.5" fill="#444">ID:&#160;&#160;&#160;&#160; <tspan fill="#b8232f" font-weight="600">1-2345-67890-1</tspan></text>
+  <text x="46" y="113" font-size="12.5" fill="#444">face:&#160; <tspan fill="#b8232f" font-weight="600">&#128247; photo</tspan></text>
+
+  <!-- arrow -->
+  <line x1="150" y1="124" x2="150" y2="142" stroke="#555" stroke-width="2" marker-end="url(#di-arr)"/>
+
+  <!-- ===== De-identify gate ===== -->
+  <rect x="22" y="146" width="256" height="46" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
+  <text x="150" y="167" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b45309">&#128274; De-identify / anonymize</text>
+  <text x="150" y="184" text-anchor="middle" font-size="11.5" fill="#92400e">mask &#183; hash &#183; blur &#183; aggregate</text>
+
+  <!-- arrow -->
+  <line x1="150" y1="192" x2="150" y2="210" stroke="#555" stroke-width="2" marker-end="url(#di-arr)"/>
+
+  <!-- ===== Safe data ===== -->
+  <rect x="30" y="214" width="240" height="92" rx="8" fill="#f0faf4" stroke="#137333" stroke-width="2"/>
+  <text x="150" y="233" text-anchor="middle" font-size="14" font-weight="700" fill="#137333">Safe data &#8212; no PII</text>
+  <text x="46" y="255" font-size="12.5" fill="#444">name:&#160; <tspan fill="#137333" font-weight="600">&#9608;&#9608;&#9608;&#9608;</tspan></text>
+  <text x="46" y="275" font-size="12.5" fill="#444">ID:&#160;&#160;&#160;&#160; <tspan fill="#137333" font-weight="600">hash 7f3a&#8230;</tspan></text>
+  <text x="46" y="295" font-size="12.5" fill="#444">face:&#160; <tspan fill="#137333" font-weight="600">(blurred)</tspan></text>
+
+  <!-- arrow -->
+  <line x1="150" y1="306" x2="150" y2="324" stroke="#555" stroke-width="2" marker-end="url(#di-arr)"/>
+
+  <!-- ===== Model ===== -->
+  <rect x="85" y="328" width="130" height="40" rx="8" fill="#1d4ed8"/>
+  <text x="150" y="353" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">Model</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg viewBox="0 0 432 206" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="pv-arr" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#777"/>
+    </marker>
+  </defs>
+
+  <!-- ROW 1: real, signed -->
+  <rect x="12" y="14" width="118" height="46" rx="8" fill="#f0faf4" stroke="#137333" stroke-width="2"/>
+  <text x="71" y="34" text-anchor="middle" font-size="12" font-weight="600" fill="#137333">&#128247; Real photo</text>
+  <text x="71" y="50" text-anchor="middle" font-size="10.5" fill="#137333">camera / video</text>
+  <line x1="130" y1="37" x2="156" y2="37" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="158" y="14" width="124" height="46" rx="8" fill="#f0faf4" stroke="#137333" stroke-width="2"/>
+  <text x="220" y="34" text-anchor="middle" font-size="12" font-weight="600" fill="#137333">C2PA signed</text>
+  <text x="220" y="50" text-anchor="middle" font-size="10.5" fill="#137333">at capture</text>
+  <line x1="282" y1="37" x2="308" y2="37" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="310" y="14" width="110" height="46" rx="8" fill="#137333"/>
+  <text x="365" y="42" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">&#10003; Verifiable</text>
+
+  <!-- ROW 2: AI, watermarked -->
+  <rect x="12" y="80" width="118" height="46" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
+  <text x="71" y="100" text-anchor="middle" font-size="12" font-weight="600" fill="#b45309">&#129302; AI-made</text>
+  <text x="71" y="116" text-anchor="middle" font-size="10.5" fill="#b45309">image / voice</text>
+  <line x1="130" y1="103" x2="156" y2="103" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="158" y="80" width="124" height="46" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" font-weight="600" fill="#b45309">watermark</text>
+  <text x="220" y="116" text-anchor="middle" font-size="10.5" fill="#b45309">/ labeled</text>
+  <line x1="282" y1="103" x2="308" y2="103" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="310" y="80" width="110" height="46" rx="8" fill="#d97706"/>
+  <text x="365" y="108" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">Traceable</text>
+
+  <!-- ROW 3: unsigned -->
+  <rect x="12" y="146" width="118" height="46" rx="8" fill="#fbeeef" stroke="#b8232f" stroke-width="2"/>
+  <text x="71" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#b8232f">&#10067; Unsigned</text>
+  <text x="71" y="182" text-anchor="middle" font-size="10.5" fill="#b8232f">no credential</text>
+  <line x1="130" y1="169" x2="156" y2="169" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="158" y="146" width="124" height="46" rx="8" fill="#fbeeef" stroke="#b8232f" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="220" y="172" text-anchor="middle" font-size="12" font-weight="600" fill="#b8232f">nothing to check</text>
+  <line x1="282" y1="169" x2="308" y2="169" stroke="#777" stroke-width="2" marker-end="url(#pv-arr)"/>
+  <rect x="310" y="146" width="110" height="46" rx="8" fill="#b8232f"/>
+  <text x="365" y="174" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">&#9888; Unknown</text>
+</svg>
