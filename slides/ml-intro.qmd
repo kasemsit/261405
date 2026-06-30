@@ -792,7 +792,7 @@ Agent ต้องการ "memory" ที่อธิบาย project ให�
 | Cursor | `.cursor/rules/*.mdc` |
 | Windsurf | `.windsurfrules` |
 
-(OpenAI donate ให้ Linux Foundation ปลาย 2025 — รองรับโดย Codex, Cursor, Gemini CLI และอีก 20+ tools
+(OpenAI donate `AGENTS.md` ให้ **Agentic AI Foundation** ภายใต้ Linux Foundation ปลาย 2025 — ปัจจุบัน 60,000+ projects รองรับ รวมถึง Codex · Cursor · Gemini CLI · GitHub Copilot และอีกกว่า 60 tools
 **แต่ Claude Code ใช้ `CLAUDE.md` ของตัวเอง ไม่อ่าน AGENTS.md**)
 :::
 ::: {.column width="48%"}
@@ -816,7 +816,7 @@ myproject/
 :::
 
 ::: {.src}
-ที่มา: OpenAI, [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md); DeployHQ, [CLAUDE.md, AGENTS.md & Copilot Instructions](https://www.deployhq.com/blog/ai-coding-config-files-guide); Karpathy, X (ม.ค. 2026)
+ที่มา: OpenAI, [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md); DeployHQ, [CLAUDE.md, AGENTS.md & Copilot Instructions](https://www.deployhq.com/blog/ai-coding-config-files-guide); Karpathy, X (ม.ค. 2026); Linux Foundation, [Agentic AI Foundation announcement](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation)
 :::
 
 ## 4 principles from Karpathy for AI-assisted coding {.smaller}
@@ -882,47 +882,57 @@ This is why `CLAUDE.md` / `AGENTS.md` matter: the loop runs unsupervised — you
 
 We turned **words** into numbers. Good news — **images already *are* numbers**: a grid of pixel brightness values (0 = dark … 99 = bright).
 
-This little grid *is* a stroke of the digit **"1"**:
+This little grid *is* a stroke of the digit **"1"** — and feeding those numbers into a model gives us a prediction:
 
-```{=html}
-<pre class="pixelgrid">
- 0   0   0  18   0   0
- 0   0  90  99  30   0
- 0  60  99  99  88   0
- 0  10  20  95  40   0
- 0   0   0  92   0   0
-</pre>
-```
+![](images/digit-pipeline.svg){.diagram width="92%"}
+
+## How deep networks learn to see
+
+A deep network stacks **many layers** — each layer finds more abstract patterns in the layer before it. No hand-crafted features needed.
+
+![](images/vision-hierarchy.svg){.diagram width="96%"}
 
 ::: {.card}
-Same recipe as before: **features (pixels) → model → prediction.** The very same **Transformer** idea now also powers vision (the "Vision Transformer", ViT).
+A **CNN** slides small filters across the image (the same edge detector fires *anywhere*). A **Vision Transformer** splits the image into patches and uses attention. Both learn the hierarchy *from data*, end-to-end.
 :::
 
-## What vision models do
+## What vision models do {.smaller}
 
 ::: {.columns}
-::: {.column width="60%"}
+::: {.column width="56%"}
 ::: {.incremental}
 - **Classification** — *what* is in the image? (normal vs. abnormal X-ray)
-- **Detection / localization** — *what* **and where**? a box around each object — or around **each number on a monitor**.
-- **OCR** — **read** the text and digits inside an image.
+- **Detection / localization** — *what* **and where**? bounding box around each object
+- **Segmentation** — *which pixels*? label every pixel (lesion masks, lane lines)
+- **Keypoint detection** — *where* are the landmarks? (joints, facial points, pose)
+- **OCR** — **read** text and digits embedded in an image
+- **Visual Q&A** — answer *any* natural-language question about an image (multimodal LLMs: GPT-4o, Gemini, Qwen-VL)
 :::
-
-::: {.card}
-A **multimodal LLM** (GPT-4o, Gemini) can look at an image and answer in words — tying vision back to [embeddings → LLMs (§5–§6)](#from-classic-ml-to-llms).
 :::
-:::
-::: {.column width="40%"}
-![](images/photos/camera.jpg){.photo}
-
-::: {.credit}
-"fact or fiction?" · db Photography · CC BY
-:::
+::: {.column width="44%"}
+![](images/vision-tasks.svg){.diagram width="100%"}
 :::
 :::
 
 ::: {.notes}
-This 2-slide bridge gives students the vocabulary (detection + OCR + vision-LLM) they need for the ICU capstone that follows.
+This 3-slide bridge gives students the vocabulary (detection + OCR + vision-LLM + feature hierarchy) they need for the ICU capstone that follows.
+:::
+
+## A landscape of vision architectures {.smaller}
+
+| Family | Key models | Strength |
+|:--|:--|:--|
+| **CNN** | [VGG](https://pytorch.org/vision/stable/models/vgg.html) · [ResNet](https://pytorch.org/vision/stable/models/resnet.html) · [DenseNet](https://pytorch.org/vision/stable/models/densenet.html) · [EfficientNet](https://pytorch.org/vision/stable/models/efficientnet.html) · [ConvNeXt](https://pytorch.org/vision/stable/models/convnext.html) · [MobileNet](https://pytorch.org/vision/stable/models/mobilenetv3.html) | Fast; great spatial extractor; ConvNeXt rivals ViT |
+| **Vision Transformer** | [ViT](https://pytorch.org/vision/stable/models/vision_transformer.html) · [DeiT](https://huggingface.co/docs/transformers/model_doc/deit) · [Swin](https://pytorch.org/vision/stable/models/swin_transformer.html) · [BEiT](https://huggingface.co/docs/transformers/model_doc/beit) · [MAE](https://huggingface.co/docs/transformers/model_doc/vit_mae) · [CvT](https://huggingface.co/docs/transformers/model_doc/cvt) | Global context; excels at scale with large pretraining |
+| **Detection** | [Faster R-CNN](https://pytorch.org/vision/stable/models/faster_rcnn.html) · [SSD](https://pytorch.org/vision/stable/models/ssd.html) · [YOLO v8/v11/v26](https://docs.ultralytics.com/) · [DETR](https://huggingface.co/docs/transformers/model_doc/detr) · [RT-DETR](https://huggingface.co/docs/transformers/model_doc/rt_detr) | Localise + classify objects; YOLO for real-time, DETR end-to-end |
+| **Segmentation** | [FCN](https://pytorch.org/vision/stable/models/fcn.html) · [DeepLab](https://pytorch.org/vision/stable/models/deeplabv3.html) · [Mask R-CNN](https://pytorch.org/vision/stable/models/mask_rcnn.html) · [U-Net](https://github.com/milesial/Pytorch-UNet) · [SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) · [SAM 2](https://github.com/facebookresearch/segment-anything-2) | Pixel-level labels; U-Net dominates medical imaging |
+| **Keypoint** | [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) · [MediaPipe Pose](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker) · [ViTPose](https://github.com/ViTAE-Transformer/ViTPose) · [YOLO-Pose](https://docs.ultralytics.com/tasks/pose/) · [DWPose](https://github.com/IDEA-Research/DWPose) | Locate landmarks (joints, face, hands); skeleton-based action recognition |
+| **Contrastive** | [CLIP](https://huggingface.co/docs/transformers/model_doc/clip) · [DINOv2](https://huggingface.co/docs/transformers/model_doc/dinov2) · [SigLIP](https://huggingface.co/docs/transformers/model_doc/siglip) · [ALIGN](https://huggingface.co/docs/transformers/model_doc/align) | Image–text embeddings; zero-shot classification & retrieval |
+| **VLM** | [Qwen3-VL](https://huggingface.co/Qwen/Qwen3-VL-7B-Instruct) · [LLaVA](https://huggingface.co/docs/transformers/model_doc/llava) · [InternVL3](https://huggingface.co/OpenGVLab/InternVL3-8B) · [Llama 3.2 Vision](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct) · [Florence-2](https://huggingface.co/microsoft/Florence-2-large) | Vision encoder + LLM → visual Q&A, OCR, captioning |
+| **Generative** | [DCGAN](https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html) · [StyleGAN](https://github.com/NVlabs/stylegan3) · [Stable Diffusion](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5) · [DALL-E 3](https://openai.com/dall-e-3) · [Flux](https://huggingface.co/black-forest-labs/FLUX.1-dev) · [Imagen](https://imagen.research.google/) | Synthesise images from noise or text prompt |
+
+::: {.card}
+In practice: start with a **pretrained CNN or ViT backbone** and fine-tune — detection and segmentation heads sit on top. Rarely train from scratch.
 :::
 
 # 8 · Shipping ML in your platform 🛠️ {background-color="#7a1f2b"}
