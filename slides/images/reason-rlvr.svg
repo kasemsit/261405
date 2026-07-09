@@ -1,0 +1,65 @@
+<svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="rl-arr" markerWidth="9" markerHeight="7" refX="7.5" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="rl-arr-g" markerWidth="9" markerHeight="7" refX="7.5" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#137333"/>
+    </marker>
+  </defs>
+
+  <rect x="2" y="2" width="776" height="296" rx="10" fill="#fbfbfc" stroke="#ccc" stroke-width="1.5"/>
+
+  <!-- 1. Problem -->
+  <rect x="20" y="120" width="118" height="56" rx="8" fill="#eef1f5" stroke="#aaa"/>
+  <text x="79" y="141" text-anchor="middle" font-size="13" font-weight="700">Problem</text>
+  <text x="79" y="159" text-anchor="middle" font-size="11.5" fill="#666">with a known</text>
+  <text x="79" y="173" text-anchor="middle" font-size="11.5" fill="#666">answer</text>
+
+  <line x1="138" y1="148" x2="176" y2="148" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+
+  <!-- 2. Model samples G rollouts -->
+  <rect x="176" y="96" width="120" height="104" rx="8" fill="#7a1f2b"/>
+  <text x="236" y="122" text-anchor="middle" fill="white" font-size="13" font-weight="700">Model</text>
+  <text x="236" y="140" text-anchor="middle" fill="#f4c542" font-size="11.5">sample G</text>
+  <text x="236" y="155" text-anchor="middle" fill="#f4c542" font-size="11.5">chains of</text>
+  <text x="236" y="170" text-anchor="middle" fill="#f4c542" font-size="11.5">thought</text>
+
+  <!-- 3. rollouts -->
+  <line x1="296" y1="120" x2="330" y2="96" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+  <line x1="296" y1="148" x2="330" y2="148" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+  <line x1="296" y1="176" x2="330" y2="200" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+
+  <rect x="330" y="72"  width="150" height="30" rx="6" fill="#fff" stroke="#aaa"/>
+  <text x="342" y="91" font-size="11.5" fill="#333">CoT&#8321; &#8594; answer</text>
+  <rect x="330" y="133" width="150" height="30" rx="6" fill="#fff" stroke="#aaa"/>
+  <text x="342" y="152" font-size="11.5" fill="#333">CoT&#8322; &#8594; answer</text>
+  <rect x="330" y="194" width="150" height="30" rx="6" fill="#fff" stroke="#aaa"/>
+  <text x="342" y="213" font-size="11.5" fill="#333">CoT&#8323; &#8594; answer</text>
+
+  <!-- 4. verifier -->
+  <line x1="480" y1="87"  x2="516" y2="120" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+  <line x1="480" y1="148" x2="516" y2="148" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+  <line x1="480" y1="209" x2="516" y2="176" stroke="#555" stroke-width="2" marker-end="url(#rl-arr)"/>
+
+  <rect x="516" y="112" width="120" height="72" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2"/>
+  <text x="576" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#137333">Verifier</text>
+  <text x="576" y="157" text-anchor="middle" font-size="11.5" fill="#137333">check answer /</text>
+  <text x="576" y="172" text-anchor="middle" font-size="11.5" fill="#137333">run tests</text>
+
+  <!-- rewards -->
+  <text x="654" y="120" font-size="12" fill="#137333">&#10003; r = +1</text>
+  <text x="654" y="152" font-size="12" fill="#b8232f">&#10007; r = 0</text>
+  <text x="654" y="184" font-size="12" fill="#137333">&#10003; r = +1</text>
+
+  <!-- feedback loop -->
+  <line x1="576" y1="184" x2="576" y2="258" stroke="#137333" stroke-width="2.5"/>
+  <line x1="576" y1="258" x2="236" y2="258" stroke="#137333" stroke-width="2.5"/>
+  <line x1="236" y1="258" x2="236" y2="200" stroke="#137333" stroke-width="2.5" marker-end="url(#rl-arr-g)"/>
+  <rect x="300" y="244" width="212" height="28" rx="8" fill="#e6f4ea" stroke="#137333"/>
+  <text x="406" y="263" text-anchor="middle" font-size="12" font-weight="700" fill="#137333">reinforce the reasoning that worked</text>
+
+  <text x="20" y="40" font-size="14" font-weight="700" fill="#7a1f2b">RLVR loop: sample &#8594; verify &#8594; reinforce</text>
+  <text x="20" y="60" font-size="12" fill="#888">repeat over millions of problems</text>
+</svg>

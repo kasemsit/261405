@@ -1,6 +1,8 @@
 # ── Quarto build artifacts (CI regenerates these on every push) ──────────
 slides/ml-intro.html
 slides/ml-intro_files/
+slides/reasoning.html
+slides/reasoning_files/
 slides/.quarto/
 /_site/
 

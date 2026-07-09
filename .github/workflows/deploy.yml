@@ -26,17 +26,21 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render the deck
+      - name: Render the decks
         # Diagrams/charts are committed as SVGs, so no mermaid-cli or
-        # matplotlib is needed here — just render the Quarto document.
-        run: quarto render slides/ml-intro.qmd --to revealjs
+        # matplotlib is needed here — just render the Quarto documents.
+        run: |
+          quarto render slides/ml-intro.qmd  --to revealjs
+          quarto render slides/reasoning.qmd --to revealjs
 
       - name: Assemble the site (course landing page → slides)
         run: |
           mkdir -p _site
-          cp index.html                _site/index.html      # course landing page
-          cp slides/ml-intro.html      _site/ml-intro.html   # the deck
+          cp index.html                _site/index.html       # course landing page
+          cp slides/ml-intro.html      _site/ml-intro.html    # ML intro deck
           cp -r slides/ml-intro_files  _site/ml-intro_files
+          cp slides/reasoning.html     _site/reasoning.html   # reasoning & agents deck
+          cp -r slides/reasoning_files _site/reasoning_files
           cp -r slides/images          _site/images
 
       - name: Upload Pages artifact

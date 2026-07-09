@@ -1,0 +1,58 @@
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg"
+     font-family="Inter, 'Segoe UI', 'Noto Sans Thai', system-ui, sans-serif">
+  <defs>
+    <marker id="rt-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Standard LLM ===== -->
+  <rect x="2" y="2" width="756" height="118" rx="10" fill="#f7f8fa" stroke="#aaa" stroke-width="2"/>
+  <text x="18" y="26" font-size="14" font-weight="700" fill="#555">Standard LLM &#8212; answers immediately (System 1)</text>
+
+  <rect x="18" y="52" width="120" height="42" rx="8" fill="#eef1f5" stroke="#aaa"/>
+  <text x="78" y="72" text-anchor="middle" font-size="13">Hard</text>
+  <text x="78" y="88" text-anchor="middle" font-size="13">question</text>
+
+  <line x1="138" y1="73" x2="182" y2="73" stroke="#555" stroke-width="2" marker-end="url(#rt-arr)"/>
+
+  <rect x="182" y="52" width="96" height="42" rx="8" fill="#7a1f2b"/>
+  <text x="230" y="78" text-anchor="middle" fill="white" font-size="14" font-weight="700">LLM</text>
+
+  <line x1="278" y1="73" x2="322" y2="73" stroke="#555" stroke-width="2" marker-end="url(#rt-arr)"/>
+
+  <rect x="322" y="52" width="150" height="42" rx="8" fill="#fdecec" stroke="#b8232f"/>
+  <text x="397" y="72" text-anchor="middle" font-size="13" fill="#b8232f">Answer</text>
+  <text x="397" y="88" text-anchor="middle" font-size="12" fill="#b8232f">(often wrong)</text>
+
+  <text x="500" y="70" font-size="13" fill="#888">one forward pass,</text>
+  <text x="500" y="88" font-size="13" fill="#888">no backtracking</text>
+
+  <!-- ===== Reasoning model ===== -->
+  <rect x="2" y="132" width="756" height="166" rx="10" fill="#fff5f5" stroke="#b8232f" stroke-width="2.5"/>
+  <text x="18" y="156" font-size="14" font-weight="700" fill="#b8232f">Reasoning model &#8212; thinks first (System 2)</text>
+
+  <rect x="18" y="196" width="120" height="42" rx="8" fill="#eef1f5" stroke="#aaa"/>
+  <text x="78" y="216" text-anchor="middle" font-size="13">Hard</text>
+  <text x="78" y="232" text-anchor="middle" font-size="13">question</text>
+
+  <line x1="138" y1="217" x2="182" y2="217" stroke="#555" stroke-width="2" marker-end="url(#rt-arr)"/>
+
+  <rect x="182" y="196" width="96" height="42" rx="8" fill="#7a1f2b"/>
+  <text x="230" y="222" text-anchor="middle" fill="white" font-size="14" font-weight="700">LLM</text>
+
+  <line x1="278" y1="217" x2="322" y2="217" stroke="#555" stroke-width="2" marker-end="url(#rt-arr)"/>
+
+  <!-- chain-of-thought box -->
+  <rect x="322" y="176" width="288" height="82" rx="8" fill="#fdeec0" stroke="#d97706"/>
+  <text x="466" y="196" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7a1f2b">chain of thought</text>
+  <text x="336" y="216" font-size="11.5" fill="#7a4b12">&#8226; break into steps&#8230;</text>
+  <text x="336" y="232" font-size="11.5" fill="#7a4b12">&#8226; wait &#8212; re-check that step</text>
+  <text x="336" y="248" font-size="11.5" fill="#7a4b12">&#8226; verify the answer &#10003;</text>
+
+  <line x1="610" y1="217" x2="648" y2="217" stroke="#555" stroke-width="2" marker-end="url(#rt-arr)"/>
+
+  <rect x="648" y="196" width="98" height="42" rx="8" fill="#e6f4ea" stroke="#137333"/>
+  <text x="697" y="216" text-anchor="middle" font-size="13" fill="#137333">Answer</text>
+  <text x="697" y="232" text-anchor="middle" font-size="12" fill="#137333">&#10003; correct</text>
+</svg>
