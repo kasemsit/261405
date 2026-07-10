@@ -491,7 +491,7 @@ For each problem: **sample** several full chains of thought → **check** each a
 
 ## GRPO — the workhorse algorithm {.smaller}
 
-**Group Relative Policy Optimization** (DeepSeek) is the *de facto* RLVR algorithm.
+**Group Relative Policy Optimization** (DeepSeek) is the *de facto* RLVR algorithm. *(The **policy** is just the model — the thing generating answers that we're tuning.)*
 
 ::: {.columns}
 ::: {.column width="56%"}
@@ -499,12 +499,14 @@ For one question, sample a **group** of $G$ answers and score each. Then:
 
 $$A_i = \frac{r_i - \operatorname{mean}(r_1..r_G)}{\operatorname{std}(r_1..r_G)}$$
 
+$A_i$ is the **advantage** — a *z-score*: how many std-devs answer $i$ beats the group average.
+
 - $A_i > 0$: **better than the group** → make it *more* likely.
 - $A_i < 0$: worse → make it *less* likely.
 :::
 ::: {.column width="44%"}
 ::: {.card}
-"Beat your own average." No separate **value network** (unlike PPO) — the group's mean *is* the baseline. Cheaper, simpler, stable.
+"Beat your own average." No separate **value network** — the extra baseline-guessing model that PPO needs — because the group's mean *is* the baseline. Cheaper, simpler, stable.
 :::
 :::
 :::
@@ -531,16 +533,15 @@ Three small knobs turn the idea into a **stable** training run:
 
 ::: {.columns}
 ::: {.column width="52%"}
-- **KL penalty** — stay close to the base model, so it doesn't forget language or drift into gibberish.
-- **Ratio clipping** (from PPO) — cap how far one update can move the policy → no wild swings.
+- **KL penalty** — *KL = a "distance" between two probability distributions;* here it keeps the tuned model close to the base model, so it doesn't forget language or drift into gibberish.
+- **Ratio clipping** (from PPO) — cap how far one update can move the model → no wild swings.
 - **Format reward** — a bonus for wrapping thoughts in `<think>…</think>` and the answer in `\boxed{}`.
 :::
 ::: {.column width="48%"}
 ::: {.card}
 Total reward = **correctness** + **format**.
-Loss ≈ *advantage-weighted log-prob* − *KL to base*.
 
-The format reward makes the output **parseable** by the verifier and cleanly **separates thinking from answer**.
+**In plain words:** *do more of the chains with positive advantage, less of the rest — without drifting too far from the base model* (that's the KL term).
 :::
 :::
 :::
