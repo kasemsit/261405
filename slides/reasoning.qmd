@@ -250,7 +250,7 @@ A **verifier** pipeline:
 *e.g.* `…so the answer is \boxed{3/4}` → extract `3/4` → normalize `0.75` = known `0.75` **✓**
 :::
 ::: {.column width="46%"}
-- **Benchmarks:** MATH-500, AIME, GPQA Diamond, SWE-bench.
+- **Benchmarks:** MATH-500, AIME, GPQA, SWE-bench — [full catalog next →](#benchmark-catalog).
 - **pass@k** — correct at least once in *k* tries.
 - No golden answer? **LLM-as-judge** or a rubric (weaker, gameable).
 :::
@@ -258,6 +258,109 @@ A **verifier** pipeline:
 
 ::: {.card}
 The **same verifier** that grades the model is the signal we will reuse to **train** it — that's the bridge to **RLVR** in [§4](#rlvr-reward-what-you-can-check).
+:::
+
+## The benchmark zoo 🏟️ {.smaller}
+
+A **benchmark** = a *frozen set* of problems + a **verifier** + a headline score. Every claim you read — *"80% on X"* — is made this way.
+
+::: {.columns}
+::: {.column width="52%"}
+**Four families you'll meet most**
+
+- 🧮 **Math & reasoning** — one objective answer
+- 🔬 **Knowledge & science** — expert-level facts
+- 💻 **Coding** — write code that passes tests
+- 🤖 **Agents & computer-use** — real multi-step work
+:::
+::: {.column width="48%"}
+::: {.card}
+Same machinery as **RLVR** ([§4](#rlvr-reward-what-you-can-check)): a benchmark is a verifier you *report* instead of *train* on. Keep them **separate** — training on the test set is cheating (see [contamination](#reading-a-benchmark-score-critically)).
+:::
+:::
+:::
+
+## Benchmark catalog {#benchmark-catalog .smaller}
+
+::: {.panel-tabset}
+
+### 🧮 Math
+
+| Benchmark | Measures — *example* | Links |
+|:--|:--|:--|
+| **GSM8K** | grade-school multi-step math — *"8 pens × 7฿, pay 100฿; change?"* | [repo](https://github.com/openai/grade-school-math) · [🤗](https://huggingface.co/datasets/openai/gsm8k) |
+| **MATH-500** | competition math, 7 topics × 5 levels — *hard algebra/geometry* | [repo](https://github.com/hendrycks/math) · [🤗](https://huggingface.co/datasets/HuggingFaceH4/MATH-500) |
+| **AIME** | elite HS olympiad, integer answer 0–999 — *number-theory puzzle* | [MAA](https://maa.org/maa-invitational-competitions/) · [🤗](https://huggingface.co/datasets/HuggingFaceH4/aime_2024) |
+
+### 🔬 Knowledge
+
+| Benchmark | Measures — *example* | Links |
+|:--|:--|:--|
+| **MMLU / -Pro** | 57 subjects, multiple-choice — *law, medicine, history* | [repo](https://github.com/hendrycks/test) · [🤗](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro) |
+| **GPQA Diamond** | PhD-level "Google-proof" science — *quantum-chemistry Q* | [repo](https://github.com/idavidrein/gpqa) · [🤗](https://huggingface.co/datasets/Idavidrein/gpqa) |
+| **HLE** | hardest cross-domain expert questions — *frontier of knowledge* | [site](https://lastexam.ai/) · [🤗](https://huggingface.co/datasets/cais/hle) |
+
+### 💻 Coding
+
+| Benchmark | Measures — *example* | Links |
+|:--|:--|:--|
+| **HumanEval** | write a function from a docstring — *unit tests must pass* | [repo](https://github.com/openai/human-eval) · [🤗](https://huggingface.co/datasets/openai/openai_humaneval) |
+| **SWE-bench** *(Verified)* | fix a **real GitHub issue** in a whole repo | [site](https://www.swebench.com/) · [🤗](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified) |
+| **LiveCodeBench** | fresh contest problems, dated (anti-contamination) | [site](https://livecodebench.github.io/) · [🤗](https://huggingface.co/datasets/livecodebench/code_generation_lite) |
+| **Terminal-Bench** | finish real command-line tasks in a sandbox | [site](https://www.tbench.ai/) · [repo](https://github.com/laude-institute/terminal-bench) |
+
+### 🤖 Agents
+
+| Benchmark | Measures — *example* | Links |
+|:--|:--|:--|
+| **OSWorld** | drive a real OS (click/type) across apps | [site](https://os-world.github.io/) · [repo](https://github.com/xlang-ai/OSWorld) |
+| **BrowseComp** | find hard-to-locate facts across many web pages | [OpenAI](https://openai.com/index/browsecomp/) · [repo](https://github.com/openai/simple-evals) |
+| **ARC-AGI** | abstract pattern-finding from a few examples | [arcprize.org](https://arcprize.org/) · [repo](https://github.com/fchollet/ARC-AGI) |
+| **Agents' Last Exam** | long professional workflows across 55 fields | [Artificial Analysis](https://artificialanalysis.ai/) |
+
+:::
+
+::: {.keywords}
+🔑 **Explore:** `pass@1 vs pass@k` · `SWE-bench Verified` · `data contamination` · `LMArena Elo`
+:::
+
+## Reading a benchmark score critically {#reading-a-benchmark-score-critically .smaller}
+
+A single number hides a lot. Five traps to watch:
+
+::: {.columns}
+::: {.column width="54%"}
+- **Saturation** — MMLU/HumanEval sit ~95%+; the frontier moved on to **GPQA, HLE, SWE-bench Pro**.
+- **Contamination** — test leaks into training → inflated scores. *Dated* sets (LiveCodeBench) and **held-out** splits fight it.
+- **pass@k ≠ pass@1** — *"correct in 1 of 64 tries"* is not *"reliable"*.
+:::
+::: {.column width="46%"}
+- **Harness matters** — same model, better scaffold swings **tens of points** ([ml-intro §6](ml-intro.html#agentic-ai-llms-that-act)).
+- **Vendor-selected** — launch charts are self-reported and cherry-picked; cross-check a **neutral leaderboard**.
+:::
+:::
+
+::: {.card}
+Prefer **human-verified** splits (e.g. *SWE-bench Verified*), report **pass@1**, and always ask: *which harness, which split, who ran it?*
+:::
+
+## Leaderboards & aggregate indices {.smaller}
+
+No single benchmark ranks models — people watch **aggregators**:
+
+::: {.columns}
+::: {.column width="50%"}
+- **LMArena** (Chatbot Arena) — humans vote on blind A/B pairs → an **Elo** rating. Good for *feel*, weak on hard skills. [lmarena.ai](https://lmarena.ai/)
+- **Artificial Analysis** — blends many benchmarks into one **Intelligence Index**, plus **speed** and **$/token**. [artificialanalysis.ai](https://artificialanalysis.ai/)
+:::
+::: {.column width="50%"}
+- **Epoch AI** — independent, methodical evals & analysis. [epoch.ai](https://epoch.ai/)
+- **HELM** (Stanford) — standardized, reproducible eval suite. [crfm.stanford.edu/helm](https://crfm.stanford.edu/helm/)
+:::
+:::
+
+::: {.card}
+The **GPT-5.6 vs Fable 5** headlines ([§7](#the-frontier-mid-2026)) came from exactly these — *Agents' Last Exam* and the *Intelligence Index* — which weigh **performance per dollar**, not accuracy alone.
 :::
 
 ## More thinking → more accuracy {.smaller}
@@ -553,9 +656,9 @@ Modern APIs expose the trade-off directly — you choose how hard to think.
 
 ::: {.columns}
 ::: {.column width="52%"}
-- **Reasoning effort:** `low / medium / high`
+- **Reasoning effort:** `none / low / medium / high / xhigh / max`
 - **Thinking token budget:** a max number of internal tokens
-- **Extended thinking on/off**
+- **Extended thinking on/off** — plus *parallel* modes (e.g. GPT-5.6 **ultra** runs several agents at once)
 
 ```text
 model:  claude / gpt / gemini (thinking)
@@ -677,13 +780,17 @@ A fast-moving snapshot — **names and numbers change monthly**:
 
 | Family | Reasoning / "thinking" | Notable strength |
 |:--|:--|:--|
-| **OpenAI** | GPT-5.x, o-series | coding, tool use |
+| **OpenAI** | GPT-5.6 (Sol / Terra / Luna tiers) | coding, tool use, **performance-per-$** |
 | **Google** | Gemini 3.x Pro (thinking) | leads many pure-reasoning benchmarks |
-| **Anthropic** | Claude Opus 4.x (extended thinking) | long agentic coding runs |
+| **Anthropic** | Claude Fable 5, Opus 4.x (extended thinking) | long agentic runs, frontend/design |
 | **DeepSeek / Qwen / GLM** | R-series, Qwen, GLM (open) | strong & **cheap**, open weights |
 
 ::: {.card}
-Benchmarks like **GPQA Diamond** (hard science) and **SWE-bench** (real GitHub bugs) now sit around **80–95%** — territory that was science-fiction in 2022.
+Benchmarks like **GPQA Diamond** (hard science) and **SWE-bench** (real GitHub bugs) now sit around **80–95%** — territory that was science-fiction in 2022. The **new race is efficiency**: GPT-5.6 Sol trades blows with Claude Fable 5 at roughly **¼–½ the cost** and often less time.
+:::
+
+::: {.src}
+Caveat: launch benchmarks are **vendor-selected and self-reported** — Fable 5 still leads e.g. SWE-bench Pro and frontend design. Verify with a neutral source before quoting.
 :::
 
 ::: {.notes}
